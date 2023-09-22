@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:auto_size_text/auto_size_text.dart'; // Import the auto_size_text package
 
 void main() {
   runApp(const SafeGo());
+}
+
+class TravelData {
+  final String source;
+  final String destination;
+  final String date;
+
+  TravelData(this.source, this.destination, this.date);
 }
 
 class SafeGo extends StatelessWidget {
@@ -35,12 +44,21 @@ class MyHomePage extends StatelessWidget {
     double fontInputs = screenHeight * 0.04;
     double paddingSides = screenWidth * 0.05;
     double paddingBetween = screenHeight * 0.01;
+    const lightRedColor = Color.fromARGB(255, 231, 106, 106);
 
     // Define TextEditingController instances
     final fullNameController = TextEditingController();
     final passwordController = TextEditingController();
     final emailController = TextEditingController();
     final dobController = TextEditingController();
+
+    // Define an array of travel data
+    final List<TravelData> travelData = [
+      TravelData("Source 1", "Destination 1", "Date 1"),
+      TravelData("Source 2", "Destination 2", "Date 2"),
+      TravelData("Source 3", "Destination 3", "Date 3"),
+      TravelData("Source 4", "Destination 4", "Date 4"),
+    ];
 
     return Scaffold(
       body: LayoutBuilder(
@@ -79,7 +97,7 @@ class MyHomePage extends StatelessWidget {
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: "Register",
+                          text: "Your Travels",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -99,128 +117,64 @@ class MyHomePage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      for (int i = 0; i < travelData.length; i++)
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(paddingSides,
+                                paddingBetween, paddingSides, paddingBetween),
+                            child: SizedBox(
+                              width: screenWidth * 0.8,
+                              height: screenHeight * 0.06,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Print the content of the input fields
+                                  debugPrint('Source: ${travelData[i].source}');
+                                  debugPrint(
+                                      'Destination: ${travelData[i].destination}');
+                                  debugPrint('Date: ${travelData[i].date}');
+                                },
+                                child: AutoSizeText(
+                                  '${travelData[i].source} -> ${travelData[i].destination} ${travelData[i].date}',
+                                  style: TextStyle(color: Colors.black),
+                                  maxLines:
+                                      1, // Ensure the text fits on one line
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        10.0), // Adjust the radius as needed
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(paddingSides,
                               paddingBetween, paddingSides, paddingBetween),
-                          child: TextField(
-                            controller:
-                                fullNameController, // Assign the controller
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colors.grey,
-                                ),
+                          child: SizedBox(
+                            width: screenWidth * 0.8,
+                            height: screenHeight * 0.06,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // Print the content of the input fields
+                                debugPrint(
+                                    'Full Name: ${fullNameController.text}');
+                                debugPrint(
+                                    'Password: ${passwordController.text}');
+                                debugPrint('Email: ${emailController.text}');
+                                debugPrint(
+                                    'Date of Birth: ${dobController.text}');
+                              },
+                              child: Text(
+                                "Delete Travel's history",
+                                style: TextStyle(color: Colors.black),
                               ),
-                              filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
-                              hintText: "Full Name",
-                              fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 12.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(paddingSides,
-                              paddingBetween, paddingSides, paddingBetween),
-                          child: TextField(
-                            controller:
-                                passwordController, // Assign the controller
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colors.grey,
-                                ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: lightRedColor,
                               ),
-                              filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
-                              hintText: "Password",
-                              fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 12.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(paddingSides,
-                              paddingBetween, paddingSides, paddingBetween),
-                          child: TextField(
-                            controller:
-                                emailController, // Assign the controller
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
-                              hintText: "Email",
-                              fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 12.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(paddingSides,
-                              paddingBetween, paddingSides, paddingBetween),
-                          child: TextField(
-                            controller: dobController, // Assign the controller
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
-                              hintText: "Date of birth",
-                              fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 12.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(paddingSides,
-                            paddingBetween, paddingSides, paddingBetween),
-                        child: SizedBox(
-                          width: screenWidth * 0.8,
-                          height: screenHeight * 0.06,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Print the content of the input fields
-                              debugPrint(
-                                  'Full Name: ${fullNameController.text}');
-                              debugPrint(
-                                  'Password: ${passwordController.text}');
-                              debugPrint('Email: ${emailController.text}');
-                              debugPrint(
-                                  'Date of Birth: ${dobController.text}');
-                            },
-                            child: Text(
-                              'Submit',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
                             ),
                           ),
                         ),
