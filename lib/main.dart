@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:safe_go_dart/start_ride.dart';
 import 'select_destination.dart';
@@ -7,14 +6,14 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter/services.dart' show rootBundle; // Para cargar archivos desde assets.
 import 'dart:convert'; // Para trabajar con datos GeoJSON.
 
+
 void main() {
   runApp(const SafeGo());
 }
 
 class SafeGo extends StatelessWidget {
-  const SafeGo({super.key});
+  const SafeGo({Key? key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -23,6 +22,7 @@ class SafeGo extends StatelessWidget {
 
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -100,8 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+
 
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -159,4 +159,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-

@@ -5,9 +5,11 @@ class SelectDestination extends StatelessWidget {
   final Function(int) trigger;
   const SelectDestination({super.key, required  this.trigger});
 
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
     final spacingHeight = screenHeight * 0.02;
     return Column(
       children: [
@@ -45,11 +47,12 @@ class SelectDestination extends StatelessWidget {
                   onPressed: () {
                   },
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
         SizedBox(height: spacingHeight),
+
         Row(
           children: [
 
