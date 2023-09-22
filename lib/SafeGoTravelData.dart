@@ -46,7 +46,7 @@ void main() {
                                 BorderRadius.all(Radius.circular(10.0))),
                         child: new Center(
                           child: new Text(
-                            "TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "The rest of the travel data goes here :)",
                             style: TextStyle(color: Colors.black, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
