@@ -49,6 +49,7 @@ class MyHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Expanded(
+                flex: 1, // Set the flex factor for the map
                 child: FlutterMap(
                   options: MapOptions(
                     interactiveFlags: InteractiveFlag.none,
@@ -65,6 +66,7 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
               Expanded(
+                flex: 2, // Set the flex factor for the registration container
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color(0xFF96CEB4),
