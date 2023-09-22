@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:safe_go_dart/select_destination_buttons.dart';
 
 class SelectDestination extends StatelessWidget {
+  final Function(int) trigger;
+  const SelectDestination({super.key, required  this.trigger});
 
-  const SelectDestination({super.key,});
 
   @override
   Widget build(BuildContext context) {
-    double height = 14.0;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final spacingHeight = screenHeight * 0.02;
     return Column(
       children: [
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
             const Padding(
@@ -34,26 +37,28 @@ class SelectDestination extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left:0.0),
               child: Container(
+                padding: const EdgeInsets.only(right: 15, bottom: 15),
                 decoration: BoxDecoration(
                   color:  const Color.fromRGBO(216,244,228,1), // Color de fondo del icono
-                  borderRadius: BorderRadius.circular(25.0), // Bordes redondeados
+                  borderRadius: BorderRadius.circular(50.0), // Bordes redondeados
                 ),
                 child: IconButton(
-                  icon: const Icon(Icons.calendar_month,color: Color.fromRGBO(64,78,72,1),size: 50),
+                  icon: const Icon(Icons.calendar_month,color: Color.fromRGBO(64,78,72,1),size: 45),
                   onPressed: () {
                   },
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
+
         Row(
           children: [
 
             DirectionButton(
               onPressed: () {
-                // Acción al presionar el botón
+                trigger(1);
               },
               icon: Icons.home_outlined,
               label: 'Home',
@@ -61,27 +66,26 @@ class SelectDestination extends StatelessWidget {
 
           ],
         ),
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
 
             DirectionButton(
               onPressed: () {
-                // Acción al presionar el botón
+                trigger(1);
               },
               icon: Icons.work_outline,
               label: 'Work',
             ),
-
           ],
         ),
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
 
             DirectionButton(
               onPressed: () {
-                // Acción al presionar el botón
+                trigger(1);
               },
               icon: Icons.school_outlined,
               label: 'School',
@@ -89,12 +93,13 @@ class SelectDestination extends StatelessWidget {
 
           ],
         ),
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
+
             DirectionButton(
               onPressed: () {
-                // Acción al presionar el botón
+                trigger(1);
               },
               icon: Icons.favorite_outline,
               label: 'Partner',
