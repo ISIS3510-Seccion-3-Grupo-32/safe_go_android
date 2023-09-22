@@ -7,10 +7,11 @@ class SelectDestination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = 14.0;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final spacingHeight = screenHeight * 0.02;
     return Column(
       children: [
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
             const Padding(
@@ -48,7 +49,7 @@ class SelectDestination extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
 
@@ -62,7 +63,7 @@ class SelectDestination extends StatelessWidget {
 
           ],
         ),
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
 
@@ -75,7 +76,7 @@ class SelectDestination extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
 
@@ -89,7 +90,7 @@ class SelectDestination extends StatelessWidget {
 
           ],
         ),
-        SizedBox(height: height),
+        SizedBox(height: spacingHeight),
         Row(
           children: [
 

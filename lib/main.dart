@@ -4,8 +4,8 @@ import 'package:safe_go_dart/start_ride.dart';
 import 'select_destination.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-//import 'package:flutter/services.dart' show rootBundle; // Para cargar archivos desde assets.
-//import 'dart:convert'; // Para trabajar con datos GeoJSON.
+import 'package:flutter/services.dart' show rootBundle; // Para cargar archivos desde assets.
+import 'dart:convert'; // Para trabajar con datos GeoJSON.
 
 void main() {
   runApp(const SafeGo());
@@ -17,7 +17,7 @@ class SafeGo extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
+    return const MaterialApp(
       home: MyHomePage(),
     );
 
@@ -103,57 +103,59 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
 
-      body: Center(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+      return Center(
         child: Column(
+
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(
-                children:[
-                  SizedBox(
-                    width: 410,
-                    height: 470,
+            SizedBox(
+              width: constraints.maxWidth,
+              height: constraints.maxWidth*1.155,
 
-                    child: FlutterMap(
-                      options: MapOptions(
-                        interactiveFlags: InteractiveFlag.none,
-                        center: LatLng(4.60140465, -74.0649032880709), // Ubicación inicial del mapa
-                        zoom: 18.0, // Nivel de zoom inicial
-                      ),
-                      children: mapLayouts,
-                        // Agrega una capa de mapa base, por ejemplo, OpenStreetMap
-
-
-
-                    ),
-                  ),
-                ]
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      AnimatedContainer(
-                        padding: const EdgeInsets.only(left: 40, bottom: 20, right: 40),
-                        alignment:  Alignment.bottomCenter,
-                        duration: const Duration(seconds: 1),
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(152, 204, 180, 1),
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(50),topRight: Radius.circular(50)),
-                        ),
-                        curve: Curves.linear,
-                        child: (state == 0) ? SelectDestination(trigger:updateState) : const StartRide(),
-                      ),
-                    ],
-                  ),
+              child: FlutterMap(
+                options: MapOptions(
+                  interactiveFlags: InteractiveFlag.none,
+                  center: LatLng(4.60140465, -74.0649032880709),
+                  // Ubicación inicial del mapa
+                  zoom: 18.0, // Nivel de zoom inicial
                 ),
-              ],
-            ),
-          ],
-        ),
-      ),
+                children: mapLayouts,
+                // Agrega una capa de mapa base, por ejemplo, OpenStreetMap
 
+              ),
+            ),
+            SizedBox(
+              width: constraints.maxWidth,
+              height: constraints.maxWidth,
+              child: Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    AnimatedContainer(
+                      padding: const EdgeInsets.only(
+                          left: 40, bottom: 20, right: 40),
+                      alignment: Alignment.bottomCenter,
+                      duration: const Duration(seconds: 1),
+                      decoration: const BoxDecoration(
+                        color: Color.fromRGBO(152, 204, 180, 1),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50),
+                            topRight: Radius.circular(50)),
+                      ),
+                      curve: Curves.linear,
+                      child: (state == 0) ? SelectDestination(trigger: updateState) : const StartRide(),
+                          ),
+                        ],
+                      ),
+                    ),
+            ),
+                ],
+              ),
+            );
+          },
+      ),
     );
   }
 }
