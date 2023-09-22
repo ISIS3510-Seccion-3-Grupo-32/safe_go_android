@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'select_destination.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 void main() {
   runApp(
@@ -8,6 +13,24 @@ void main() {
                 child: Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
+        SizedBox(
+          width: 500, // Use maximum available width
+          height: 600, // Use half of available height
+          child: FlutterMap(
+            options: MapOptions(
+              interactiveFlags: InteractiveFlag.none,
+              center: LatLng(4.60140465, -74.0649032880709),
+              zoom: 18.0,
+            ),
+            children: [
+              TileLayer(
+                urlTemplate:
+                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                subdomains: const ['a', 'b', 'c'],
+              ),
+            ],
+          ),
+        ),
         Container(
           alignment: Alignment.topCenter,
           height: 400.0,
