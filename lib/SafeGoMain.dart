@@ -1,138 +1,251 @@
 import 'package:flutter/material.dart';
-import 'select_destination.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
 
 void main() {
-  runApp(
-    MaterialApp(
-        home: Scaffold(
-            body: Align(
-                child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        SizedBox(
-          width: 500, // Use maximum available width
-          height: 600, // Use half of available height
-          child: FlutterMap(
-            options: MapOptions(
-              interactiveFlags: InteractiveFlag.none,
-              center: LatLng(4.60140465, -74.0649032880709),
-              zoom: 18.0,
-            ),
-            children: [
-              TileLayer(
-                urlTemplate:
-                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                subdomains: const ['a', 'b', 'c'],
+  runApp(const SafeGo());
+}
+
+class SafeGo extends StatelessWidget {
+  const SafeGo({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Go Safe Testing'),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key, required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    double fontRegister = screenHeight * 0.05;
+    double fontSubtext = screenHeight * 0.02;
+    double paddingSides = screenWidth * 0.05;
+
+    // Define TextEditingController instances
+    final fullNameController = TextEditingController();
+    final passwordController = TextEditingController();
+
+    return Scaffold(
+      body: Flex(
+        direction: Axis.vertical,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Flexible(
+            flex: 2,
+            child: FlutterMap(
+              options: MapOptions(
+                interactiveFlags: InteractiveFlag.none,
+                center: LatLng(4.60140465, -74.0649032880709),
+                zoom: 18.0,
               ),
-            ],
+              children: [
+                TileLayer(
+                  urlTemplate:
+                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  subdomains: const ['a', 'b', 'c'],
+                ),
+              ],
+            ),
           ),
-        ),
-        Container(
-          alignment: Alignment.topCenter,
-          height: 400.0,
-          width: 800.0,
-          color: Colors.transparent,
-          child: Container(
+          Flexible(
+            flex: 3,
+            child: Container(
               decoration: const BoxDecoration(
-                  color: Color(0xFF96CEB4),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50))),
+                color: Color(0xFF96CEB4),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
+                ),
+              ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                    text: const TextSpan(
-                      text: "  Welcome to SafeGo \n",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 8.0,
+                        horizontal: paddingSides), // Ajout du padding à gauche
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: RichText(
+                        text: TextSpan(
+                          text: "Welcome to SafeGo",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: fontRegister,
+                          ),
+                        ),
                       ),
-                      children: [
-                        TextSpan(
-                          text: 'Login Before you start your trip! \n',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                        ),
-                        TextSpan(
-                          text: '\nUSER LOCATION DATA GOES HERE!!!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
-                  const Divider(
-                    color: Colors.white,
-                  ),
-                  RichText(
-                      textAlign: TextAlign.left,
-                      text: const TextSpan(
-                        text: "  \n \nLogin Credentials \n",
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: paddingSides), // Ajout du padding à gauche
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Login Before you start your trip!',
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                          fontSize: fontSubtext,
                         ),
-                      )),
-                  Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.grey)),
-                        filled: true,
-                        hintStyle: TextStyle(color: Colors.grey),
-                        hintText: "Username",
-                        fillColor: Colors.white70,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: paddingSides), // Ajout du padding à gauche
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'USER LOCATION DATA GOES HERE!!!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: fontSubtext,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    height: 2.0,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                paddingSides), // Ajout du padding à gauche
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Login Credentials',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: fontSubtext,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                paddingSides), // Ajout du padding à gauche
+                        child: TextField(
+                          controller: fullNameController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            filled: true,
+                            hintStyle: TextStyle(color: Colors.grey),
+                            hintText: "Username",
+                            fillColor: Colors.white70,
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 12.0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: paddingSides), // Ajout du padding à gauche
                     child: TextField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide:
-                                BorderSide(width: 1, color: Colors.white)),
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
                         filled: true,
                         hintStyle: TextStyle(color: Colors.grey),
                         hintText: "Password",
                         fillColor: Colors.white70,
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 12.0),
                       ),
                     ),
                   ),
-                  Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: SizedBox(
-                          width: 251,
-                          height: 40,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              debugPrint('ElevatedButton Clicked');
-                            },
-                            child: Text(
-                              'Login',
-                              style: TextStyle(color: Colors.black),
+                  Center(
+                    child: SizedBox(
+                      width: screenWidth * 0.8,
+                      height: screenHeight * 0.06,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Print the content of the input fields
+                          debugPrint('Username: ${fullNameController.text}');
+                          debugPrint('Password: ${passwordController.text}');
+                        },
+                        child: Text(
+                          'Login',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        // Print the username and password
+                        debugPrint('Username: ${fullNameController.text}');
+                        debugPrint('Password: ${passwordController.text}');
+                      },
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text.rich(
+                          TextSpan(
+                            text: "Don't have an account? ",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: fontSubtext,
                             ),
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white),
-                          )))
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Register',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
-              )),
-        ),
-      ],
-    )))),
-  );
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
