@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'RegisterView.dart'; // Import your RegisterView widget
+import 'DestinationChoiceView.dart'; // Import your DestinationChoice widget
+import 'RegisterView.dart';
 
 void main() {
   runApp(const SafeGo());
 }
 
 class SafeGo extends StatelessWidget {
-  const SafeGo({Key? key});
+  const SafeGo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,23 @@ class SafeGo extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Go Safe Testing'),
+      home: const SafeGoMain(title: 'Go Safe Testing'),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key, required this.title});
+class SafeGoMain extends StatefulWidget {
+  const SafeGoMain({super.key, required this.title});
 
   final String title;
+
+  @override
+  State<SafeGoMain> createState() => _SafeGoMainState();
+}
+
+class _SafeGoMainState extends State<SafeGoMain> {
+  final fullNameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +44,9 @@ class MyHomePage extends StatelessWidget {
     double fontRegister = screenHeight * 0.05;
     double fontSubtext = screenHeight * 0.02;
     double paddingSides = screenWidth * 0.05;
-    double paddingBetween = screenHeight * 0.01;
-
-    // Define TextEditingController instances
-    final fullNameController = TextEditingController();
-    final passwordController = TextEditingController();
 
     return Scaffold(
-      body: Flex(
-        direction: Axis.vertical,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Column(
         children: [
           Flexible(
             flex: 2,
@@ -193,6 +195,14 @@ class MyHomePage extends StatelessWidget {
                           // Print the content of the input fields
                           debugPrint('Username: ${fullNameController.text}');
                           debugPrint('Password: ${passwordController.text}');
+
+                          // Redirect to DestinationChoice when the button is clicked
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DestinationChoiceView(),
+                            ),
+                          );
                         },
                         child: Text(
                           'Login',
@@ -246,13 +256,4 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
-}
-
-void redirectToRegister(BuildContext context) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => RegisterView(),
-    ),
-  );
 }
