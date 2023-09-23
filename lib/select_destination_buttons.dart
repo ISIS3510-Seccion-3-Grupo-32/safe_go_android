@@ -13,12 +13,19 @@ class DirectionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color.fromRGBO(216,244,228,1),
-          padding: const EdgeInsets.only(right: 228, left: 10, top: 20, bottom:14),
+    final screenWidth = MediaQuery.of(context).size.width;
+    final buttonWidth = screenWidth * 0.9; // Adjust the factor as needed
+    final buttonHeight = screenWidth * 0.1; // Adjust the factor as needed
+    final iconSize = buttonWidth * 0.11; // Adjust the factor for icon size
+    final fontSize = buttonWidth * 0.05; // Adjust the factor for font size
 
+    return Container(
+      width: buttonWidth,
+      height: buttonHeight, // You can adjust the height independently if needed
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromRGBO(216, 244, 228, 1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
           ),
