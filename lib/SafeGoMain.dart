@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'RegisterView.dart'; // Import your RegisterView widget
 
 void main() {
   runApp(const SafeGo());
@@ -34,6 +35,7 @@ class MyHomePage extends StatelessWidget {
     double fontRegister = screenHeight * 0.05;
     double fontSubtext = screenHeight * 0.02;
     double paddingSides = screenWidth * 0.05;
+    double paddingBetween = screenHeight * 0.01;
 
     // Define TextEditingController instances
     final fullNameController = TextEditingController();
@@ -77,8 +79,7 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: 8.0,
-                        horizontal: paddingSides), // Ajout du padding à gauche
+                        vertical: 8.0, horizontal: paddingSides),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: RichText(
@@ -94,8 +95,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: paddingSides), // Ajout du padding à gauche
+                    padding: EdgeInsets.symmetric(horizontal: paddingSides),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -108,8 +108,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: paddingSides), // Ajout du padding à gauche
+                    padding: EdgeInsets.symmetric(horizontal: paddingSides),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -129,9 +128,7 @@ class MyHomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                paddingSides), // Ajout du padding à gauche
+                        padding: EdgeInsets.symmetric(horizontal: paddingSides),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -144,9 +141,7 @@ class MyHomePage extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                paddingSides), // Ajout du padding à gauche
+                        padding: EdgeInsets.symmetric(horizontal: paddingSides),
                         child: TextField(
                           controller: fullNameController,
                           decoration: InputDecoration(
@@ -169,8 +164,7 @@ class MyHomePage extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: paddingSides), // Ajout du padding à gauche
+                    padding: EdgeInsets.symmetric(horizontal: paddingSides),
                     child: TextField(
                       controller: passwordController,
                       decoration: InputDecoration(
@@ -213,9 +207,13 @@ class MyHomePage extends StatelessWidget {
                   Center(
                     child: GestureDetector(
                       onTap: () {
-                        // Print the username and password
-                        debugPrint('Username: ${fullNameController.text}');
-                        debugPrint('Password: ${passwordController.text}');
+                        // Navigate to the registration view
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegisterView(),
+                          ),
+                        );
                       },
                       child: Align(
                         alignment: Alignment.center,
@@ -248,4 +246,13 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+void redirectToRegister(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => RegisterView(),
+    ),
+  );
 }
