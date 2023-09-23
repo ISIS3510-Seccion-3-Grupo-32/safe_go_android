@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-        home: Scaffold(
-            body: Align(
-                child: Column(
+class TravelDataView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Align(
+            child: Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Container(
@@ -56,6 +56,6 @@ void main() {
               )),
         ),
       ],
-    )))),
-  );
+    )));
+  }
 }

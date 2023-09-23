@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safe_go_dart/TravelDataView.dart';
 import 'package:safe_go_dart/select_destination_buttons.dart';
 
 class SelectDestination extends StatelessWidget {
@@ -62,7 +63,12 @@ class SelectDestination extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
                   onPressed: () {
-                    // Action when the button is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TravelDataView(),
+                      ),
+                    );
                   },
                   icon: Icons.home_outlined,
                   label: 'Home',
@@ -72,7 +78,12 @@ class SelectDestination extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
                   onPressed: () {
-                    // Action when the button is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TravelDataView(),
+                      ),
+                    );
                   },
                   icon: Icons.work_outline,
                   label: 'Work',
@@ -82,7 +93,12 @@ class SelectDestination extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
                   onPressed: () {
-                    // Action when the button is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TravelDataView(),
+                      ),
+                    );
                   },
                   icon: Icons.school_outlined,
                   label: 'School',
@@ -92,7 +108,12 @@ class SelectDestination extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
                   onPressed: () {
-                    // Action when the button is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TravelDataView(),
+                      ),
+                    );
                   },
                   icon: Icons.favorite_outline,
                   label: 'Partner',

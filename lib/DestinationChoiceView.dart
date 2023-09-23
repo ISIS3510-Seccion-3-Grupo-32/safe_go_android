@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'select_destination.dart';
+import 'TravelDataView.dart';
 
 class DestinationChoiceView extends StatelessWidget {
   bool selected = false;
