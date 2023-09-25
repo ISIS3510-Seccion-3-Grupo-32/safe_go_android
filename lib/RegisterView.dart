@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+
+import 'SafeGoMap.dart';
 
 class RegisterView extends StatelessWidget {
+  const RegisterView({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     double fontRegister = screenHeight * 0.05;
-    double fontInputs = screenHeight * 0.04;
     double paddingSides = screenWidth * 0.05;
     double paddingBetween = screenHeight * 0.01;
 
@@ -24,22 +25,9 @@ class RegisterView extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1, // Set the flex factor for the map
-                child: FlutterMap(
-                  options: MapOptions(
-                    interactiveFlags: InteractiveFlag.none,
-                    center: LatLng(4.60140465, -74.0649032880709),
-                    zoom: 18.0,
-                  ),
-                  children: [
-                    TileLayer(
-                      urlTemplate:
-                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      subdomains: const ['a', 'b', 'c'],
-                    ),
-                  ],
-                ),
+                child: SafeGoMap(),
               ),
               Expanded(
                 flex: 2, // Set the flex factor for the registration container
@@ -85,16 +73,16 @@ class RegisterView extends StatelessWidget {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 2,
                                   color: Colors.grey,
                                 ),
                               ),
                               filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               hintText: "Full Name",
                               fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),
                             ),
                           ),
@@ -110,16 +98,16 @@ class RegisterView extends StatelessWidget {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 2,
                                   color: Colors.grey,
                                 ),
                               ),
                               filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               hintText: "Password",
                               fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),
                             ),
                           ),
@@ -135,16 +123,16 @@ class RegisterView extends StatelessWidget {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 2,
                                   color: Colors.grey,
                                 ),
                               ),
                               filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               hintText: "Email",
                               fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),
                             ),
                           ),
@@ -159,16 +147,16 @@ class RegisterView extends StatelessWidget {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 2,
                                   color: Colors.grey,
                                 ),
                               ),
                               filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               hintText: "Date of birth",
                               fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),
                             ),
                           ),
@@ -191,12 +179,12 @@ class RegisterView extends StatelessWidget {
                               debugPrint(
                                   'Date of Birth: ${dobController.text}');
                             },
-                            child: Text(
-                              'Submit',
-                              style: TextStyle(color: Colors.black),
-                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
+                            ),
+                            child: const Text(
+                              'Submit',
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
                         ),

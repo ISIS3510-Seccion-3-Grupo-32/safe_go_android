@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'DestinationChoiceView.dart'; // Import your DestinationChoice widget
 import 'RegisterView.dart';
+import 'package:safe_go_dart/logic/PermissionRequest.dart';
 
+import 'SafeGoMap.dart';
 void main() {
   runApp(const SafeGo());
 }
@@ -36,7 +37,13 @@ class SafeGoMain extends StatefulWidget {
 class _SafeGoMainState extends State<SafeGoMain> {
   final fullNameController = TextEditingController();
   final passwordController = TextEditingController();
-
+  LatLng userLocation = LatLng(0.0,0.0);
+  @override
+  void initState() {
+    super.initState();
+    PermissionRequest request = PermissionRequest(userLocation: userLocation);
+    request.requestLocationPermission();
+  }
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -48,22 +55,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
     return Scaffold(
       body: Column(
         children: [
-          Flexible(
+          const Flexible(
             flex: 2,
-            child: FlutterMap(
-              options: MapOptions(
-                interactiveFlags: InteractiveFlag.none,
-                center: LatLng(4.60140465, -74.0649032880709),
-                zoom: 18.0,
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: const ['a', 'b', 'c'],
-                ),
-              ],
-            ),
+            child: SafeGoMap(),
           ),
           Flexible(
             flex: 3,
@@ -149,16 +143,16 @@ class _SafeGoMainState extends State<SafeGoMain> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 width: 2,
                                 color: Colors.grey,
                               ),
                             ),
                             filled: true,
-                            hintStyle: TextStyle(color: Colors.grey),
+                            hintStyle: const TextStyle(color: Colors.grey),
                             hintText: "Username",
                             fillColor: Colors.white70,
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 12.0),
                           ),
                         ),
@@ -172,16 +166,16 @@ class _SafeGoMainState extends State<SafeGoMain> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 2,
                             color: Colors.grey,
                           ),
                         ),
                         filled: true,
-                        hintStyle: TextStyle(color: Colors.grey),
+                        hintStyle: const TextStyle(color: Colors.grey),
                         hintText: "Password",
                         fillColor: Colors.white70,
-                        contentPadding: EdgeInsets.symmetric(
+                        contentPadding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 12.0),
                       ),
                     ),
@@ -204,12 +198,12 @@ class _SafeGoMainState extends State<SafeGoMain> {
                             ),
                           );
                         },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(color: Colors.black),
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
+                        ),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(color: Colors.black),
                         ),
                       ),
                     ),
@@ -234,7 +228,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               color: Colors.white,
                               fontSize: fontSubtext,
                             ),
-                            children: <TextSpan>[
+                            children: const <TextSpan>[
                               TextSpan(
                                 text: 'Register',
                                 style: TextStyle(

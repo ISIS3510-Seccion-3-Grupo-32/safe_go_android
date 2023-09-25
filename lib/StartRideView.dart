@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+
+import 'SafeGoMap.dart';
 
 class StartRideView extends StatelessWidget {
   const StartRideView({
@@ -20,22 +20,9 @@ class StartRideView extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1, // Set the flex factor for the map
-                child: FlutterMap(
-                  options: MapOptions(
-                    interactiveFlags: InteractiveFlag.none,
-                    center: LatLng(4.60140465, -74.0649032880709),
-                    zoom: 18.0,
-                  ),
-                  children: [
-                    TileLayer(
-                      urlTemplate:
-                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      subdomains: const ['a', 'b', 'c'],
-                    ),
-                  ],
-                ),
+                child: SafeGoMap(),
               ),
               Expanded(
                 flex: 2, // Set the flex factor for the registration container
@@ -54,7 +41,7 @@ class StartRideView extends StatelessWidget {
                         flex: 1,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(18, textPadding, 0, 0),
-                          child: Text(
+                          child: const Text(
                             'Your safe route is set!',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -92,7 +79,7 @@ class StartRideView extends StatelessWidget {
                                   color: const Color.fromRGBO(216, 244, 228, 1),
                                   borderRadius: BorderRadius.circular(60.0),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.access_time,
                                   color: Color.fromRGBO(64, 78, 72, 1),
                                 ),
@@ -104,7 +91,7 @@ class StartRideView extends StatelessWidget {
                                   left: 18.0,
                                   right: iconPadding,
                                 ),
-                                child: Text(
+                                child: const Text(
                                   '9:00 a.m',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
@@ -122,7 +109,7 @@ class StartRideView extends StatelessWidget {
                           padding: EdgeInsets.only(
                             left: iconPadding,
                           ),
-                          child: Row(
+                          child: const Row(
                             children: [
                               Text(
                                 'Trip details:',
@@ -150,7 +137,7 @@ class StartRideView extends StatelessWidget {
                                   color: const Color.fromRGBO(216, 244, 228, 1),
                                   borderRadius: BorderRadius.circular(60.0),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.place_outlined,
                                   color: Color.fromRGBO(64, 78, 72, 1),
                                 ),
@@ -162,7 +149,7 @@ class StartRideView extends StatelessWidget {
                                   left: iconPadding,
                                   right: iconPadding,
                                 ),
-                                child: Column(
+                                child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
@@ -198,7 +185,7 @@ class StartRideView extends StatelessWidget {
                           padding: EdgeInsets.only(
                             left: iconPadding,
                           ),
-                          child: Row(
+                          child: const Row(
                             children: [
                               Text(
                                 'Estimated time:',
@@ -226,7 +213,7 @@ class StartRideView extends StatelessWidget {
                                   color: const Color.fromRGBO(216, 244, 228, 1),
                                   borderRadius: BorderRadius.circular(60.0),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.timer_sharp,
                                   color: Color.fromRGBO(64, 78, 72, 1),
                                 ),
@@ -238,7 +225,7 @@ class StartRideView extends StatelessWidget {
                                   left: iconPadding,
                                   right: iconPadding,
                                 ),
-                                child: Text(
+                                child: const Text(
                                   '36 minutes',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
@@ -250,7 +237,7 @@ class StartRideView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Expanded(
+                      const Expanded(
                         flex: 1,
                         child: SizedBox(),
                       ), // Spacer
