@@ -37,6 +37,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
   final fullNameController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -150,9 +151,22 @@ class _SafeGoMainState extends State<SafeGoMain> {
                           padding:
                               EdgeInsets.symmetric(horizontal: paddingSides),
                           child: TextFormField(
+                            controller:
+                                fullNameController, // Assign the controller
                             decoration: InputDecoration(
-                              labelText: 'Username',
-                              hintText: 'Enter your username',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              filled: true,
+                              hintStyle: TextStyle(color: Colors.grey),
+                              hintText: "UserName",
+                              fillColor: Colors.white70,
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 12.0),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -166,9 +180,35 @@ class _SafeGoMainState extends State<SafeGoMain> {
                           padding:
                               EdgeInsets.symmetric(horizontal: paddingSides),
                           child: TextFormField(
+                            controller:
+                                passwordController, // Assign the controller
                             decoration: InputDecoration(
-                              labelText: 'Password',
-                              hintText: 'Enter your password',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              filled: true,
+                              hintStyle: TextStyle(color: Colors.grey),
+                              hintText: "Password",
+                              fillColor: Colors.white70,
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 12.0),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscureText
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureText = !_obscureText;
+                                  });
+                                },
+                              ),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -176,6 +216,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               }
                               return null;
                             },
+                            obscureText: _obscureText,
                           ),
                         ),
                         Center(
