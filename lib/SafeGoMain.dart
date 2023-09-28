@@ -36,6 +36,7 @@ class SafeGoMain extends StatefulWidget {
 class _SafeGoMainState extends State<SafeGoMain> {
   final fullNameController = TextEditingController();
   final passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -126,126 +127,125 @@ class _SafeGoMainState extends State<SafeGoMain> {
                     color: Colors.white,
                     height: 2.0,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: paddingSides),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Login Credentials',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: fontSubtext,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: paddingSides),
-                        child: TextField(
-                          controller: fullNameController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Colors.grey,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: paddingSides),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Login Credentials',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: fontSubtext,
                               ),
                             ),
-                            filled: true,
-                            hintStyle: TextStyle(color: Colors.grey),
-                            hintText: "Username",
-                            fillColor: Colors.white70,
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 12.0),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: paddingSides),
-                    child: TextField(
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: Colors.grey,
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: paddingSides),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              labelText: 'Username',
+                              hintText: 'Enter your username',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Username is required';
+                              }
+                              return null;
+                            },
                           ),
                         ),
-                        filled: true,
-                        hintStyle: TextStyle(color: Colors.grey),
-                        hintText: "Password",
-                        fillColor: Colors.white70,
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 12.0),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: SizedBox(
-                      width: screenWidth * 0.8,
-                      height: screenHeight * 0.06,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Print the content of the input fields
-                          debugPrint('Username: ${fullNameController.text}');
-                          debugPrint('Password: ${passwordController.text}');
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: paddingSides),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              hintText: 'Enter your password',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Password is required';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Center(
+                          child: SizedBox(
+                            width: screenWidth * 0.8,
+                            height: screenHeight * 0.06,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  // Print the content of the input fields
+                                  debugPrint(
+                                      'Username: ${fullNameController.text}');
+                                  debugPrint(
+                                      'Password: ${passwordController.text}');
 
-                          // Redirect to DestinationChoice when the button is clicked
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DestinationChoiceView(),
+                                  // Redirect to DestinationChoice when the button is clicked
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DestinationChoiceView(),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: Text(
+                                'Login',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        // Navigate to the registration view
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RegisterView(),
                           ),
-                        );
-                      },
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text.rich(
-                          TextSpan(
-                            text: "Don't have an account? ",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: fontSubtext,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Register',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  decoration: TextDecoration.underline,
+                        ),
+                        Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              // Navigate to the registration view
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterView(),
+                                ),
+                              );
+                            },
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text.rich(
+                                TextSpan(
+                                  text: "Don't have an account? ",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: fontSubtext,
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: 'Register',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ],
