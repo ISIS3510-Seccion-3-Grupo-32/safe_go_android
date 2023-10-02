@@ -19,10 +19,13 @@ class SafeGoMapState extends State<SafeGoMap> {
   @override
   void initState() {
     super.initState();
-    PermissionRequest request = PermissionRequest(userLocation: userLocation);
-    request.requestLocationPermission();
-    updateLocation();
+    init();
   }
+  Future<void> init() async{
+  PermissionRequest request = PermissionRequest(userLocation: userLocation);
+  await request.requestLocationPermission(context);
+  updateLocation();
+}
   updateLocation()  {
     location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
@@ -33,6 +36,9 @@ class SafeGoMapState extends State<SafeGoMap> {
       });
     });
   }
+
+
+
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
