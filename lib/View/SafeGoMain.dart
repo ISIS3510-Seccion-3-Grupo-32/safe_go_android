@@ -102,7 +102,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'USER LOCATION DATA GOES HERE!!!',
+                        'We want you safe!',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: fontSubtext,
@@ -149,7 +149,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               ),
                               filled: true,
                               hintStyle: TextStyle(color: Colors.grey),
-                              hintText: "UserName",
+                              hintText: "Email",
                               fillColor: Colors.white70,
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),

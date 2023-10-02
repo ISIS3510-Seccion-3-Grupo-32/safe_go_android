@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'select_destination_buttons.dart';
 import 'TravelHistoryView.dart';
 import 'StartRideView.dart';
+import '../SafeGOReportsFacade/SafeGoReportsFac.dart';
 
 class SelectDestination extends StatelessWidget {
   const SelectDestination({
@@ -55,6 +56,30 @@ class SelectDestination extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const TravelHistoryView(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 9),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(216, 244, 228, 1),
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.report_problem,
+                    color: Colors.red,
+                    size: 50,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SafegoReportsFac(),
                       ),
                     );
                   },
