@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:auto_size_text/auto_size_text.dart'; // Import the auto_size_text package
+import 'SafeGoMap.dart';
 import 'TravelDataView.dart';
 
 class TravelData {
@@ -13,12 +12,13 @@ class TravelData {
 }
 
 class TravelHistoryView extends StatelessWidget {
+  const TravelHistoryView({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     double fontRegister = screenHeight * 0.05;
-    double fontInputs = screenHeight * 0.04;
     double paddingSides = screenWidth * 0.05;
     double paddingBetween = screenHeight * 0.01;
     const lightRedColor = Color.fromARGB(255, 231, 106, 106);
@@ -43,22 +43,9 @@ class TravelHistoryView extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1, // Set the flex factor for the map
-                child: FlutterMap(
-                  options: MapOptions(
-                    interactiveFlags: InteractiveFlag.none,
-                    center: LatLng(4.60140465, -74.0649032880709),
-                    zoom: 18.0,
-                  ),
-                  children: [
-                    TileLayer(
-                      urlTemplate:
-                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      subdomains: const ['a', 'b', 'c'],
-                    ),
-                  ],
-                ),
+                child: SafeGoMap(),
               ),
               Expanded(
                 flex: 2, // Set the flex factor for the registration container
@@ -115,18 +102,18 @@ class TravelHistoryView extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: AutoSizeText(
-                                  '${travelData[i].source} -> ${travelData[i].destination} ${travelData[i].date}',
-                                  style: TextStyle(color: Colors.black),
-                                  maxLines:
-                                      1, // Ensure the text fits on one line
-                                ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
                                         10.0), // Adjust the radius as needed
                                   ),
+                                ),
+                                child: AutoSizeText(
+                                  '${travelData[i].source} -> ${travelData[i].destination} ${travelData[i].date}',
+                                  style: const TextStyle(color: Colors.black),
+                                  maxLines:
+                                      1, // Ensure the text fits on one line
                                 ),
                               ),
                             ),
@@ -150,12 +137,12 @@ class TravelHistoryView extends StatelessWidget {
                                 debugPrint(
                                     'Date of Birth: ${dobController.text}');
                               },
-                              child: Text(
-                                "Delete Travel's history",
-                                style: TextStyle(color: Colors.black),
-                              ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: lightRedColor,
+                              ),
+                              child: const Text(
+                                "Delete Travel's history",
+                                style: TextStyle(color: Colors.black),
                               ),
                             ),
                           ),

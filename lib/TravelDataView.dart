@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+
+import 'SafeGoMap.dart';
 
 class TravelDataView extends StatelessWidget {
   final String source;
   final String destination;
   final String date;
 
-  TravelDataView({
+  const TravelDataView({super.key,
     required this.source,
     required this.destination,
     required this.date,
@@ -21,22 +21,9 @@ class TravelDataView extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1, // Set the flex factor for the map
-                child: FlutterMap(
-                  options: MapOptions(
-                    interactiveFlags: InteractiveFlag.none,
-                    center: LatLng(4.60140465, -74.0649032880709),
-                    zoom: 18.0,
-                  ),
-                  children: [
-                    TileLayer(
-                      urlTemplate:
-                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      subdomains: const ['a', 'b', 'c'],
-                    ),
-                  ],
-                ),
+                child: SafeGoMap(),
               ),
               Expanded(
                 flex: 1, // Set the flex factor for the registration container
@@ -51,12 +38,12 @@ class TravelDataView extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             text: " $source \n",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 28,
                             ),
-                            children: [],
+                            children: const [],
                           ),
                         ),
                         const Divider(
@@ -67,14 +54,14 @@ class TravelDataView extends StatelessWidget {
                           width: 500.0,
                           color: Colors.transparent,
                           child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
                               child: Center(
                                 child: Text(
                                   "Departure: $source\nArrival: $destination\nDate: $date\nReports during your travel: 0",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.center,
                                 ),

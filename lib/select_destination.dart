@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:safe_go_dart/TravelDataView.dart';
 import 'package:safe_go_dart/select_destination_buttons.dart';
 import 'TravelHistoryView.dart';
 import 'StartRideView.dart';
@@ -13,10 +12,10 @@ class SelectDestination extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 14.0),
+        const SizedBox(height: 14.0),
         Row(
           children: [
-            Expanded(
+            const Expanded(
               child: Padding(
                 padding: EdgeInsets.only(right: 10.0),
                 child: TextField(
@@ -64,7 +63,7 @@ class SelectDestination extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 14.0),
+        const SizedBox(height: 14.0),
         Expanded(
           child: ListView(
             children: [
@@ -75,7 +74,7 @@ class SelectDestination extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => StartRideView(),
+                        builder: (context) => const StartRideView(),
                       ),
                     );
                   },
@@ -90,7 +89,7 @@ class SelectDestination extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => StartRideView(),
+                        builder: (context) => const StartRideView(),
                       ),
                     );
                   },
@@ -105,7 +104,7 @@ class SelectDestination extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => StartRideView(),
+                        builder: (context) => const StartRideView(),
                       ),
                     );
                   },
@@ -120,7 +119,7 @@ class SelectDestination extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => StartRideView(),
+                        builder: (context) => const StartRideView(),
                       ),
                     );
                   },

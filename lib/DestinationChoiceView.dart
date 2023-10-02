@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'SafeGoMap.dart';
 import 'select_destination.dart';
-import 'TravelDataView.dart';
-import 'StartRideView.dart';
 
 class DestinationChoiceView extends StatelessWidget {
   bool selected = false;
@@ -18,21 +16,8 @@ class DestinationChoiceView extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
-            child: FlutterMap(
-              options: MapOptions(
-                interactiveFlags: InteractiveFlag.none,
-                center: LatLng(4.60140465, -74.0649032880709),
-                zoom: 18.0,
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: const ['a', 'b', 'c'],
-                ),
-              ],
-            ),
+          const Expanded(
+            child: SafeGoMap(),
           ),
           Expanded(
             child: AnimatedContainer(
