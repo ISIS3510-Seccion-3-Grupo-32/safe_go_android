@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'SafeGoMap.dart';
+import 'SafeGoMap/SafeGoMap.dart';
 
 class StartRideView extends StatelessWidget {
   const StartRideView({

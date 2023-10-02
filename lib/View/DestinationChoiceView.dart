@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'SafeGoMap.dart';
+import 'SafeGoMap/SafeGoMap.dart';
 import 'select_destination.dart';
 
 class DestinationChoiceView extends StatelessWidget {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'DestinationChoiceView.dart'; // Import your DestinationChoice widget
 import 'RegisterView.dart';
+import 'SafeGoMap/SafeGoMap.dart';
 
 void main() {
   runApp(const SafeGo());
@@ -50,22 +49,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
     return Scaffold(
       body: Column(
         children: [
-          Flexible(
+          const Flexible(
             flex: 2,
-            child: FlutterMap(
-              options: MapOptions(
-                interactiveFlags: InteractiveFlag.none,
-                center: LatLng(4.60140465, -74.0649032880709),
-                zoom: 18.0,
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: const ['a', 'b', 'c'],
-                ),
-              ],
-            ),
+            child: SafeGoMap(),
           ),
           Flexible(
             flex: 3,

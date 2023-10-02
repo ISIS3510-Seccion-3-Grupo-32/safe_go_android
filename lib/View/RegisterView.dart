@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+
+import 'SafeGoMap/SafeGoMap.dart';
 
 class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
+
   @override
   _RegisterViewState createState() => _RegisterViewState();
 }
@@ -20,7 +22,6 @@ class _RegisterViewState extends State<RegisterView> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     double fontRegister = screenHeight * 0.05;
-    double fontInputs = screenHeight * 0.04;
     double paddingSides = screenWidth * 0.05;
     double paddingBetween = screenHeight * 0.01;
 
@@ -30,22 +31,9 @@ class _RegisterViewState extends State<RegisterView> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1, // Set the flex factor for the map
-                child: FlutterMap(
-                  options: MapOptions(
-                    interactiveFlags: InteractiveFlag.none,
-                    center: LatLng(4.60140465, -74.0649032880709),
-                    zoom: 18.0,
-                  ),
-                  children: [
-                    TileLayer(
-                      urlTemplate:
-                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      subdomains: const ['a', 'b', 'c'],
-                    ),
-                  ],
-                ),
+                child: SafeGoMap(),
               ),
               Expanded(
                 flex: 2, // Set the flex factor for the registration container
@@ -93,16 +81,16 @@ class _RegisterViewState extends State<RegisterView> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     width: 2,
                                     color: Colors.grey,
                                   ),
                                 ),
                                 filled: true,
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 hintText: "Full Name",
                                 fillColor: Colors.white70,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 8.0, horizontal: 12.0),
                               ),
                               validator: (value) {
@@ -124,16 +112,16 @@ class _RegisterViewState extends State<RegisterView> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     width: 2,
                                     color: Colors.grey,
                                   ),
                                 ),
                                 filled: true,
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 hintText: "Password",
                                 fillColor: Colors.white70,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 8.0, horizontal: 12.0),
                                 suffixIcon: IconButton(
                                   icon: Icon(
@@ -169,16 +157,16 @@ class _RegisterViewState extends State<RegisterView> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     width: 2,
                                     color: Colors.grey,
                                   ),
                                 ),
                                 filled: true,
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 hintText: "Email",
                                 fillColor: Colors.white70,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 8.0, horizontal: 12.0),
                               ),
                               validator: (value) {
@@ -200,16 +188,16 @@ class _RegisterViewState extends State<RegisterView> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     width: 2,
                                     color: Colors.grey,
                                   ),
                                 ),
                                 filled: true,
-                                hintStyle: TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 hintText: "Date of birth",
                                 fillColor: Colors.white70,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 8.0, horizontal: 12.0),
                               ),
                               validator: (value) {
@@ -240,12 +228,12 @@ class _RegisterViewState extends State<RegisterView> {
                                       'Date of Birth: ${dobController.text}');
                                 }
                               },
-                              child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.black),
-                              ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
+                              ),
+                              child: const Text(
+                                'Submit',
+                                style: TextStyle(color: Colors.black),
                               ),
                             ),
                           ),
