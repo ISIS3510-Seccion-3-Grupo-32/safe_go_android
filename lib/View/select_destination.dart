@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:safe_go_dart/select_destination_buttons.dart';
+import 'select_destination_buttons.dart';
 import 'TravelHistoryView.dart';
 import 'StartRideView.dart';
 
@@ -54,7 +54,7 @@ class SelectDestination extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TravelHistoryView(),
+                        builder: (context) => const TravelHistoryView(),
                       ),
                     );
                   },

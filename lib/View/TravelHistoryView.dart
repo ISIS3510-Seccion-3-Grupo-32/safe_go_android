@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart'; // Import the auto_size_text package
-import 'SafeGoMap.dart';
+import 'SafeGoMap/SafeGoMap.dart';
 import 'TravelDataView.dart';
 
 class TravelData {

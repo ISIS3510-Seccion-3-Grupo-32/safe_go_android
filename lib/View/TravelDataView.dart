@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'SafeGoMap.dart';
+import 'SafeGoMap/SafeGoMap.dart';
 
 class TravelDataView extends StatelessWidget {
   final String source;
