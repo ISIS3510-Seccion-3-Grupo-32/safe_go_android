@@ -1,9 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:safe_go_dart/ViewModel/AuthenticationViewModel.dart';
 import 'DestinationChoiceView.dart'; // Import your DestinationChoice widget
 import 'RegisterView.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const SafeGo());
 }
 
@@ -12,13 +17,16 @@ class SafeGo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (_) => AuthenticationViewModel(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+          useMaterial3: true,
+        ),
+        home: const SafeGoMain(title: 'Go Safe Testing'),
       ),
-      home: const SafeGoMain(title: 'Go Safe Testing'),
     );
   }
 }
@@ -33,7 +41,7 @@ class SafeGoMain extends StatefulWidget {
 }
 
 class _SafeGoMainState extends State<SafeGoMain> {
-  final fullNameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
@@ -138,25 +146,25 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               EdgeInsets.symmetric(horizontal: paddingSides),
                           child: TextFormField(
                             controller:
-                                fullNameController, // Assign the controller
+                                emailController, // Assign the controller
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 2,
                                   color: Colors.grey,
                                 ),
                               ),
                               filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
-                              hintText: "UserName",
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              hintText: "Email",
                               fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Username is required';
+                                return 'Email is required';
                               }
                               return null;
                             },
@@ -171,16 +179,16 @@ class _SafeGoMainState extends State<SafeGoMain> {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 2,
                                   color: Colors.grey,
                                 ),
                               ),
                               filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               hintText: "Password",
                               fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),
                               suffixIcon: IconButton(
                                 icon: Icon(
@@ -213,27 +221,24 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   // Print the content of the input fields
-                                  debugPrint(
-                                      'Username: ${fullNameController.text}');
-                                  debugPrint(
-                                      'Password: ${passwordController.text}');
-
-                                  // Redirect to DestinationChoice when the button is clicked
+                                  debugPrint('Username: ${emailController.text}');
+                                  debugPrint('Password: ${passwordController.text}');
+                                  final authenticationViewModel = Provider.of<AuthenticationViewModel>(context, listen: false);
+                                  authenticationViewModel.signIn(emailController.text, passwordController.text);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DestinationChoiceView(),
+                                      builder: (context) => DestinationChoiceView(),
                                     ),
                                   );
                                 }
                               },
-                              child: Text(
-                                'Login',
-                                style: TextStyle(color: Colors.black),
-                              ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
+                              ),
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(color: Colors.black),
                               ),
                             ),
                           ),
@@ -245,7 +250,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RegisterView(),
+                                  builder: (context) => const RegisterView(),
                                 ),
                               );
                             },
@@ -258,7 +263,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                     color: Colors.white,
                                     fontSize: fontSubtext,
                                   ),
-                                  children: <TextSpan>[
+                                  children: const <TextSpan>[
                                     TextSpan(
                                       text: 'Register',
                                       style: TextStyle(
