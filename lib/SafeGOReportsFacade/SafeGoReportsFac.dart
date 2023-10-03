@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../View/SafeGoMap/SafeGoMap.dart';
+import './reportDeliverSubsistem.dart';
 
 class SafegoReportsFac extends StatelessWidget {
   const SafegoReportsFac({
@@ -12,6 +13,8 @@ class SafegoReportsFac extends StatelessWidget {
     const subject2 = "Smugglers, violence";
     const subject3 = "Pickpockets, intimidation";
     const subject4 = "Drug Dealing, Gang Activities";
+    const userlocation = "TestLocation";
+    const userDate = "TestDate";
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -70,13 +73,18 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color.fromRGBO(99, 165, 136, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: const Center(
-                                child: Text(
+                              child: ElevatedButton(
+                                child: const Text(
                                   subject1,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.left,
                                 ),
+                                onPressed: () {
+                                  final ReportData report = ReportData(
+                                      subject1, userlocation, userDate);
+                                  report.sendReportData();
+                                },
                               )),
                         ),
                         Container(
