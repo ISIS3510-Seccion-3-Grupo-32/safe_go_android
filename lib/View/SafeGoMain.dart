@@ -110,7 +110,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'USER LOCATION DATA GOES HERE!!!',
+                        'We want you safe!',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: fontSubtext,
@@ -221,14 +221,22 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   // Print the content of the input fields
-                                  debugPrint('Username: ${emailController.text}');
-                                  debugPrint('Password: ${passwordController.text}');
-                                  final authenticationViewModel = Provider.of<AuthenticationViewModel>(context, listen: false);
-                                  authenticationViewModel.signIn(emailController.text, passwordController.text);
+                                  debugPrint(
+                                      'Username: ${emailController.text}');
+                                  debugPrint(
+                                      'Password: ${passwordController.text}');
+                                  final authenticationViewModel =
+                                      Provider.of<AuthenticationViewModel>(
+                                          context,
+                                          listen: false);
+                                  authenticationViewModel.signIn(
+                                      emailController.text,
+                                      passwordController.text);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => DestinationChoiceView(),
+                                      builder: (context) =>
+                                          DestinationChoiceView(),
                                     ),
                                   );
                                 }
