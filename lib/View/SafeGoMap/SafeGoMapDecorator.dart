@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'SafeGoMap.dart';
 
 abstract class SafeGoMapDecorator extends SafeGoMap {
