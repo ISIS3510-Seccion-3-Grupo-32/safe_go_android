@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../View/SafeGoMap/SafeGoMap.dart';
 
 class SafegoReportsFac extends StatelessWidget {
@@ -9,6 +8,10 @@ class SafegoReportsFac extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const subject1 = "Dark, Unatendded Areas";
+    const subject2 = "Smugglers, violence";
+    const subject3 = "Pickpockets, intimidation";
+    const subject4 = "Drug Dealing, Gang Activities";
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -67,10 +70,10 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color.fromRGBO(99, 165, 136, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
-                                  "Dark, unatendded areas",
-                                  style: const TextStyle(
+                                  subject1,
+                                  style: TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.left,
                                 ),
@@ -86,10 +89,10 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color.fromRGBO(99, 165, 136, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
-                                  "Smugglers, violence",
-                                  style: const TextStyle(
+                                  subject2,
+                                  style: TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.left,
                                 ),
@@ -105,10 +108,10 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color.fromRGBO(99, 165, 136, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
-                                  "Pickpockets, intimidation",
-                                  style: const TextStyle(
+                                  subject3,
+                                  style: TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.left,
                                 ),
@@ -124,10 +127,10 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color.fromRGBO(99, 165, 136, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
-                                  "Drug Dealing, Gang Activities",
-                                  style: const TextStyle(
+                                  subject4,
+                                  style: TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.left,
                                 ),
@@ -143,10 +146,10 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color(0xffF5F5F5),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "Button in WIP We need Cloud of words First",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.left,
                                 ),
