@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import '../Model/NearIncidents.dart';
 
-class IncidentsViewModel extends ChangeNotifier {
-
-  Future<int> queryDataBase() {
-    return queryFirestore('policeReports');
+class IncidentsViewModel {
+  NearIncidents db = NearIncidents();
+  Future<double> queryDataBase() {
+    return db.queryFirestore('policeReports');
   }
 }
