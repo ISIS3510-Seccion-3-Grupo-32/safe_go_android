@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "7660014008",
+    "project_id": "safego-399621",
+    "storage_bucket": "safego-399621.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7660014008:android:e60068ab4b28fba38ee74d",
+        "android_client_info": {
+          "package_name": "com.example.safe_go_dart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb1qShGeUAk0G4La6deQ8AJ5pmziwPMbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -31,7 +31,6 @@ class SafeGoMap extends StatefulWidget {
         final latitude = currentLocation.latitude ?? 0.0;
         final longitude = currentLocation.longitude ?? 0.0;
         userLocation = LatLng(latitude, longitude);
-        print(userLocation);
       });
     });
   }
@@ -46,8 +45,8 @@ class SafeGoMap extends StatefulWidget {
     return  GoogleMap(
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(
-      target: LatLng(4.6494863, -74.0538456), // Initial map center
-      zoom: 12.0, // Initial zoom level
+      target: LatLng(0, 0), // Initial map center
+      zoom: 18.0, // Initial zoom level
     ),
       markers: {
     Marker(
