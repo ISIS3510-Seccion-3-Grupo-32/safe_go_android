@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'SafeGoMap/SafeGoMap.dart';
-import '../Model/reportDeliverSubsistem.dart';
+import '../ViewModel/ReportsViewModel.dart';
 
 class SafegoReportsFac extends StatelessWidget {
   const SafegoReportsFac({
@@ -74,6 +74,10 @@ class SafegoReportsFac extends StatelessWidget {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
                               child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromRGBO(
+                                      99, 165, 136, 1), // Background color
+                                ),
                                 child: const Text(
                                   subject1,
                                   style: TextStyle(
@@ -81,9 +85,9 @@ class SafegoReportsFac extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                 ),
                                 onPressed: () {
-                                  final ReportData report = ReportData(
-                                      subject1, userlocation, userDate);
-                                  report.sendReportData();
+                                  final ReportsViewModel report =
+                                      ReportsViewModel();
+                                  report.sendSubjectReport(subject1);
                                 },
                               )),
                         ),
@@ -97,7 +101,16 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color.fromRGBO(99, 165, 136, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: const Center(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromRGBO(
+                                      99, 165, 136, 1), // Background color
+                                ),
+                                onPressed: () {
+                                  final ReportsViewModel report =
+                                      ReportsViewModel();
+                                  report.sendSubjectReport(subject2);
+                                },
                                 child: Text(
                                   subject2,
                                   style: TextStyle(
@@ -116,7 +129,16 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color.fromRGBO(99, 165, 136, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: const Center(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromRGBO(
+                                      99, 165, 136, 1), // Background color
+                                ),
+                                onPressed: () {
+                                  final ReportsViewModel report =
+                                      ReportsViewModel();
+                                  report.sendSubjectReport(subject3);
+                                },
                                 child: Text(
                                   subject3,
                                   style: TextStyle(
@@ -135,7 +157,16 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color.fromRGBO(99, 165, 136, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: const Center(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromRGBO(
+                                      99, 165, 136, 1), // Background color
+                                ),
+                                onPressed: () {
+                                  final ReportsViewModel report =
+                                      ReportsViewModel();
+                                  report.sendSubjectReport(subject4);
+                                },
                                 child: Text(
                                   subject4,
                                   style: TextStyle(
