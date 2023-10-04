@@ -10,7 +10,13 @@ import '../ViewModel/IncidentsViewModel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: "AIzaSyCb1qShGeUAk0G4La6deQ8AJ5pmziwPMbY",
+        appId: "1:7660014008:android:e60068ab4b28fba38ee74d",
+        messagingSenderId: "7660014008",
+        projectId: "safego-399621")
+  );
   runApp(const SafeGo());
 }
 
@@ -47,7 +53,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final IncidentsViewModel incidents = IncidentsViewModel();
-  int TotalIncidents  = 0;
+  String TotalIncidents  = '0';
   @override
   void initState() {
     super.initState();
@@ -55,9 +61,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
   }
   Future<void> _fetchTotalIncidents() async {
     try {
-      int totalIncidents = await incidents.queryDataBase();
+      double totalIncidents = await incidents.queryDataBase();
       setState(() {
-        TotalIncidents = totalIncidents;
+        TotalIncidents = (totalIncidents*1000).toStringAsFixed(2);
       });
     } catch (e) {
       // Handle errors or exceptions if needed
@@ -129,7 +135,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'We want you safe!: $TotalIncidents',
+                        'Be careful, the closest incident was located $TotalIncidents meters from you!',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: fontSubtext,

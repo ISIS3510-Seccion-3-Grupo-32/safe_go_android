@@ -8,10 +8,10 @@ class NearIncidents {
   Future<double> queryFirestore(String collection) async {
   FirebaseFirestore db = FirebaseFirestore.instance;
   QuerySnapshot querySnapshot = await db.collection(collection).get();
-  print(querySnapshot);
   var minDistance = double.maxFinite;
   for (QueryDocumentSnapshot record in querySnapshot.docs) {
-    GeoPoint location = record['Report'];
+    GeoPoint location = record['Record'];
+    print(location);
     double lat = location.latitude;
     double long = location.longitude;
     double distance = calculateDistance(userLocation.latitude, userLocation.longitude, lat, long);
