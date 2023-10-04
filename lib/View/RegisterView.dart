@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:safe_go_dart/View/SafeGoMap/MapDecorators.dart';
 
 import '../ViewModel/AuthenticationViewModel.dart';
 import 'SafeGoMain.dart';
@@ -41,7 +42,7 @@ class _RegisterViewState extends State<RegisterView> {
               children: [
                 const Expanded(
                   flex: 1, // Set the flex factor for the map
-                  child: SafeGoMap(),
+                  child: MarkerDecorator(map:SafeGoMap()),
                 ),
                 Expanded(
                   flex: 2, // Set the flex factor for the registration container

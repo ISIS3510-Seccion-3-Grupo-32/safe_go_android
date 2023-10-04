@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safe_go_dart/View/SafeGoMap/MapDecorators.dart';
 import 'DestinationChoiceView.dart'; // Import your DestinationChoice widget
 import 'RegisterView.dart';
 import 'SafeGoMap/SafeGoMap.dart';
@@ -51,7 +52,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
         children: [
           const Flexible(
             flex: 2,
-            child:SafeGoMap(),
+            child:MarkerDecorator(map: SafeGoMap(),),
           ),
           Flexible(
             flex: 3,

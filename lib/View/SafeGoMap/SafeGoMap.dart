@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -12,7 +14,7 @@ class SafeGoMap extends StatefulWidget {
 }
   class SafeGoMapState extends State<SafeGoMap> {
   late GoogleMapController mapController;
-  LatLng userLocation = const LatLng(0.0, 0.0);
+  LatLng userLocation = const LatLng(4.6494536, -74.053825);
   late PermissionRequest request;
   Location location = Location();
   @override
@@ -31,6 +33,11 @@ class SafeGoMap extends StatefulWidget {
         final latitude = currentLocation.latitude ?? 0.0;
         final longitude = currentLocation.longitude ?? 0.0;
         userLocation = LatLng(latitude, longitude);
+        CameraPosition cameraPosition = CameraPosition(
+          target: userLocation,
+          zoom: 18,
+        );
+        mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
       });
     });
   }
@@ -45,14 +52,14 @@ class SafeGoMap extends StatefulWidget {
     return  GoogleMap(
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(
-      target: LatLng(0, 0), // Initial map center
+      target: LatLng(4.6494536, -74.053825), // Initial map center
       zoom: 18.0, // Initial zoom level
     ),
       markers: {
     Marker(
     markerId: const MarkerId('user_location'),
     position: userLocation,
-      ),
+    ),
       },
     );
 

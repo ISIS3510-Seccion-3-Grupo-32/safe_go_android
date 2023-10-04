@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:safe_go_dart/ViewModel/AuthenticationViewModel.dart';
 import 'DestinationChoiceView.dart'; // Import your DestinationChoice widget
 import 'RegisterView.dart';
+import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
+import '../ViewModel/IncidentsViewModel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,8 +46,25 @@ class _SafeGoMainState extends State<SafeGoMain> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final IncidentsViewModel incidents = IncidentsViewModel();
+  int TotalIncidents  = 0;
+  @override
+  void initState() {
+    super.initState();
+    _fetchTotalIncidents();
+  }
+  Future<void> _fetchTotalIncidents() async {
+    try {
+      int totalIncidents = await incidents.queryDataBase();
+      setState(() {
+        TotalIncidents = totalIncidents;
+      });
+    } catch (e) {
+      // Handle errors or exceptions if needed
+      print('Error fetching total incidents: $e');
+    }
+  }
   bool _obscureText = true;
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -57,9 +76,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
     return Scaffold(
       body: Column(
         children: [
-          const Flexible(
+           const Flexible(
             flex: 2,
-            child: SafeGoMap(),
+            child: MarkerDecorator(map: SafeGoMap(),),
           ),
           Flexible(
             flex: 3,
@@ -110,7 +129,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'We want you safe!',
+                        'We want you safe!: $TotalIncidents',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: fontSubtext,
