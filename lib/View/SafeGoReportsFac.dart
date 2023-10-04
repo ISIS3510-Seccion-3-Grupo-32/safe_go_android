@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../View/SafeGoMap/SafeGoMap.dart';
-import './reportDeliverSubsistem.dart';
+import 'SafeGoMap/SafeGoMap.dart';
+import '../Model/reportDeliverSubsistem.dart';
 
 class SafegoReportsFac extends StatelessWidget {
   const SafegoReportsFac({
