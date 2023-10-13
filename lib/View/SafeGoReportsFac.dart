@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safe_go_dart/View/SafeGoDetailedReports.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/ReportsViewModel.dart';
 
@@ -185,9 +186,18 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color(0xffF5F5F5),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: const Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SafegoDetailedReportsSubSisView(),
+                                    ),
+                                  );
+                                },
                                 child: Text(
-                                  "Button in WIP We need Cloud of words First",
+                                  "Detaled Reports",
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.left,
