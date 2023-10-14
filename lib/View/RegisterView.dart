@@ -231,6 +231,12 @@ class _RegisterViewState extends State<RegisterView> {
                                   if (value == null || value.isEmpty) {
                                     return 'Email is required';
                                   }
+                                  final emailRegex = RegExp(
+                                      r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+
+                                  if (!emailRegex.hasMatch(value)) {
+                                    return 'Please enter a valid email address';
+                                  }
                                   return null;
                                 },
                               ),
