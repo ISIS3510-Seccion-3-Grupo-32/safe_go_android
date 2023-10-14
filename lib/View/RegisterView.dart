@@ -5,17 +5,18 @@ import 'package:safe_go_dart/View/SafeGoMap/MapDecorators.dart';
 import '../ViewModel/AuthenticationViewModel.dart';
 import 'SafeGoMain.dart';
 import 'SafeGoMap/SafeGoMap.dart';
+import 'package:intl/intl.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
   @override
   _RegisterViewState createState() => _RegisterViewState();
-
 }
 
 class _RegisterViewState extends State<RegisterView> {
   final _formKey = GlobalKey<FormState>();
+  final dateFormat = DateFormat('MM/dd/yyyy');
   bool _obscureText = true;
 
   final fullNameController = TextEditingController();
@@ -23,6 +24,22 @@ class _RegisterViewState extends State<RegisterView> {
   final emailController = TextEditingController();
   final dobController = TextEditingController();
 
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime currentDate = DateTime(2000, 1, 1);
+
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: currentDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2018),
+    );
+
+    if (picked != null) {
+      setState(() {
+        dobController.text = dateFormat.format(picked);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +59,7 @@ class _RegisterViewState extends State<RegisterView> {
               children: [
                 const Expanded(
                   flex: 1, // Set the flex factor for the map
-                  child: MarkerDecorator(map:SafeGoMap()),
+                  child: MarkerDecorator(map: SafeGoMap()),
                 ),
                 Expanded(
                   flex: 2, // Set the flex factor for the registration container
@@ -75,8 +92,7 @@ class _RegisterViewState extends State<RegisterView> {
                               alignment: Alignment.centerLeft,
                               child: Container(
                                 color: Colors.white,
-                                height:
-                                    2.0,
+                                height: 2.0,
                               ),
                             ),
                           ),
@@ -85,8 +101,7 @@ class _RegisterViewState extends State<RegisterView> {
                               padding: EdgeInsets.fromLTRB(paddingSides,
                                   paddingBetween, paddingSides, paddingBetween),
                               child: TextFormField(
-                                controller:
-                                    fullNameController,
+                                controller: fullNameController,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -96,7 +111,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     ),
                                   ),
                                   filled: true,
-                                  hintStyle: const TextStyle(color: Colors.grey),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
                                   hintText: "Full Name",
                                   fillColor: Colors.white70,
                                   contentPadding: const EdgeInsets.symmetric(
@@ -127,7 +143,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     ),
                                   ),
                                   filled: true,
-                                  hintStyle: const TextStyle(color: Colors.grey),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
                                   hintText: "Password",
                                   fillColor: Colors.white70,
                                   contentPadding: const EdgeInsets.symmetric(
@@ -172,7 +189,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     ),
                                   ),
                                   filled: true,
-                                  hintStyle: const TextStyle(color: Colors.grey),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
                                   hintText: "Email",
                                   fillColor: Colors.white70,
                                   contentPadding: const EdgeInsets.symmetric(
@@ -192,8 +210,7 @@ class _RegisterViewState extends State<RegisterView> {
                               padding: EdgeInsets.fromLTRB(paddingSides,
                                   paddingBetween, paddingSides, paddingBetween),
                               child: TextFormField(
-                                controller:
-                                    dobController, // Assign the controller
+                                controller: dobController,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -203,15 +220,46 @@ class _RegisterViewState extends State<RegisterView> {
                                     ),
                                   ),
                                   filled: true,
-                                  hintStyle: const TextStyle(color: Colors.grey),
-                                  hintText: "Date of birth",
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
+                                  hintText: "Date of birth (MM/DD/YYYY)",
                                   fillColor: Colors.white70,
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 8.0, horizontal: 12.0),
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(Icons.calendar_today),
+                                    onPressed: () {
+                                      _selectDate(context);
+                                    },
+                                  ),
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Birthdate is required';
+                                  }
+
+                                  const datePattern =
+                                      r'^(\d{2})/(\d{2})/(\d{4})$';
+                                  final match =
+                                      RegExp(datePattern).firstMatch(value);
+
+                                  if (match == null) {
+                                    return 'Invalid date format. Please use "DD/MM/YYYY".';
+                                  }
+
+                                  final month =
+                                      int.parse(match.group(1) ?? '0');
+                                  final day = int.parse(match.group(2) ?? '0');
+                                  final year = int.parse(match.group(3) ?? '0');
+
+                                  if (day < 1 || day > 31) {
+                                    return 'Invalid day. Day must be between 1 and 31.';
+                                  }
+                                  if (month < 1 || month > 12) {
+                                    return 'Invalid month. Month must be between 1 and 12.';
+                                  }
+                                  if (year < 1900 || year > 2018) {
+                                    return 'Invalid year. Year must be between 1900 and 2018.';
                                   }
                                   return null;
                                 },
@@ -228,12 +276,21 @@ class _RegisterViewState extends State<RegisterView> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     // Print the content of the input fields
-                                    debugPrint('Full Name: ${fullNameController.text}');
-                                    debugPrint('Password: ${passwordController.text}');
-                                    debugPrint('Email: ${emailController.text}');
-                                    debugPrint('Date of Birth: ${dobController.text}');
-                                    final authenticationViewModel = Provider.of<AuthenticationViewModel>(context, listen: false);
-                                    authenticationViewModel.signUp(emailController.text, passwordController.text);
+                                    debugPrint(
+                                        'Full Name: ${fullNameController.text}');
+                                    debugPrint(
+                                        'Password: ${passwordController.text}');
+                                    debugPrint(
+                                        'Email: ${emailController.text}');
+                                    debugPrint(
+                                        'Date of Birth: ${dobController.text}');
+                                    final authenticationViewModel =
+                                        Provider.of<AuthenticationViewModel>(
+                                            context,
+                                            listen: false);
+                                    authenticationViewModel.signUp(
+                                        emailController.text,
+                                        passwordController.text);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -245,7 +302,8 @@ class _RegisterViewState extends State<RegisterView> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
                                 ),
-                                child: const Text('Submit',
+                                child: const Text(
+                                  'Submit',
                                   style: TextStyle(color: Colors.black),
                                 ),
                               ),

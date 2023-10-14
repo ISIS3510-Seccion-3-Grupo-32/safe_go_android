@@ -12,7 +12,8 @@ class SafeGoMap extends StatefulWidget {
   @override
   State<SafeGoMap> createState() => SafeGoMapState();
 }
-  class SafeGoMapState extends State<SafeGoMap> {
+
+class SafeGoMapState extends State<SafeGoMap> {
   late GoogleMapController mapController;
   LatLng userLocation = const LatLng(4.6494536, -74.053825);
   late PermissionRequest request;
@@ -22,12 +23,14 @@ class SafeGoMap extends StatefulWidget {
     super.initState();
     init();
   }
-  Future<void> init() async{
+
+  Future<void> init() async {
     PermissionRequest request = PermissionRequest();
     await request.requestLocationPermission(context);
     updateLocation();
   }
-  updateLocation()  {
+
+  updateLocation() {
     location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
         final latitude = currentLocation.latitude ?? 0.0;
@@ -37,10 +40,12 @@ class SafeGoMap extends StatefulWidget {
           target: userLocation,
           zoom: 18,
         );
-        mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+        mapController
+            .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
       });
     });
   }
+
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
       mapController = controller;
@@ -49,19 +54,18 @@ class SafeGoMap extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GoogleMap(
+    return GoogleMap(
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(
-      target: LatLng(4.6494536, -74.053825), // Initial map center
-      zoom: 18.0, // Initial zoom level
-    ),
+        target: LatLng(4.6494536, -74.053825), // Initial map center
+        zoom: 18.0, // Initial zoom level
+      ),
       markers: {
-    Marker(
-    markerId: const MarkerId('user_location'),
-    position: userLocation,
-    ),
+        Marker(
+          markerId: const MarkerId('user_location'),
+          position: userLocation,
+        ),
       },
     );
-
   }
 }
