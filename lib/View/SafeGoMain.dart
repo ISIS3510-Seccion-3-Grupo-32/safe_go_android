@@ -236,8 +236,10 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               if (value == null || value.isEmpty) {
                                 return 'Password is required';
                               }
+
                               return null;
                             },
+
                             obscureText: _obscureText,
                           ),
                         ),

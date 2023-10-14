@@ -167,6 +167,37 @@ class _RegisterViewState extends State<RegisterView> {
                                   if (value == null || value.isEmpty) {
                                     return 'Password is required';
                                   }
+
+                                  List<String> errors = [];
+
+                                  if (value.length < 8) {
+                                    errors.add(
+                                        'Password must be at least 8 characters long');
+                                  }
+
+                                  if (!value.contains(RegExp(r'[a-z]'))) {
+                                    errors.add(
+                                        'Password must contain at least one lowercase letter');
+                                  }
+
+                                  if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                                    errors.add(
+                                        'Password must contain at least one uppercase letter');
+                                  }
+
+                                  if (!RegExp(r'[0-9]').hasMatch(value)) {
+                                    errors.add(
+                                        'Password must contain at least one number');
+                                  }
+
+                                  if (!RegExp(r'[!@#$%^&*]').hasMatch(value)) {
+                                    errors.add(
+                                        'Password must contain at least one special character');
+                                  }
+
+                                  if (errors.isNotEmpty) {
+                                    return errors.join('\n');
+                                  }
                                   return null;
                                 },
                                 obscureText: _obscureText,
