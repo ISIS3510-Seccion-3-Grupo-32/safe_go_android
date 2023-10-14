@@ -143,16 +143,16 @@ class _SafeGoMainState extends State<SafeGoMain> {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 2,
                                   color: Colors.grey,
                                 ),
                               ),
                               filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               hintText: "UserName",
                               fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),
                             ),
                             validator: (value) {
@@ -172,16 +172,16 @@ class _SafeGoMainState extends State<SafeGoMain> {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   width: 2,
                                   color: Colors.grey,
                                 ),
                               ),
                               filled: true,
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                               hintText: "Password",
                               fillColor: Colors.white70,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 12.0),
                               suffixIcon: IconButton(
                                 icon: Icon(
@@ -229,12 +229,12 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                   );
                                 }
                               },
-                              child: Text(
-                                'Login',
-                                style: TextStyle(color: Colors.black),
-                              ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
+                              ),
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(color: Colors.black),
                               ),
                             ),
                           ),
@@ -246,7 +246,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RegisterView(),
+                                  builder: (context) => const RegisterView(),
                                 ),
                               );
                             },
@@ -259,7 +259,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                     color: Colors.white,
                                     fontSize: fontSubtext,
                                   ),
-                                  children: <TextSpan>[
+                                  children: const <TextSpan>[
                                     TextSpan(
                                       text: 'Register',
                                       style: TextStyle(
