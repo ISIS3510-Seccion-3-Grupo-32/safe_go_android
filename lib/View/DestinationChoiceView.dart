@@ -11,6 +11,8 @@ class DestinationChoiceView extends StatelessWidget {
     LatLng(4.60140465 - 0.0003, -74.0649032880709 + 0.0003), // Punto 2
   ];
 
+  DestinationChoiceView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

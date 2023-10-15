@@ -76,7 +76,7 @@ class SafegoReportsFac extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(10.0))),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color.fromRGBO(
+                                  backgroundColor: const Color.fromRGBO(
                                       99, 165, 136, 1), // Background color
                                 ),
                                 child: const Text(
@@ -104,7 +104,7 @@ class SafegoReportsFac extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(10.0))),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color.fromRGBO(
+                                  backgroundColor: const Color.fromRGBO(
                                       99, 165, 136, 1), // Background color
                                 ),
                                 onPressed: () {
@@ -112,7 +112,7 @@ class SafegoReportsFac extends StatelessWidget {
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject2);
                                 },
-                                child: Text(
+                                child: const Text(
                                   subject2,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 14),
@@ -132,7 +132,7 @@ class SafegoReportsFac extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(10.0))),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color.fromRGBO(
+                                  backgroundColor: const Color.fromRGBO(
                                       99, 165, 136, 1), // Background color
                                 ),
                                 onPressed: () {
@@ -140,7 +140,7 @@ class SafegoReportsFac extends StatelessWidget {
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject3);
                                 },
-                                child: Text(
+                                child: const Text(
                                   subject3,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 14),
@@ -160,7 +160,7 @@ class SafegoReportsFac extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(10.0))),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color.fromRGBO(
+                                  backgroundColor: const Color.fromRGBO(
                                       99, 165, 136, 1), // Background color
                                 ),
                                 onPressed: () {
@@ -168,7 +168,7 @@ class SafegoReportsFac extends StatelessWidget {
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject4);
                                 },
-                                child: Text(
+                                child: const Text(
                                   subject4,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 14),
