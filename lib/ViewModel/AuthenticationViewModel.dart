@@ -11,8 +11,13 @@ class AuthenticationViewModel extends ChangeNotifier {
 
   Future<User?> signUp(String email, String password) async {
     try {
-      print(1);
-      final UserCredential currentUser = await auth.createUserWithEmailAndPassword(
+      if (await isEmailAlreadyUsed(email)) {
+        print('The email address is already in use.');
+        return null;
+      }
+
+      final UserCredential currentUser =
+          await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -21,9 +26,6 @@ class AuthenticationViewModel extends ChangeNotifier {
       String errorMessage;
       if (e is FirebaseAuthException) {
         switch (e.code) {
-          case 'email-already-in-use':
-            errorMessage = 'The email address is already in use.';
-            break;
           case 'invalid-email':
             errorMessage = 'Invalid email address format.';
             break;
@@ -44,7 +46,8 @@ class AuthenticationViewModel extends ChangeNotifier {
 
   Future<User?> signIn(String email, String password) async {
     try {
-      final UserCredential userCredential = await auth.signInWithEmailAndPassword(
+      final UserCredential userCredential =
+          await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -72,11 +75,19 @@ class AuthenticationViewModel extends ChangeNotifier {
       print(authError);
     }
     return null;
-
   }
 
   Future<void> signOut() async {
     await auth.signOut();
+  }
+
+  Future<bool> isEmailAlreadyUsed(String email) async {
+    final List<String> signInMethods =
+        await auth.fetchSignInMethodsForEmail(email);
+    if (signInMethods.isNotEmpty) {
+      return true;
+    }
+    return false;
   }
 
   User? get currentUser => auth.currentUser;
