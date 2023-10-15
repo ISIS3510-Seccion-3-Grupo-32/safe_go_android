@@ -39,6 +39,7 @@ class AuthenticationViewModel extends ChangeNotifier {
       print(errorMessage);
       notifyListeners();
     }
+    return null;
   }
 
   Future<User?> signIn(String email, String password) async {
@@ -70,6 +71,7 @@ class AuthenticationViewModel extends ChangeNotifier {
       // Set the authError in your ViewModel for the UI to display
       print(authError);
     }
+    return null;
 
   }
 
