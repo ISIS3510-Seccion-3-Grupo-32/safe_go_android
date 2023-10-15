@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safe_go_dart/View/select_destination.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/ReportsViewModel.dart';
 
@@ -9,10 +10,6 @@ class SafegoDetailedReportsSubSisView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const subject1 = "Dark, Unatendded Areas";
-    const subject2 = "Smugglers, violence";
-    const subject3 = "Pickpockets, intimidation";
-    const subject4 = "Drug Dealing, Gang Activities";
     const userlocation = "TestLocation";
     const userDate = "TestDate";
     return Scaffold(
@@ -65,16 +62,45 @@ class SafegoDetailedReportsSubSisView extends StatelessWidget {
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 3.0),
-                          height: 40.0,
+                          height: 52.0,
                           width: 370.0,
                           color: Colors.transparent,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                                color: Color.fromRGBO(99, 165, 136, 1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
+                          child: const Expanded(
+                            child: SizedBox(
+                              child: TextField(
+                                maxLines: null,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: EdgeInsets.all(10.0),
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Write your Detailed Report Here',
+                                ),
+                              ),
+                            ),
                           ),
                         ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromRGBO(
+                                99, 165, 136, 1), // Background color
+                          ),
+                          child: const Text(
+                            "Submit",
+                            style: TextStyle(color: Colors.black, fontSize: 14),
+                            textAlign: TextAlign.left,
+                          ),
+                          onPressed: () {
+                            final ReportsViewModel report = ReportsViewModel();
+                            report.sendDetailedReport("ja");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SelectDestination(),
+                              ),
+                            );
+                          },
+                        )
                       ],
                     )),
               ),
