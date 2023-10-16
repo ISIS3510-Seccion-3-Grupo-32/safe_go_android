@@ -71,6 +71,27 @@ class _SafeGoMainState extends State<SafeGoMain> {
     }
   }
 
+  Future<void> _showErrorDialog(
+      BuildContext context, String errorMessage) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Authentication Error'),
+          content: Text(errorMessage),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
@@ -194,6 +215,12 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               if (value == null || value.isEmpty) {
                                 return 'Email is required';
                               }
+                              final emailRegex = RegExp(
+                                  r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+
+                              if (!emailRegex.hasMatch(value)) {
+                                return 'Please enter a valid email address';
+                              }
                               return null;
                             },
                           ),
@@ -236,8 +263,18 @@ class _SafeGoMainState extends State<SafeGoMain> {
                               if (value == null || value.isEmpty) {
                                 return 'Password is required';
                               }
+
+                              if (value.length < 8 ||
+                                  !value.contains(RegExp(r'[a-z]')) ||
+                                  !RegExp(r'[A-Z]').hasMatch(value) ||
+                                  !RegExp(r'[0-9]').hasMatch(value) ||
+                                  !RegExp(r'[!@#$%^&*]').hasMatch(value)) {
+                                return 'Passwords must be at least 8 characters long and contain at least one small and one capital letter, one number and one symbol';
+                              }
+
                               return null;
                             },
+
                             obscureText: _obscureText,
                           ),
                         ),
@@ -246,27 +283,34 @@ class _SafeGoMainState extends State<SafeGoMain> {
                             width: screenWidth * 0.8,
                             height: screenHeight * 0.06,
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  // Print the content of the input fields
-                                  debugPrint(
-                                      'Username: ${emailController.text}');
-                                  debugPrint(
-                                      'Password: ${passwordController.text}');
                                   final authenticationViewModel =
                                       Provider.of<AuthenticationViewModel>(
                                           context,
                                           listen: false);
-                                  authenticationViewModel.signIn(
-                                      emailController.text,
-                                      passwordController.text);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          DestinationChoiceView(),
-                                    ),
+
+                                  // Call the signIn method
+                                  final user =
+                                      await authenticationViewModel.signIn(
+                                    emailController.text,
+                                    passwordController.text,
                                   );
+
+                                  if (user != null) {
+                                    // Authentication successful, navigate to the other view
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DestinationChoiceView(),
+                                      ),
+                                    );
+                                  } else {
+                                    // Authentication failed, show error dialog
+                                    _showErrorDialog(context,
+                                        'Authentication failed. Please check your credentials.');
+                                  }
                                 }
                               },
                               style: ElevatedButton.styleFrom(
