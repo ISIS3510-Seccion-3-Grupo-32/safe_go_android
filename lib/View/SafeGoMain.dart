@@ -100,19 +100,30 @@ class _SafeGoMainState extends State<SafeGoMain> {
     double fontRegister = screenHeight * 0.05;
     double fontSubtext = screenHeight * 0.02;
     double paddingSides = screenWidth * 0.05;
+    double padding18 = screenWidth * 0.04;
+    double padding20 = screenWidth * 0.05;
+    int sizeOfMap = 2;
+    int sizeOfInputs = 3;
+    final keyboardPadding = MediaQuery.of(context).viewInsets.bottom;
+    if (keyboardPadding > 0) {
+      sizeOfMap = 1;
+      sizeOfInputs = 2;
+      fontRegister = screenHeight * 0.04;
+      padding20 = screenWidth * 0.04;
+      padding18 = screenWidth * 0.03;
+    }
 
     return Scaffold(
-      backgroundColor: Color(0xFF96CEB4),
       body: Column(
         children: [
-          const Flexible(
-            flex: 2,
+          Flexible(
+            flex: sizeOfMap,
             child: MarkerDecorator(
               map: SafeGoMap(),
             ),
           ),
           Flexible(
-            flex: 3,
+            flex: sizeOfInputs,
             child: Container(
               decoration: const BoxDecoration(
                 color: Color(0xFF96CEB4),
@@ -121,249 +132,286 @@ class _SafeGoMainState extends State<SafeGoMain> {
                   topRight: Radius.circular(50),
                 ),
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: paddingSides),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: RichText(
-                          text: TextSpan(
-                            text: "Welcome to SafeGo",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: fontRegister,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: paddingSides),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Login Before you start your trip!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: fontSubtext,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: paddingSides),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Be careful, the closest incident was located $TotalIncidents meters from you!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: fontSubtext,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      height: 2.0,
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: paddingSides),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Login Credentials',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: fontSubtext,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: paddingSides),
-                            child: TextFormField(
-                              controller:
-                                  emailController, // Assign the controller
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
-                                    width: 2,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                filled: true,
-                                hintStyle: const TextStyle(color: Colors.grey),
-                                hintText: "Email",
-                                fillColor: Colors.white70,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 8.0, horizontal: 12.0),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Email is required';
-                                }
-                                final emailRegex = RegExp(
-                                    r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
-
-                                if (!emailRegex.hasMatch(value)) {
-                                  return 'Please enter a valid email address';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: paddingSides),
-                            child: TextFormField(
-                              controller:
-                                  passwordController, // Assign the controller
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: const BorderSide(
-                                    width: 2,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                filled: true,
-                                hintStyle: const TextStyle(color: Colors.grey),
-                                hintText: "Password",
-                                fillColor: Colors.white70,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 8.0, horizontal: 12.0),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obscureText
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: Colors.grey,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _obscureText = !_obscureText;
-                                    });
-                                  },
-                                ),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Password is required';
-                                }
-
-                                if (value.length < 8 ||
-                                    !value.contains(RegExp(r'[a-z]')) ||
-                                    !RegExp(r'[A-Z]').hasMatch(value) ||
-                                    !RegExp(r'[0-9]').hasMatch(value) ||
-                                    !RegExp(r'[!@#$%^&*]').hasMatch(value)) {
-                                  return 'Passwords must be at least 8 characters long and contain at least one small and one capital letter, one number and one symbol';
-                                }
-
-                                return null;
-                              },
-
-                              obscureText: _obscureText,
-                            ),
-                          ),
-                          Center(
-                            child: SizedBox(
-                              width: screenWidth * 0.8,
-                              height: screenHeight * 0.06,
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    final authenticationViewModel =
-                                        Provider.of<AuthenticationViewModel>(
-                                            context,
-                                            listen: false);
-
-                                    // Call the signIn method
-                                    final user =
-                                        await authenticationViewModel.signIn(
-                                      emailController.text,
-                                      passwordController.text,
-                                    );
-
-                                    if (user != null) {
-                                      // Authentication successful, navigate to the other view
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              DestinationChoiceView(),
-                                        ),
-                                      );
-                                    } else {
-                                      // Authentication failed, show error dialog
-                                      _showErrorDialog(context,
-                                          'Authentication failed. Please check your credentials.');
-                                    }
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                ),
-                                child: const Text(
-                                  'Login',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: GestureDetector(
-                              onTap: () {
-                                // Navigate to the registration view
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const RegisterView(),
-                                  ),
-                                );
-                              },
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text.rich(
-                                  TextSpan(
-                                    text: "Don't have an account? ",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: fontSubtext,
-                                    ),
-                                    children: const <TextSpan>[
-                                      TextSpan(
-                                        text: 'Register',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          decoration: TextDecoration.underline,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: padding20,
+                                        horizontal: paddingSides),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: RichText(
+                                        text: TextSpan(
+                                          text: "Welcome to SafeGo",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: fontRegister,
+                                          ),
                                         ),
                                       ),
-                                    ],
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: keyboardPadding == 0,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: paddingSides),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Login Before you start your trip!',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: fontSubtext,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: keyboardPadding == 0,
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(paddingSides,
+                                          0, paddingSides, padding20),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Be careful, the closest incident was located $TotalIncidents meters from you!',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: fontSubtext,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: keyboardPadding == 0,
+                                    child: Container(
+                                      color: Colors.white,
+                                      height: 2.0,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        paddingSides, 10, paddingSides, 0),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Login Credentials',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: fontSubtext,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        paddingSides, 10, paddingSides, 0),
+                                    child: TextFormField(
+                                      controller:
+                                          emailController, // Assign the controller
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          borderSide: const BorderSide(
+                                            width: 2,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        filled: true,
+                                        hintStyle:
+                                            const TextStyle(color: Colors.grey),
+                                        hintText: "Email",
+                                        fillColor: Colors.white70,
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 8.0,
+                                                horizontal: 12.0),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Email is required';
+                                        }
+                                        final emailRegex = RegExp(
+                                            r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+
+                                        if (!emailRegex.hasMatch(value)) {
+                                          return 'Please enter a valid email address';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: paddingSides,
+                                        vertical: padding20),
+                                    child: TextFormField(
+                                      controller:
+                                          passwordController, // Assign the controller
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          borderSide: const BorderSide(
+                                            width: 2,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        filled: true,
+                                        hintStyle:
+                                            const TextStyle(color: Colors.grey),
+                                        hintText: "Password",
+                                        fillColor: Colors.white70,
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 8.0,
+                                                horizontal: 12.0),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            _obscureText
+                                                ? Icons.visibility_off
+                                                : Icons.visibility,
+                                            color: Colors.grey,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              _obscureText = !_obscureText;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Password is required';
+                                        }
+
+                                        if (value.length < 8 ||
+                                            !value.contains(RegExp(r'[a-z]')) ||
+                                            !RegExp(r'[A-Z]').hasMatch(value) ||
+                                            !RegExp(r'[0-9]').hasMatch(value) ||
+                                            !RegExp(r'[!@#$%^&*]')
+                                                .hasMatch(value)) {
+                                          return 'Passwords must be at least 8 characters long and contain at least one small and one capital letter, one number and one symbol';
+                                        }
+
+                                        return null;
+                                      },
+
+                                      obscureText: _obscureText,
+                                    ),
+                                  ),
+                                  Center(
+                                    child: SizedBox(
+                                      width: screenWidth * 0.8,
+                                      height: screenHeight * 0.06,
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            final authenticationViewModel =
+                                                Provider.of<
+                                                        AuthenticationViewModel>(
+                                                    context,
+                                                    listen: false);
+
+                                            // Call the signIn method
+                                            final user =
+                                                await authenticationViewModel
+                                                    .signIn(
+                                              emailController.text,
+                                              passwordController.text,
+                                            );
+
+                                            if (user != null) {
+                                              // Authentication successful, navigate to the other view
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DestinationChoiceView(),
+                                                ),
+                                              );
+                                            } else {
+                                              // Authentication failed, show error dialog
+                                              _showErrorDialog(context,
+                                                  'Authentication failed. Please check your credentials.');
+                                            }
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                        ),
+                                        child: const Text(
+                                          'Login',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 15),
+                            Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  // Navigate to the registration view
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegisterView(),
+                                    ),
+                                  );
+                                },
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: "Don't have an account? ",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: fontSubtext,
+                                      ),
+                                      children: const <TextSpan>[
+                                        TextSpan(
+                                          text: 'Register',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: padding20),
+                          ],
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
