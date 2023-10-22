@@ -12,6 +12,8 @@ class SafegoDetailedReportsSubSisView extends StatelessWidget {
   Widget build(BuildContext context) {
     const userlocation = "TestLocation";
     const userDate = "TestDate";
+    var myController = TextEditingController();
+
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -65,9 +67,10 @@ class SafegoDetailedReportsSubSisView extends StatelessWidget {
                           height: 52.0,
                           width: 370.0,
                           color: Colors.transparent,
-                          child: const Expanded(
+                          child: Expanded(
                             child: SizedBox(
                               child: TextField(
+                                controller: myController,
                                 maxLines: null,
                                 decoration: InputDecoration(
                                   filled: true,
@@ -92,7 +95,7 @@ class SafegoDetailedReportsSubSisView extends StatelessWidget {
                           ),
                           onPressed: () {
                             final ReportsViewModel report = ReportsViewModel();
-                            report.sendDetailedReport("ja");
+                            report.sendDetailedReport(myController.text);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
