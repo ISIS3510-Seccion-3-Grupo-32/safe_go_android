@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:safe_go_dart/View/SafeGoDetailedReports.dart';
+import 'package:safe_go_dart/View/select_destination.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/ReportsViewModel.dart';
 
@@ -88,6 +90,16 @@ class SafegoReportsFac extends StatelessWidget {
                                   final ReportsViewModel report =
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject1);
+                                  const SnackBar(
+                                    content: Text("We got the report!"),
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SelectDestination(),
+                                    ),
+                                  );
                                 },
                               )),
                         ),
@@ -110,6 +122,13 @@ class SafegoReportsFac extends StatelessWidget {
                                   final ReportsViewModel report =
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject2);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SelectDestination(),
+                                    ),
+                                  );
                                 },
                                 child: const Text(
                                   subject2,
@@ -138,6 +157,13 @@ class SafegoReportsFac extends StatelessWidget {
                                   final ReportsViewModel report =
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject3);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SelectDestination(),
+                                    ),
+                                  );
                                 },
                                 child: const Text(
                                   subject3,
@@ -166,6 +192,13 @@ class SafegoReportsFac extends StatelessWidget {
                                   final ReportsViewModel report =
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject4);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SelectDestination(),
+                                    ),
+                                  );
                                 },
                                 child: const Text(
                                   subject4,
@@ -185,9 +218,18 @@ class SafegoReportsFac extends StatelessWidget {
                                   color: Color(0xffF5F5F5),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: const Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SafegoDetailedReportsSubSisView(),
+                                    ),
+                                  );
+                                },
                                 child: Text(
-                                  "Button in WIP We need Cloud of words First",
+                                  "Detaled Reports",
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 14),
                                   textAlign: TextAlign.left,
