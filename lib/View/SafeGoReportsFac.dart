@@ -93,13 +93,7 @@ class SafegoReportsFac extends StatelessWidget {
                                   const SnackBar(
                                     content: Text("We got the report!"),
                                   );
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SelectDestination(),
-                                    ),
-                                  );
+                                  Navigator.pop(context);
                                 },
                               )),
                         ),
@@ -122,13 +116,7 @@ class SafegoReportsFac extends StatelessWidget {
                                   final ReportsViewModel report =
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject2);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SelectDestination(),
-                                    ),
-                                  );
+                                  Navigator.pop(context);
                                 },
                                 child: const Text(
                                   subject2,
@@ -157,13 +145,7 @@ class SafegoReportsFac extends StatelessWidget {
                                   final ReportsViewModel report =
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject3);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SelectDestination(),
-                                    ),
-                                  );
+                                  Navigator.pop(context);
                                 },
                                 child: const Text(
                                   subject3,
@@ -192,13 +174,7 @@ class SafegoReportsFac extends StatelessWidget {
                                   final ReportsViewModel report =
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject4);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SelectDestination(),
-                                    ),
-                                  );
+                                  Navigator.pop(context);
                                 },
                                 child: const Text(
                                   subject4,
