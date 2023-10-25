@@ -95,13 +95,27 @@ class SafegoDetailedReportsSubSisView extends StatelessWidget {
                           ),
                           onPressed: () {
                             final ReportsViewModel report = ReportsViewModel();
-                            report.sendDetailedReport(myController.text);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SelectDestination(),
-                              ),
-                            );
+                            if (myController.text.isNotEmpty &&
+                                myController.text.characters.length > 20) {
+                              report.sendDetailedReport(myController.text);
+
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              const snackBar = SnackBar(
+                                content: Text('We got your Report!'),
+                                duration: Duration(milliseconds: 3000),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else {
+                              const snackBar = SnackBar(
+                                content: Text(
+                                    'Please tell us more about this situation'),
+                                duration: Duration(milliseconds: 3000),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
                           },
                         )
                       ],

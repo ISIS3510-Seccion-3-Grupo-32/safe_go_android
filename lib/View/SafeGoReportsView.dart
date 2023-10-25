@@ -89,10 +89,12 @@ class SafegoReportsFac extends StatelessWidget {
                                 onPressed: () {
                                   final ReportsViewModel report =
                                       ReportsViewModel();
-                                  report.sendSubjectReport(subject1);
-                                  const SnackBar(
-                                    content: Text("We got the report!"),
+                                  const snackBar = SnackBar(
+                                    content: Text('We got your Report!'),
+                                    duration: Duration(milliseconds: 3000),
                                   );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                   Navigator.pop(context);
                                 },
                               )),
@@ -117,6 +119,12 @@ class SafegoReportsFac extends StatelessWidget {
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject2);
                                   Navigator.pop(context);
+                                  const snackBar = SnackBar(
+                                    content: Text('We got your Report!'),
+                                    duration: Duration(milliseconds: 3000),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 },
                                 child: const Text(
                                   subject2,
@@ -146,6 +154,12 @@ class SafegoReportsFac extends StatelessWidget {
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject3);
                                   Navigator.pop(context);
+                                  const snackBar = SnackBar(
+                                    content: Text('We got your Report!'),
+                                    duration: Duration(milliseconds: 3000),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 },
                                 child: const Text(
                                   subject3,
@@ -175,6 +189,12 @@ class SafegoReportsFac extends StatelessWidget {
                                       ReportsViewModel();
                                   report.sendSubjectReport(subject4);
                                   Navigator.pop(context);
+                                  const snackBar = SnackBar(
+                                    content: Text('We got your Report!'),
+                                    duration: Duration(milliseconds: 3000),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 },
                                 child: const Text(
                                   subject4,

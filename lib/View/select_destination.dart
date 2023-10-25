@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'select_destination_buttons.dart';
 import 'TravelHistoryView.dart';
 import 'StartRideView.dart';
-import 'SafeGoReportsFac.dart';
+import 'SafeGoReportsView.dart';
 
 class SelectDestination extends StatelessWidget {
   const SelectDestination({
