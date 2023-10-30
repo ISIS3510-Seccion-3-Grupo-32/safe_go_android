@@ -3,8 +3,8 @@ import 'package:safe_go_dart/View/select_destination.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/ReportsViewModel.dart';
 
-class SafegoDetailedReportsSubSisView extends StatelessWidget {
-  const SafegoDetailedReportsSubSisView({
+class SafeGoDetailedReports extends StatelessWidget {
+  const SafeGoDetailedReports({
     super.key,
   });
 
@@ -99,7 +99,6 @@ class SafegoDetailedReportsSubSisView extends StatelessWidget {
                                 myController.text.characters.length > 20) {
                               report.sendDetailedReport(myController.text);
 
-                              Navigator.pop(context);
                               Navigator.pop(context);
                               const snackBar = SnackBar(
                                 content: Text('We got your Report!'),
