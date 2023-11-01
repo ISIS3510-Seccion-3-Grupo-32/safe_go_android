@@ -22,7 +22,12 @@ class ReportBugsView extends StatelessWidget {
             TextButton(
               child: const Text('OK'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DestinationChoiceView(),
+                  ),
+                );
               },
             ),
           ],
@@ -37,8 +42,8 @@ class ReportBugsView extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     double paddingSides = screenWidth * 0.05;
     double sizeBoxPadding = screenHeight * 0.04;
-    double fontHeader = screenHeight * 0.05;
-    double fontSubtext = 16; // Define fontSubtext with the appropriate size.
+    double fontHeader = screenHeight * 0.04;
+
     final keyboardPadding = MediaQuery.of(context).viewInsets.bottom;
 
     return Scaffold(
@@ -48,11 +53,11 @@ class ReportBugsView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: SafeGoMap(),
               ),
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color(0xFF96CEB4),
@@ -68,18 +73,13 @@ class ReportBugsView extends StatelessWidget {
                       children: [
                         Visibility(
                           visible: keyboardPadding == 0,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: RichText(
-                                text: TextSpan(
-                                  text: "Describe your problem\n",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: fontHeader,
-                                  ),
-                                ),
-                                textAlign: TextAlign.center),
+                          child: Text(
+                            "Describe your problem",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: fontHeader,
+                            ),
                           ),
                         ),
                         Visibility(
@@ -91,7 +91,7 @@ class ReportBugsView extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.fromLTRB(
-                              paddingSides, 10, paddingSides, 0),
+                              paddingSides, 0, paddingSides, 0),
                           child: TextFormField(
                             controller: emailController,
                             decoration: InputDecoration(
@@ -135,20 +135,13 @@ class ReportBugsView extends StatelessWidget {
                                     context,
                                     "Your problem description has been successfully sent. Thank you for helping improve the app.",
                                   );
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          DestinationChoiceView(),
-                                    ),
-                                  );
                                 }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                               ),
                               child: const Text(
-                                'Submit', // Changed 'Login' to 'Submit'
+                                'Submit',
                                 style: TextStyle(
                                   color: Colors.black,
                                 ),
