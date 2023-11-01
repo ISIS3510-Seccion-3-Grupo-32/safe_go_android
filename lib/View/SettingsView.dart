@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ReportBugsView.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -19,7 +20,7 @@ class SettingsView extends StatelessWidget {
         centerTitle: true, // Add your title here
         actions: [
           IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -124,7 +125,7 @@ class SettingsView extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SettingsView(),
+                      builder: (context) => ReportBugsView(),
                     ),
                   );
                 },
@@ -138,7 +139,7 @@ class SettingsView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
-                        'Bugs',
+                        'Problems within the app',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,
