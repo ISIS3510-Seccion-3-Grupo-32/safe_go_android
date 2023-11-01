@@ -24,6 +24,13 @@ class SafeGoMapState extends State<SafeGoMap> {
     init();
   }
 
+  @override
+  void dispose() {
+    mapController.dispose();
+
+    super.dispose();
+  }
+
   Future<void> init() async {
     PermissionRequest request = PermissionRequest();
     await request.requestLocationPermission(context);

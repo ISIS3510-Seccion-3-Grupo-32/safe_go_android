@@ -38,6 +38,16 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    fullNameController.dispose();
+    emailController.dispose();
+    dobController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;

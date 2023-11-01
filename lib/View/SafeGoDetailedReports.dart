@@ -11,9 +11,12 @@ class SafeGoDetailedReports extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const userlocation = "TestLocation";
-    const userDate = "TestDate";
     var myController = TextEditingController();
+
+    @override
+    void dispose() {
+      myController.dispose();
+    }
 
     return Scaffold(
       body: LayoutBuilder(
