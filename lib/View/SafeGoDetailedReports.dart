@@ -13,11 +13,6 @@ class SafeGoDetailedReports extends StatelessWidget {
   Widget build(BuildContext context) {
     var myController = TextEditingController();
 
-    @override
-    void dispose() {
-      myController.dispose();
-    }
-
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
