@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safe_go_dart/View/DestinationChoiceView.dart';
 import 'package:safe_go_dart/View/select_destination.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/ReportsViewModel.dart';
@@ -99,10 +100,15 @@ class SafeGoDetailedReports extends StatelessWidget {
                                 myController.text.characters.length > 20) {
                               report.sendDetailedReport(myController.text);
 
-                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DestinationChoiceView(),
+                                ),
+                              );
                               const snackBar = SnackBar(
                                 content: Text('We got your Report!'),
-                                duration: Duration(milliseconds: 3000),
+                                duration: Duration(milliseconds: 2000),
                               );
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
@@ -110,7 +116,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                               const snackBar = SnackBar(
                                 content: Text(
                                     'Please tell us more about this situation'),
-                                duration: Duration(milliseconds: 3000),
+                                duration: Duration(milliseconds: 2000),
                               );
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
