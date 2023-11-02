@@ -3,6 +3,8 @@ import 'SafeGoMap/SafeGoMap.dart'; // Ensure that your import paths are correct.
 import '../ViewModel/ReportsViewModel.dart';
 import 'DestinationChoiceView.dart';
 import 'RegisterView.dart'; // Import the RegisterView if it's not imported.
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ReportBugsView extends StatelessWidget {
   ReportBugsView({Key? key}) : super(key: key); // Fix the constructor syntax.
@@ -34,6 +36,27 @@ class ReportBugsView extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> sendInputToBackend(String inputText) async {
+    final client = http.Client();
+    final url = Uri.parse('http://localhost:3001/process_sentence');
+    final response = await client.post(url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"input_text": inputText}));
+
+    if (response.statusCode == 111) {
+      print("Fuck off");
+    }
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      String category = data["category"];
+      print("Category from backend: $category");
+      // Do something with the category (e.g., display it in your app)
+    } else {
+      print("Failed to connect to the backend");
+    }
   }
 
   @override
@@ -131,10 +154,13 @@ class ReportBugsView extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  _showErrorDialog(
-                                    context,
-                                    "Your problem description has been successfully sent. Thank you for helping improve the app.",
-                                  );
+                                  print(emailController.text);
+
+                                  sendInputToBackend(emailController.text);
+                                  // _showErrorDialog(
+                                  //   context,
+                                  //   "Your problem description has been successfully sent. Thank you for helping improve the app.",
+                                  // );
                                 }
                               },
                               style: ElevatedButton.styleFrom(
