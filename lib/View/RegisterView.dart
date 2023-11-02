@@ -31,9 +31,11 @@ class _RegisterViewState extends State<RegisterView> {
     );
 
     if (picked != null) {
-      setState(() {
-        dobController.text = dateFormat.format(picked);
-      });
+      if (this.mounted) {
+        setState(() {
+          dobController.text = dateFormat.format(picked);
+        });
+      }
     }
   }
 
@@ -179,9 +181,11 @@ class _RegisterViewState extends State<RegisterView> {
                                           color: Colors.grey,
                                         ),
                                         onPressed: () {
-                                          setState(() {
-                                            _obscureText = !_obscureText;
-                                          });
+                                          if (this.mounted) {
+                                            setState(() {
+                                              _obscureText = !_obscureText;
+                                            });
+                                          }
                                         },
                                       ),
                                     ),
