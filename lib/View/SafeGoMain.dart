@@ -7,6 +7,7 @@ import 'RegisterView.dart';
 import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/IncidentsViewModel.dart';
+import '../ViewModel/ClicksViewModel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -389,6 +390,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                 Center(
                                   child: GestureDetector(
                                     onTap: () {
+                                      final ClicksViewModel update =
+                                          ClicksViewModel();
+                                      update.updateClickCount("register");
                                       // Navigate to the registration view
                                       Navigator.push(
                                         context,
