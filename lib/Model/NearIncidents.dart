@@ -2,25 +2,33 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 class NearIncidents {
-  LatLng userLocation = LatLng (4.5494536, -74.003825);
 
+  Location location = Location();
+  LatLng userLocation = LatLng (4.5004536, -74.003825);
+  updateLocation() {
+    location.onLocationChanged.listen((LocationData currentLocation) {
+        final latitude = currentLocation.latitude ?? 0.0;
+        final longitude = currentLocation.longitude ?? 0.0;
+        userLocation = LatLng(latitude, longitude);
+
+      });
+  }
   Future<double> queryFirestore(String collection) async {
+    updateLocation();
   FirebaseFirestore db = FirebaseFirestore.instance;
   QuerySnapshot querySnapshot = await db.collection(collection).get();
   var minDistance = double.maxFinite;
   for (QueryDocumentSnapshot record in querySnapshot.docs) {
     GeoPoint location = record['Record'];
-    print(location);
     double lat = location.latitude;
     double long = location.longitude;
     double distance = calculateDistance(userLocation.latitude, userLocation.longitude, lat, long);
-    print(distance);
     if(distance < minDistance) {
       minDistance = distance;
     }
   }
-  print(minDistance);
   return minDistance;
   }
 
