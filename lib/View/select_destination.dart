@@ -3,7 +3,7 @@ import 'package:safe_go_dart/View/SafeGoDetailedReports.dart';
 import 'select_destination_buttons.dart';
 import 'TravelHistoryView.dart';
 import 'StartRideView.dart';
-import 'SafeGoDetailedReports.dart';
+import '../ViewModel/ClicksViewModel.dart';
 
 class SelectDestination extends StatelessWidget {
   const SelectDestination({
@@ -12,6 +12,7 @@ class SelectDestination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ClicksViewModel update = ClicksViewModel();
     return Column(
       children: [
         const SizedBox(height: 14.0),
@@ -53,6 +54,7 @@ class SelectDestination extends StatelessWidget {
                     size: 50,
                   ),
                   onPressed: () {
+                    update.updateClickCount("viewLastTrips");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -77,6 +79,7 @@ class SelectDestination extends StatelessWidget {
                     size: 50,
                   ),
                   onPressed: () {
+                    update.updateClickCount("reportBug");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -97,6 +100,7 @@ class SelectDestination extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
                   onPressed: () {
+                    update.updateClickCount("goHome");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -112,6 +116,7 @@ class SelectDestination extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
                   onPressed: () {
+                    update.updateClickCount("goToWork");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -127,6 +132,7 @@ class SelectDestination extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
                   onPressed: () {
+                    update.updateClickCount("goToSchool");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -142,6 +148,7 @@ class SelectDestination extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
                   onPressed: () {
+                    update.updateClickCount("goToPartner");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
