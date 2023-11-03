@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
 import 'SafeGoMap/SafeGoMap.dart'; // Ensure that your import paths are correct.
 import 'DestinationChoiceView.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../ViewModel/BugsReportsViewModel.dart';
 
 class ReportBugsView extends StatelessWidget {
   ReportBugsView({Key? key}) : super(key: key); // Fix the constructor syntax.
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
+
+  Future<String> sendInputToBackend(String inputText) async {
+    final url = Uri.parse(
+        "https://us-central1-safego-399621.cloudfunctions.net/classify-bugs");
+    final headers = {"Content-Type": "application/json"};
+    final body = {"input_text": "The app is draining my battery."};
+    String responseString = "crashes";
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      responseString = data["category"];
+      // Do something with the category (e.g., display it in your app)
+
+      // Save the response as a string
+      print("Response as a string: $responseString");
+    } else {
+      print("Failed to connect to the backend");
+    }
+    return responseString;
+  }
 
   Future<void> _showErrorDialog(
       BuildContext context, String errorMessage) async {
@@ -152,7 +177,14 @@ class ReportBugsView extends StatelessWidget {
                                 if (_formKey.currentState!.validate()) {
                                   print(emailController.text);
 
-                                  //sendInputToBackend(emailController.text);
+                                  String category = await sendInputToBackend(
+                                      emailController.text);
+                                  print("Category : ");
+                                  print(category);
+                                  BugsReportsViewModel report =
+                                      BugsReportsViewModel();
+                                  report.sendBugReport(
+                                      category, emailController.text);
                                   _showErrorDialog(
                                     context,
                                     "Your problem description has been successfully sent. Thank you for helping improve the app.",
