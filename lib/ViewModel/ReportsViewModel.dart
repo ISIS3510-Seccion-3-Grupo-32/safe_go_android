@@ -10,3 +10,4 @@ class ReportsViewModel extends ChangeNotifier {
     return sendDetailedReportData(Psubject, 'detailedUserReports');
   }
 }
+

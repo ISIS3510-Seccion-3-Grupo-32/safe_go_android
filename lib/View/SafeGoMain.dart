@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +9,8 @@ import 'RegisterView.dart';
 import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/IncidentsViewModel.dart';
+
+import 'package:flutter_offline/flutter_offline.dart';
 import '../ViewModel/ClicksViewModel.dart';
 
 Future<void> main() async {
@@ -41,7 +45,7 @@ class SafeGo extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: SafeGoMain(title: 'Go Safe Testing'),
+      home: const SafeGoMain(title: 'Go Safe Testing'),
     );
   }
 }
@@ -61,6 +65,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
   final _formKey = GlobalKey<FormState>();
   final IncidentsViewModel incidents = IncidentsViewModel();
   String TotalIncidents = '0';
+  late Timer timer;
   @override
   void initState() {
     super.initState();
@@ -69,12 +74,12 @@ class _SafeGoMainState extends State<SafeGoMain> {
 
   Future<void> _fetchTotalIncidents() async {
     try {
-      double totalIncidents = await incidents.queryDataBase();
-      if (this.mounted) {
+      timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
+        double totalIncidents = await incidents.queryDataBase();
         setState(() {
           TotalIncidents = (totalIncidents * 1000).toStringAsFixed(2);
         });
-      }
+      });
     } catch (e) {
       // Handle errors or exceptions if needed
       print('Error fetching total incidents: $e');
@@ -87,11 +92,11 @@ class _SafeGoMainState extends State<SafeGoMain> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Authentication Error'),
+          title: const Text('Authentication Error'),
           content: Text(errorMessage),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -129,8 +134,24 @@ class _SafeGoMainState extends State<SafeGoMain> {
             children: [
               Flexible(
                 flex: sizeOfMap,
-                child: MarkerDecorator(
-                  map: SafeGoMap(),
+                child: OfflineBuilder(
+                  connectivityBuilder: (
+                    BuildContext context,
+                    ConnectivityResult connectivity,
+                    Widget child,
+                  ) {
+                    final bool connected =
+                        connectivity != ConnectivityResult.none;
+                    return connected
+                        ? child // Display your online content
+                        : const Center(
+                            child: Text(
+                                'No Internet Connection'), // Display an offline message
+                          );
+                  },
+                  child: const MarkerDecorator(
+                    map: SafeGoMap(),
+                  ),
                 ),
               ),
               Flexible(

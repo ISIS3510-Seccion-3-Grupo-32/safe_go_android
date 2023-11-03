@@ -12,7 +12,6 @@ class AuthenticationViewModel extends ChangeNotifier {
   Future<User?> signUp(String email, String password) async {
     try {
       if (await isEmailAlreadyUsed(email)) {
-        print('The email address is already in use.');
         return null;
       }
 
@@ -38,7 +37,6 @@ class AuthenticationViewModel extends ChangeNotifier {
       } else {
         errorMessage = 'An error occurred during registration.';
       }
-      print(errorMessage);
       notifyListeners();
     }
     return null;

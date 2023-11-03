@@ -11,7 +11,7 @@ class SafeGoDetailedReports extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var myController = TextEditingController();
+    final myController = TextEditingController();
 
     return Scaffold(
       body: LayoutBuilder(
