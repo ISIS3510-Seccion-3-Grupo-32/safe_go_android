@@ -23,6 +23,14 @@ class SafeGoDetailedReports extends StatelessWidget {
       myController.text = prefs.getString('savedReport')!;
     }
 
+    void deleteReportFromCache() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove('savedReport');
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      chargeReportFromCache();
+    });
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -110,6 +118,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                             if (myController.text.isNotEmpty &&
                                 myController.text.characters.length > 20) {
                               report.sendDetailedReport(myController.text);
+                              deleteReportFromCache();
 
                               Navigator.push(
                                 context,
