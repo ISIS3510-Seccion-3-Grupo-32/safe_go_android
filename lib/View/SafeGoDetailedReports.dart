@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safe_go_dart/View/DestinationChoiceView.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/ReportsViewModel.dart';
 
@@ -12,6 +13,26 @@ class SafeGoDetailedReports extends StatelessWidget {
   Widget build(BuildContext context) {
     final myController = TextEditingController();
 
+    addReportToCache(String textsToBeSabed) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('savedReport', textsToBeSabed);
+    }
+
+    void chargeReportFromCache() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (prefs.getString('savedReport') != null) {
+        myController.text = prefs.getString('savedReport')!;
+      }
+    }
+
+    void deleteReportFromCache() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove('savedReport');
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      chargeReportFromCache();
+    });
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -65,16 +86,21 @@ class SafeGoDetailedReports extends StatelessWidget {
                           height: 52.0,
                           width: 370.0,
                           color: Colors.transparent,
-                          child: SizedBox(
-                            child: TextField(
-                              controller: myController,
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                contentPadding: EdgeInsets.all(10.0),
-                                border: OutlineInputBorder(),
-                                hintText: 'Write your Detailed Report Here',
+                          child: Expanded(
+                            child: SizedBox(
+                              child: TextField(
+                                controller: myController,
+                                maxLines: 20,
+                                onChanged: (text) {
+                                  addReportToCache(myController.text);
+                                },
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: EdgeInsets.all(10.0),
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Write your Detailed Report Here',
+                                ),
                               ),
                             ),
                           ),
@@ -94,6 +120,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                             if (myController.text.isNotEmpty &&
                                 myController.text.characters.length > 20) {
                               report.sendDetailedReport(myController.text);
+                              deleteReportFromCache();
 
                               Navigator.push(
                                 context,
