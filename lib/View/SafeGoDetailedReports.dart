@@ -2,11 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:safe_go_dart/View/DestinationChoiceView.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/ReportsViewModel.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'NoConnectivityView.dart';
 
 class SafeGoDetailedReports extends StatelessWidget {
   const SafeGoDetailedReports({
     super.key,
   });
+
+  Future<bool> checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,32 +102,46 @@ class SafeGoDetailedReports extends StatelessWidget {
                             style: TextStyle(color: Colors.black, fontSize: 14),
                             textAlign: TextAlign.left,
                           ),
-                          onPressed: () {
-                            final ReportsViewModel report = ReportsViewModel();
-                            if (myController.text.isNotEmpty &&
-                                myController.text.characters.length > 20) {
-                              report.sendDetailedReport(myController.text);
+                          onPressed: () async {
+                            bool connectionState = await checkConnectivity();
 
+                            if (connectionState) {
+                              final ReportsViewModel report =
+                                  ReportsViewModel();
+                              if (myController.text.isNotEmpty &&
+                                  myController.text.characters.length > 20) {
+                                report.sendDetailedReport(myController.text);
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        DestinationChoiceView(),
+                                  ),
+                                );
+                                const snackBar = SnackBar(
+                                  content: Text('We got your Report!'),
+                                  duration: Duration(milliseconds: 2000),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else {
+                                const snackBar = SnackBar(
+                                  content: Text(
+                                      'Please tell us more about this situation'),
+                                  duration: Duration(milliseconds: 2000),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                            } else {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => DestinationChoiceView(),
+                                  builder: (context) =>
+                                      const NoConnectivityView(),
                                 ),
                               );
-                              const snackBar = SnackBar(
-                                content: Text('We got your Report!'),
-                                duration: Duration(milliseconds: 2000),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else {
-                              const snackBar = SnackBar(
-                                content: Text(
-                                    'Please tell us more about this situation'),
-                                duration: Duration(milliseconds: 2000),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
                             }
                           },
                         )

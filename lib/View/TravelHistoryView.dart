@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart'; // Import the auto_size_text package
 import 'SafeGoMap/SafeGoMap.dart';
 import 'TravelDataView.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'NoConnectivityView.dart';
 
 class TravelData {
   final String source;
@@ -13,6 +15,17 @@ class TravelData {
 
 class TravelHistoryView extends StatelessWidget {
   const TravelHistoryView({super.key});
+
+  Future<bool> checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,17 +103,30 @@ class TravelHistoryView extends StatelessWidget {
                               width: screenWidth * 0.8,
                               height: screenHeight * 0.06,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => TravelDataView(
-                                          source: travelData[i].source,
-                                          destination:
-                                              travelData[i].destination,
-                                          date: travelData[i].date),
-                                    ),
-                                  );
+                                onPressed: () async {
+                                  bool connectionState =
+                                      await checkConnectivity();
+
+                                  if (connectionState) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TravelDataView(
+                                            source: travelData[i].source,
+                                            destination:
+                                                travelData[i].destination,
+                                            date: travelData[i].date),
+                                      ),
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const NoConnectivityView(),
+                                      ),
+                                    );
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
