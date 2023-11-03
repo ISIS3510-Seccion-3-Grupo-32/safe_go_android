@@ -9,11 +9,13 @@ import 'RegisterView.dart';
 import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/IncidentsViewModel.dart';
-import 'package:flutter_offline/flutter_offline.dart';
 
+import 'package:flutter_offline/flutter_offline.dart';
+import '../ViewModel/ClicksViewModel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyCb1qShGeUAk0G4La6deQ8AJ5pmziwPMbY",
@@ -327,9 +329,12 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                                 color: Colors.grey,
                                               ),
                                               onPressed: () {
-                                                setState(() {
-                                                  _obscureText = !_obscureText;
-                                                });
+                                                if (this.mounted) {
+                                                  setState(() {
+                                                    _obscureText =
+                                                        !_obscureText;
+                                                  });
+                                                }
                                               },
                                             ),
                                           ),
@@ -413,6 +418,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                 Center(
                                   child: GestureDetector(
                                     onTap: () {
+                                      final ClicksViewModel update =
+                                          ClicksViewModel();
+                                      update.updateClickCount("register");
                                       // Navigate to the registration view
                                       Navigator.push(
                                         context,
