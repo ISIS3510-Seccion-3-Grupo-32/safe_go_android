@@ -65,18 +65,16 @@ class SafeGoDetailedReports extends StatelessWidget {
                           height: 52.0,
                           width: 370.0,
                           color: Colors.transparent,
-                          child: Expanded(
-                            child: SizedBox(
-                              child: TextField(
-                                controller: myController,
-                                maxLines: null,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.all(10.0),
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Write your Detailed Report Here',
-                                ),
+                          child: SizedBox(
+                            child: TextField(
+                              controller: myController,
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: EdgeInsets.all(10.0),
+                                border: OutlineInputBorder(),
+                                hintText: 'Write your Detailed Report Here',
                               ),
                             ),
                           ),
