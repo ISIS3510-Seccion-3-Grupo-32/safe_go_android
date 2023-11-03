@@ -3,15 +3,17 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:safe_go_dart/View/NoConnectivityView.dart';
 import 'package:safe_go_dart/ViewModel/AuthenticationViewModel.dart';
 import 'DestinationChoiceView.dart';
 import 'RegisterView.dart';
 import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/IncidentsViewModel.dart';
+import 'NoConnectivityView.dart';
 
-import 'package:flutter_offline/flutter_offline.dart';
 import '../ViewModel/ClicksViewModel.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -107,6 +109,17 @@ class _SafeGoMainState extends State<SafeGoMain> {
     );
   }
 
+  Future<bool> checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
@@ -134,24 +147,8 @@ class _SafeGoMainState extends State<SafeGoMain> {
             children: [
               Flexible(
                 flex: sizeOfMap,
-                child: OfflineBuilder(
-                  connectivityBuilder: (
-                    BuildContext context,
-                    ConnectivityResult connectivity,
-                    Widget child,
-                  ) {
-                    final bool connected =
-                        connectivity != ConnectivityResult.none;
-                    return connected
-                        ? child // Display your online content
-                        : const Center(
-                            child: Text(
-                                'No Internet Connection'), // Display an offline message
-                          );
-                  },
-                  child: const MarkerDecorator(
-                    map: SafeGoMap(),
-                  ),
+                child: const MarkerDecorator(
+                  map: SafeGoMap(),
                 ),
               ),
               Flexible(
@@ -367,36 +364,49 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           height: screenHeight * 0.06,
                                           child: ElevatedButton(
                                             onPressed: () async {
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                final authenticationViewModel =
-                                                    Provider.of<
-                                                            AuthenticationViewModel>(
-                                                        context,
-                                                        listen: false);
+                                              bool connectionState =
+                                                  await checkConnectivity();
 
-                                                // Call the signIn method
-                                                final user =
-                                                    await authenticationViewModel
-                                                        .signIn(
-                                                  emailController.text,
-                                                  passwordController.text,
-                                                );
+                                              if (connectionState) {
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  final authenticationViewModel =
+                                                      Provider.of<
+                                                              AuthenticationViewModel>(
+                                                          context,
+                                                          listen: false);
 
-                                                if (user != null) {
-                                                  // Authentication successful, navigate to the other view
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          DestinationChoiceView(),
-                                                    ),
+                                                  // Call the signIn method
+                                                  final user =
+                                                      await authenticationViewModel
+                                                          .signIn(
+                                                    emailController.text,
+                                                    passwordController.text,
                                                   );
-                                                } else {
-                                                  // Authentication failed, show error dialog
-                                                  _showErrorDialog(context,
-                                                      'Authentication failed. Please check your credentials.');
+
+                                                  if (user != null) {
+                                                    // Authentication successful, navigate to the other view
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DestinationChoiceView(),
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    // Authentication failed, show error dialog
+                                                    _showErrorDialog(context,
+                                                        'Authentication failed. Please check your credentials.');
+                                                  }
                                                 }
+                                              } else {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        NoConnectivityView(),
+                                                  ),
+                                                );
                                               }
                                             },
                                             style: ElevatedButton.styleFrom(
