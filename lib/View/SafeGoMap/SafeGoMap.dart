@@ -24,6 +24,13 @@ class SafeGoMapState extends State<SafeGoMap> {
     init();
   }
 
+  @override
+  void dispose() {
+    mapController.dispose();
+
+    super.dispose();
+  }
+
   Future<void> init() async {
     PermissionRequest request = PermissionRequest();
     await request.requestLocationPermission(context);
@@ -32,24 +39,28 @@ class SafeGoMapState extends State<SafeGoMap> {
 
   updateLocation() {
     location.onLocationChanged.listen((LocationData currentLocation) {
-      setState(() {
-        final latitude = currentLocation.latitude ?? 0.0;
-        final longitude = currentLocation.longitude ?? 0.0;
-        userLocation = LatLng(latitude, longitude);
-        CameraPosition cameraPosition = CameraPosition(
-          target: userLocation,
-          zoom: 18,
-        );
-        mapController
-            .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-      });
+      if (mounted) {
+        setState(() {
+          final latitude = currentLocation.latitude ?? 0.0;
+          final longitude = currentLocation.longitude ?? 0.0;
+          userLocation = LatLng(latitude, longitude);
+          CameraPosition cameraPosition = CameraPosition(
+            target: userLocation,
+            zoom: 18,
+          );
+          mapController
+              .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+        });
+      }
     });
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() {
-      mapController = controller;
-    });
+    if (mounted) {
+      setState(() {
+        mapController = controller;
+      });
+    }
   }
 
   @override
