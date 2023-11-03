@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../ViewModel/AuthenticationViewModel.dart';
 import 'SafeGoMain.dart';
+import 'NoConnectivityView.dart';
 
 class RegisterView extends StatefulWidget {
   @override
@@ -36,6 +38,17 @@ class _RegisterViewState extends State<RegisterView> {
           dobController.text = dateFormat.format(picked);
         });
       }
+    }
+  }
+
+  Future<bool> checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -351,56 +364,69 @@ class _RegisterViewState extends State<RegisterView> {
                         height: screenHeight * 0.08,
                         child: ElevatedButton(
                           onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              final email = emailController.text;
-                              final password = passwordController.text;
-                              final authenticationViewModel =
-                                  Provider.of<AuthenticationViewModel>(context,
-                                      listen: false);
-                              final user = await authenticationViewModel.signUp(
-                                  email, password);
-                              if (user == null) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text('Email Already Used'),
-                                      content: Text(
-                                          'The email address is already in use. Please enter another email or try to log in.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                            bool connectionState = await checkConnectivity();
+
+                            if (connectionState) {
+                              if (_formKey.currentState!.validate()) {
+                                final email = emailController.text;
+                                final password = passwordController.text;
+                                final authenticationViewModel =
+                                    Provider.of<AuthenticationViewModel>(
+                                        context,
+                                        listen: false);
+                                final user = await authenticationViewModel
+                                    .signUp(email, password);
+                                if (user == null) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Email Already Used'),
+                                        content: Text(
+                                            'The email address is already in use. Please enter another email or try to log in.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Registration successful'),
+                                        content: Text(
+                                            'Your account has been successfully created.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SafeGo(),
+                                                ),
+                                              );
+                                            },
+                                            child: Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
                               } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text('Registration successful'),
-                                      content: Text(
-                                          'Your account has been successfully created.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => SafeGo(),
-                                              ),
-                                            );
-                                          },
-                                          child: Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NoConnectivityView(),
+                                  ),
                                 );
                               }
                             }

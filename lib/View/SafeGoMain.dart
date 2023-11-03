@@ -426,17 +426,31 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                 SizedBox(height: 15),
                                 Center(
                                   child: GestureDetector(
-                                    onTap: () {
+                                    onTap: () async {
                                       final ClicksViewModel update =
                                           ClicksViewModel();
                                       update.updateClickCount("register");
                                       // Navigate to the registration view
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => RegisterView(),
-                                        ),
-                                      );
+
+                                      bool connectionState =
+                                          await checkConnectivity();
+                                      if (connectionState) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                RegisterView(),
+                                          ),
+                                        );
+                                      } else {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                NoConnectivityView(),
+                                          ),
+                                        );
+                                      }
                                     },
                                     child: Align(
                                       alignment: Alignment.center,
