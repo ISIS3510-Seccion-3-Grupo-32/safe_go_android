@@ -13,6 +13,16 @@ class SafeGoDetailedReports extends StatelessWidget {
   Widget build(BuildContext context) {
     final myController = TextEditingController();
 
+    addReportToCache(String textsToBeSabed) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('savedReport', textsToBeSabed);
+    }
+
+    void chargeReportFromCache() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      myController.text = prefs.getString('savedReport')!;
+    }
+
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -70,7 +80,10 @@ class SafeGoDetailedReports extends StatelessWidget {
                             child: SizedBox(
                               child: TextField(
                                 controller: myController,
-                                maxLines: null,
+                                maxLines: 20,
+                                onChanged: (text) {
+                                  addReportToCache(myController.text);
+                                },
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
