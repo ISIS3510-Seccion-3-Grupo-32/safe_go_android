@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'select_destination.dart';
+import 'SettingsView.dart';
 
 class DestinationChoiceView extends StatelessWidget {
   bool selected = false;
@@ -18,8 +19,30 @@ class DestinationChoiceView extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Expanded(
-            child: SafeGoMap(),
+          Expanded(
+            child: Stack(children: [
+              const SafeGoMap(),
+              Positioned(
+                top: 32, // Adjust the position as needed
+                left: 16, // Adjust the position as needed
+                child: Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromRGBO(152, 204, 180, 1),
+                  ),
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SettingsView(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.menu)),
+                ),
+              ),
+            ]),
           ),
           Expanded(
             child: AnimatedContainer(
