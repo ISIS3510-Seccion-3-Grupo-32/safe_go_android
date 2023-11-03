@@ -421,14 +421,14 @@ class _RegisterViewState extends State<RegisterView> {
                                     },
                                   );
                                 }
-                              } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NoConnectivityView(),
-                                  ),
-                                );
                               }
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NoConnectivityView(),
+                                ),
+                              );
                             }
                           },
                           style: ElevatedButton.styleFrom(
