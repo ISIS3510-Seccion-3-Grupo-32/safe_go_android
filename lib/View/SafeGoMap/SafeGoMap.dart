@@ -39,7 +39,7 @@ class SafeGoMapState extends State<SafeGoMap> {
 
   updateLocation() {
     location.onLocationChanged.listen((LocationData currentLocation) {
-      if (this.mounted) {
+      if (mounted) {
         setState(() {
           final latitude = currentLocation.latitude ?? 0.0;
           final longitude = currentLocation.longitude ?? 0.0;
@@ -56,7 +56,7 @@ class SafeGoMapState extends State<SafeGoMap> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         mapController = controller;
       });

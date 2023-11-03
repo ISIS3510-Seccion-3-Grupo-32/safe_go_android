@@ -74,12 +74,11 @@ class _SafeGoMainState extends State<SafeGoMain> {
 
   Future<void> _fetchTotalIncidents() async {
     try {
-      timer = Timer.periodic(const Duration(seconds: 5), (timer)
-      async {
+      timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
         double totalIncidents = await incidents.queryDataBase();
-      setState(()  {
-        TotalIncidents = (totalIncidents * 1000).toStringAsFixed(2);
-      });
+        setState(() {
+          TotalIncidents = (totalIncidents * 1000).toStringAsFixed(2);
+        });
       });
     } catch (e) {
       // Handle errors or exceptions if needed
@@ -136,24 +135,24 @@ class _SafeGoMainState extends State<SafeGoMain> {
               Flexible(
                 flex: sizeOfMap,
                 child: OfflineBuilder(
-                    connectivityBuilder: (
-                        BuildContext context,
-                        ConnectivityResult connectivity,
-                        Widget child,
-                    ){
-                      final bool connected = connectivity != ConnectivityResult.none;
-                      return connected
-                          ? child // Display your online content
-                          : const Center(
-                        child: Text('No Internet Connection'), // Display an offline message
-                      );
-
-                    },
-                    child: const MarkerDecorator(
+                  connectivityBuilder: (
+                    BuildContext context,
+                    ConnectivityResult connectivity,
+                    Widget child,
+                  ) {
+                    final bool connected =
+                        connectivity != ConnectivityResult.none;
+                    return connected
+                        ? child // Display your online content
+                        : const Center(
+                            child: Text(
+                                'No Internet Connection'), // Display an offline message
+                          );
+                  },
+                  child: const MarkerDecorator(
                     map: SafeGoMap(),
-          ),
-
-              ),
+                  ),
+                ),
               ),
               Flexible(
                 flex: sizeOfInputs,

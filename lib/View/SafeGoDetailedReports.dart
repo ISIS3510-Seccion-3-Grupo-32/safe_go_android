@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:safe_go_dart/View/DestinationChoiceView.dart';
-import 'package:safe_go_dart/View/select_destination.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import '../ViewModel/ReportsViewModel.dart';
 
@@ -11,7 +10,7 @@ class SafeGoDetailedReports extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var myController = TextEditingController();
+    final myController = TextEditingController();
 
     return Scaffold(
       body: LayoutBuilder(
