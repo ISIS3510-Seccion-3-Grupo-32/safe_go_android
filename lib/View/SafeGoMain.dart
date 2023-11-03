@@ -11,6 +11,7 @@ import '../ViewModel/ClicksViewModel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyCb1qShGeUAk0G4La6deQ8AJ5pmziwPMbY",
@@ -69,9 +70,11 @@ class _SafeGoMainState extends State<SafeGoMain> {
   Future<void> _fetchTotalIncidents() async {
     try {
       double totalIncidents = await incidents.queryDataBase();
-      setState(() {
-        TotalIncidents = (totalIncidents * 1000).toStringAsFixed(2);
-      });
+      if (this.mounted) {
+        setState(() {
+          TotalIncidents = (totalIncidents * 1000).toStringAsFixed(2);
+        });
+      }
     } catch (e) {
       // Handle errors or exceptions if needed
       print('Error fetching total incidents: $e');
@@ -304,9 +307,12 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                                 color: Colors.grey,
                                               ),
                                               onPressed: () {
-                                                setState(() {
-                                                  _obscureText = !_obscureText;
-                                                });
+                                                if (this.mounted) {
+                                                  setState(() {
+                                                    _obscureText =
+                                                        !_obscureText;
+                                                  });
+                                                }
                                               },
                                             ),
                                           ),

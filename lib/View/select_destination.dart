@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:safe_go_dart/View/SafeGoDetailedReports.dart';
 import 'select_destination_buttons.dart';
 import 'TravelHistoryView.dart';
 import 'StartRideView.dart';
-import 'SafeGoReportsFac.dart';
 import '../ViewModel/ClicksViewModel.dart';
 
 class SelectDestination extends StatelessWidget {
@@ -83,7 +83,7 @@ class SelectDestination extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SafegoReportsFac(),
+                        builder: (context) => const SafeGoDetailedReports(),
                       ),
                     );
                   },
