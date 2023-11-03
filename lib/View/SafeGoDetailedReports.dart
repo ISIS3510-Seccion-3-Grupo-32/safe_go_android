@@ -20,7 +20,9 @@ class SafeGoDetailedReports extends StatelessWidget {
 
     void chargeReportFromCache() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      myController.text = prefs.getString('savedReport')!;
+      if (prefs.getString('savedReport') != null) {
+        myController.text = prefs.getString('savedReport')!;
+      }
     }
 
     void deleteReportFromCache() async {
