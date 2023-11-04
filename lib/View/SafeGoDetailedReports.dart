@@ -69,7 +69,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                             child: TextField(
                               controller: myController,
                               maxLines: null,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
                                 contentPadding: EdgeInsets.all(10.0),

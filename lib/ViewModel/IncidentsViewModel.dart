@@ -28,7 +28,6 @@ class IncidentsViewModel {
     if(closestReport == null) {
 
       closestR = await db.queryFirestore('policeReports');
-      print(closestR);
       compute(saveDataInCache,closestR);
       return closestR;
     }
@@ -43,10 +42,5 @@ class IncidentsViewModel {
     BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setDouble('closest_report', closestR);
-  }
-  Future<double> queryDataBase2() async
-  {
-
-    return db.queryFirestore('policeReports');
   }
 }
