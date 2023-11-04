@@ -3,6 +3,8 @@ import 'package:latlong2/latlong.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'select_destination.dart';
 import 'SettingsView.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'NoConnectivityView.dart';
 
 class DestinationChoiceView extends StatelessWidget {
   bool selected = false;
@@ -13,6 +15,17 @@ class DestinationChoiceView extends StatelessWidget {
   ];
 
   DestinationChoiceView({super.key});
+
+  Future<bool> checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +44,24 @@ class DestinationChoiceView extends StatelessWidget {
                     color: Color.fromRGBO(152, 204, 180, 1),
                   ),
                   child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SettingsView(),
-                          ),
-                        );
+                      onPressed: () async {
+                        bool connectionState = await checkConnectivity();
+
+                        if (connectionState) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingsView(),
+                            ),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NoConnectivityView(),
+                            ),
+                          );
+                        }
                       },
                       icon: const Icon(Icons.menu)),
                 ),

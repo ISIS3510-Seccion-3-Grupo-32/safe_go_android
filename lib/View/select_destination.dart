@@ -4,11 +4,24 @@ import 'select_destination_buttons.dart';
 import 'TravelHistoryView.dart';
 import 'StartRideView.dart';
 import '../ViewModel/ClicksViewModel.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'NoConnectivityView.dart';
 
 class SelectDestination extends StatelessWidget {
   const SelectDestination({
     Key? key,
   }) : super(key: key);
+
+  Future<bool> checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +66,25 @@ class SelectDestination extends StatelessWidget {
                     color: Color.fromRGBO(64, 78, 72, 1),
                     size: 50,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     update.updateClickCount("viewLastTrips");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TravelHistoryView(),
-                      ),
-                    );
+                    bool connectionState = await checkConnectivity();
+
+                    if (connectionState) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TravelHistoryView(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NoConnectivityView(),
+                        ),
+                      );
+                    }
                   },
                 ),
               ),
@@ -78,14 +102,26 @@ class SelectDestination extends StatelessWidget {
                     color: Colors.red,
                     size: 50,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     update.updateClickCount("reportBug");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SafeGoDetailedReports(),
-                      ),
-                    );
+
+                    bool connectionState = await checkConnectivity();
+
+                    if (connectionState) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SafeGoDetailedReports(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NoConnectivityView(),
+                        ),
+                      );
+                    }
                   },
                 ),
               ),
@@ -99,14 +135,26 @@ class SelectDestination extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
-                  onPressed: () {
+                  onPressed: () async {
                     update.updateClickCount("goHome");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const StartRideView(),
-                      ),
-                    );
+
+                    bool connectionState = await checkConnectivity();
+
+                    if (connectionState) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const StartRideView(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NoConnectivityView(),
+                        ),
+                      );
+                    }
                   },
                   icon: Icons.home_outlined,
                   label: 'Home',
@@ -115,14 +163,24 @@ class SelectDestination extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
-                  onPressed: () {
+                  onPressed: () async {
                     update.updateClickCount("goToWork");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const StartRideView(),
-                      ),
-                    );
+                    bool connectionState = await checkConnectivity();
+                    if (connectionState) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const StartRideView(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NoConnectivityView(),
+                        ),
+                      );
+                    }
                   },
                   icon: Icons.work_outline,
                   label: 'Work',
@@ -131,14 +189,24 @@ class SelectDestination extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
-                  onPressed: () {
+                  onPressed: () async {
                     update.updateClickCount("goToSchool");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const StartRideView(),
-                      ),
-                    );
+                    bool connectionState = await checkConnectivity();
+                    if (connectionState) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const StartRideView(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NoConnectivityView(),
+                        ),
+                      );
+                    }
                   },
                   icon: Icons.school_outlined,
                   label: 'School',
@@ -147,14 +215,24 @@ class SelectDestination extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DirectionButton(
-                  onPressed: () {
+                  onPressed: () async {
                     update.updateClickCount("goToPartner");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const StartRideView(),
-                      ),
-                    );
+                    bool connectionState = await checkConnectivity();
+                    if (connectionState) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const StartRideView(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NoConnectivityView(),
+                        ),
+                      );
+                    }
                   },
                   icon: Icons.favorite_outline,
                   label: 'Partner',

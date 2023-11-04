@@ -4,12 +4,25 @@ import 'DestinationChoiceView.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../ViewModel/BugsReportsViewModel.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'NoConnectivityView.dart';
 
 class ReportBugsView extends StatelessWidget {
   ReportBugsView({Key? key}) : super(key: key); // Fix the constructor syntax.
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
+
+  Future<bool> checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   Future<String> sendInputToBackend(String inputText) async {
     final url = Uri.parse(
@@ -44,13 +57,24 @@ class ReportBugsView extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               child: const Text('OK'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DestinationChoiceView(),
-                  ),
-                );
+              onPressed: () async {
+                bool connectionState = await checkConnectivity();
+
+                if (connectionState) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DestinationChoiceView(),
+                    ),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NoConnectivityView(),
+                    ),
+                  );
+                }
               },
             ),
           ],
@@ -174,20 +198,33 @@ class ReportBugsView extends StatelessWidget {
                             height: screenHeight * 0.06,
                             child: ElevatedButton(
                               onPressed: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  print(emailController.text);
+                                bool connectionState =
+                                    await checkConnectivity();
 
-                                  String category = await sendInputToBackend(
-                                      emailController.text);
-                                  print("Category : ");
-                                  print(category);
-                                  BugsReportsViewModel report =
-                                      BugsReportsViewModel();
-                                  report.sendBugReport(
-                                      category, emailController.text);
-                                  _showErrorDialog(
+                                if (connectionState) {
+                                  if (_formKey.currentState!.validate()) {
+                                    print(emailController.text);
+
+                                    String category = await sendInputToBackend(
+                                        emailController.text);
+                                    print("Category : ");
+                                    print(category);
+                                    BugsReportsViewModel report =
+                                        BugsReportsViewModel();
+                                    report.sendBugReport(
+                                        category, emailController.text);
+                                    _showErrorDialog(
+                                      context,
+                                      "Your problem description has been successfully sent. Thank you for helping improve the app.",
+                                    );
+                                  }
+                                } else {
+                                  Navigator.push(
                                     context,
-                                    "Your problem description has been successfully sent. Thank you for helping improve the app.",
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NoConnectivityView(),
+                                    ),
                                   );
                                 }
                               },

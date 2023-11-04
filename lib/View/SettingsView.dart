@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 import 'ReportBugsView.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'NoConnectivityView.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
+
+  Future<bool> checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +66,24 @@ class SettingsView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: paddingLeftLinks),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SettingsView(),
-                    ),
-                  );
+                onTap: () async {
+                  bool connectionState = await checkConnectivity();
+
+                  if (connectionState) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsView(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NoConnectivityView(),
+                      ),
+                    );
+                  }
                 },
                 child: Row(
                   children: [
@@ -87,13 +111,24 @@ class SettingsView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: paddingLeftLinks),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SettingsView(),
-                    ),
-                  );
+                onTap: () async {
+                  bool connectionState = await checkConnectivity();
+
+                  if (connectionState) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsView(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NoConnectivityView(),
+                      ),
+                    );
+                  }
                 },
                 child: Row(
                   children: [
@@ -121,13 +156,24 @@ class SettingsView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: paddingLeftLinks),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ReportBugsView(),
-                    ),
-                  );
+                onTap: () async {
+                  bool connectionState = await checkConnectivity();
+
+                  if (connectionState) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReportBugsView(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NoConnectivityView(),
+                      ),
+                    );
+                  }
                 },
                 child: Row(
                   children: [
