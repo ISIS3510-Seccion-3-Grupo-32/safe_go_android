@@ -15,7 +15,7 @@ class ReportBugsView extends StatelessWidget {
     final url = Uri.parse(
         "https://us-central1-safego-399621.cloudfunctions.net/classify-bugs");
     final headers = {"Content-Type": "application/json"};
-    final body = {"input_text": "The app is draining my battery."};
+    final body = {"input_text": inputText};
     String responseString = "crashes";
     final response =
         await http.post(url, headers: headers, body: jsonEncode(body));
