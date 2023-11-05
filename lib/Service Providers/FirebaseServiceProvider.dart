@@ -8,14 +8,22 @@ sendReportData(String Psubject, String collection) async {
   return (collectionReferance.doc().set({"Subject": Psubject}));
 }
 
-sendDetailedReportData(String Psubject, String collection) async
-{
+sendDetailedReportData(
+  String Psubject,
+  String category,
+  String collection,
+) async {
   RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
   BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   double? lat = prefs.getDouble('lat');
   double? long = prefs.getDouble('long');
-  CollectionReference collectionReferance = FirebaseFirestore.instance.collection(collection);
-  print(collectionReferance.doc().set({"DetailedReport": Psubject,
-  "Latitude": lat, "Longitude":long}));
+  CollectionReference collectionReferance =
+      FirebaseFirestore.instance.collection(collection);
+  print(collectionReferance.doc().set({
+    "DetailedReport": Psubject,
+    "Category": category,
+    "Latitude": lat,
+    "Longitude": long
+  }));
 }

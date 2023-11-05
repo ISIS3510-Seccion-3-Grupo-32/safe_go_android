@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:safe_go_dart/View/DestinationChoiceView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'SafeGoMap/SafeGoMap.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../ViewModel/ReportsViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
@@ -41,6 +43,26 @@ class SafeGoDetailedReports extends StatelessWidget {
     void deleteReportFromCache() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.remove('savedReport');
+    }
+
+    Future<String> categorizeDetailedReport(String inputText) async {
+      final url = Uri.parse(
+          "https://us-central1-safego-399621.cloudfunctions.net/classify-report");
+      final headers = {"Content-Type": "application/json"};
+      final body = {"input_text": inputText};
+      String responseString = "crime";
+      final response =
+          await http.post(url, headers: headers, body: jsonEncode(body));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        responseString = data["Category"];
+
+        print("Response as a string: $responseString");
+      } else {
+        print("Failed to connect to the backend");
+      }
+      return responseString;
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -135,8 +157,12 @@ class SafeGoDetailedReports extends StatelessWidget {
                                   ReportsViewModel();
                               if (myController.text.isNotEmpty &&
                                   myController.text.characters.length > 20) {
-                                report.sendDetailedReport(myController.text);
-
+                                String reportCategory =
+                                    await categorizeDetailedReport(
+                                        myController.text);
+                                report.sendDetailedReport(
+                                    myController.text, reportCategory);
+                                deleteReportFromCache();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
