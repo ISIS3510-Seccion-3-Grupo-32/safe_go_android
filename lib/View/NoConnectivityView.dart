@@ -51,6 +51,7 @@ class NoConnectivityView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Image.asset('assets/images/216x216Logo.png'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
