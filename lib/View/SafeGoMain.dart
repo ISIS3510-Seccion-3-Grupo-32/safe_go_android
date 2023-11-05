@@ -9,6 +9,7 @@ import 'DestinationChoiceView.dart';
 import 'RegisterView.dart';
 import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
+import 'package:safe_go_dart/Service Providers/FirebaseServiceProvider.dart';
 import '../ViewModel/IncidentsViewModel.dart';
 import 'NoConnectivityView.dart';
 
@@ -67,11 +68,20 @@ class _SafeGoMainState extends State<SafeGoMain> {
   final _formKey = GlobalKey<FormState>();
   final IncidentsViewModel incidents = IncidentsViewModel();
   String TotalIncidents = '0';
+  String mostFeloniesNeightboor = "";
   late Timer timer;
   @override
   void initState() {
     super.initState();
     _fetchTotalIncidents();
+    _fetchTheMostFelonyHood();
+  }
+
+  Future<void> _fetchTheMostFelonyHood() async {
+    String newPlacerNeightFelony = await getMostFeloniesHood();
+    setState(() {
+      mostFeloniesNeightboor = newPlacerNeightFelony;
+    });
   }
 
   Future<void> _fetchTotalIncidents() async {
@@ -222,7 +232,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              'Be careful, the closest incident was located $TotalIncidents meters from you!',
+                                              'Be careful, the closest incident \nwas located $TotalIncidents meters from you! \n \nNeighborhood with most felonies is: $mostFeloniesNeightboor',
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: fontSubtext,
