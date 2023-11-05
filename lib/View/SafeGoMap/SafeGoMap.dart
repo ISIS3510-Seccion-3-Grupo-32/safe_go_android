@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Model/PermissionRequest.dart';
 
@@ -16,14 +18,16 @@ class SafeGoMap extends StatefulWidget {
 class SafeGoMapState extends State<SafeGoMap> {
   late GoogleMapController mapController;
   LatLng userLocation = const LatLng(4.6494536, -74.053825);
+  RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
   late PermissionRequest request;
+  late SharedPreferences prefs;
   Location location = Location();
   @override
   void initState() {
     super.initState();
     init();
-  }
 
+  }
   @override
   void dispose() {
     mapController.dispose();
@@ -35,15 +39,19 @@ class SafeGoMapState extends State<SafeGoMap> {
     PermissionRequest request = PermissionRequest();
     await request.requestLocationPermission(context);
     updateLocation();
+    prefs = await SharedPreferences.getInstance();
   }
 
   updateLocation() {
     location.onLocationChanged.listen((LocationData currentLocation) {
       if (mounted) {
-        setState(() {
+        setState(()  {
           final latitude = currentLocation.latitude ?? 0.0;
           final longitude = currentLocation.longitude ?? 0.0;
+          prefs.setDouble('lat', latitude);
+          prefs.setDouble('long', longitude);
           userLocation = LatLng(latitude, longitude);
+          print(userLocation);
           CameraPosition cameraPosition = CameraPosition(
             target: userLocation,
             zoom: 18,
