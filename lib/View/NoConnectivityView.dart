@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class NoConnectivityView extends StatelessWidget {
   const NoConnectivityView({super.key});
@@ -40,7 +41,8 @@ class NoConnectivityView extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    double fontName = screenHeight * 0.05;
+    double fontName = screenWidth * 0.07;
+    double iconSize = screenWidth * 0.1;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -49,16 +51,23 @@ class NoConnectivityView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            RichText(
-              text: TextSpan(
-                text:
-                    "No Internet connection. Please try to reload once you have connection.",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: fontName,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "No Internet connection",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: fontName,
+                  ),
                 ),
-              ),
+                Icon(
+                  Icons.signal_wifi_off,
+                  color: Colors.white,
+                  size: iconSize,
+                ),
+              ],
             ),
             Center(
               child: SizedBox(
