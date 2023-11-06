@@ -11,7 +11,7 @@ sendReportData(String Psubject, String collection) async {
 }
 
 sendDetailedReportDataToBack(
-  String Psubject,
+  String psubject,
   String category,
   String collection,
 ) async {
@@ -23,7 +23,7 @@ sendDetailedReportDataToBack(
   CollectionReference collectionReferance =
       FirebaseFirestore.instance.collection(collection);
   print(collectionReferance.doc().set({
-    "DetailedReport": Psubject,
+    "DetailedReport": psubject,
     "Category": category,
     "Latitude": lat,
     "Longitude": long
