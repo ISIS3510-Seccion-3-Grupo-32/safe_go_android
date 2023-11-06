@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:memory_cache/memory_cache.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_go_dart/View/NoConnectivityView.dart';
 import 'package:safe_go_dart/ViewModel/AuthenticationViewModel.dart';
@@ -78,10 +79,26 @@ class _SafeGoMainState extends State<SafeGoMain> {
   }
 
   Future<void> _fetchTheMostFelonyHood() async {
-    String newPlacerNeightFelony = await getMostFeloniesHood();
-    setState(() {
-      mostFeloniesNeightboor = newPlacerNeightFelony;
-    });
+    if (MemoryCache.instance.read<String>('Felonyhodd') == null ||
+        mostFeloniesNeightboor == "") {
+      String newPlacerNeightFelony = await getMostFeloniesHood();
+      MemoryCache.instance.create('Felonyhodd', newPlacerNeightFelony);
+      setState(() {
+        mostFeloniesNeightboor = newPlacerNeightFelony;
+      });
+    } else {
+      if (mostFeloniesNeightboor != await getMostFeloniesHood()) {
+        String newPlacerNeightFelony = await getMostFeloniesHood();
+        setState(() {
+          mostFeloniesNeightboor = newPlacerNeightFelony;
+        });
+      } else {
+        setState(() {
+          mostFeloniesNeightboor =
+              MemoryCache.instance.read<String>('Felonyhodd')!;
+        });
+      }
+    }
   }
 
   Future<void> _fetchTotalIncidents() async {
