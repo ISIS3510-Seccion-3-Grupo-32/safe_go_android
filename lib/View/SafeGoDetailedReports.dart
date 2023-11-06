@@ -28,19 +28,19 @@ class SafeGoDetailedReports extends StatelessWidget {
   Widget build(BuildContext context) {
     final myController = TextEditingController();
 
-    addReportToCache(String textsToBeSabed) async {
+    addReportToMemory(String textsToBeSabed) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('savedReport', textsToBeSabed);
     }
 
-    void chargeReportFromCache() async {
+    void chargeReportFromMemory() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.getString('savedReport') != null) {
         myController.text = prefs.getString('savedReport')!;
       }
     }
 
-    void deleteReportFromCache() async {
+    void deleteReportFromMemory() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.remove('savedReport');
     }
@@ -66,7 +66,7 @@ class SafeGoDetailedReports extends StatelessWidget {
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      chargeReportFromCache();
+      chargeReportFromMemory();
     });
     return Scaffold(
       body: LayoutBuilder(
@@ -127,7 +127,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                                 controller: myController,
                                 maxLines: 20,
                                 onChanged: (text) {
-                                  addReportToCache(myController.text);
+                                  addReportToMemory(myController.text);
                                 },
                                 decoration: InputDecoration(
                                   filled: true,
@@ -162,7 +162,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                                         myController.text);
                                 report.sendDetailedReport(
                                     myController.text, reportCategory);
-                                deleteReportFromCache();
+                                deleteReportFromMemory();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
