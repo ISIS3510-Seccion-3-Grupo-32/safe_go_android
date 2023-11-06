@@ -10,7 +10,7 @@ sendReportData(String Psubject, String collection) async {
   return (collectionReferance.doc().set({"Subject": Psubject}));
 }
 
-sendDetailedReportData(
+sendDetailedReportDataToBack(
   String Psubject,
   String category,
   String collection,
