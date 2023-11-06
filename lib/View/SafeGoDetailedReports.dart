@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:safe_go_dart/View/DestinationChoiceView.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'SafeGoMap/SafeGoMap.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../ViewModel/ReportsViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
@@ -25,6 +28,46 @@ class SafeGoDetailedReports extends StatelessWidget {
   Widget build(BuildContext context) {
     final myController = TextEditingController();
 
+    addReportToMemory(String textsToBeSabed) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('savedReport', textsToBeSabed);
+    }
+
+    void chargeReportFromMemory() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (prefs.getString('savedReport') != null) {
+        myController.text = prefs.getString('savedReport')!;
+      }
+    }
+
+    void deleteReportFromMemory() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove('savedReport');
+    }
+
+    Future<String> categorizeDetailedReport(String inputText) async {
+      final url = Uri.parse(
+          "https://us-central1-safego-399621.cloudfunctions.net/classify-report");
+      final headers = {"Content-Type": "application/json"};
+      final body = {"input_text": inputText};
+      String responseString = "crime";
+      final response =
+          await http.post(url, headers: headers, body: jsonEncode(body));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        responseString = data["Category"];
+
+        print("Response as a string: $responseString");
+      } else {
+        print("Failed to connect to the backend");
+      }
+      return responseString;
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      chargeReportFromMemory();
+    });
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -78,16 +121,21 @@ class SafeGoDetailedReports extends StatelessWidget {
                           height: 52.0,
                           width: 370.0,
                           color: Colors.transparent,
-                          child: SizedBox(
-                            child: TextField(
-                              controller: myController,
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                contentPadding: EdgeInsets.all(10.0),
-                                border: OutlineInputBorder(),
-                                hintText: 'Write your Detailed Report Here',
+                          child: Expanded(
+                            child: SizedBox(
+                              child: TextField(
+                                controller: myController,
+                                maxLines: 20,
+                                onChanged: (text) {
+                                  addReportToMemory(myController.text);
+                                },
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: EdgeInsets.all(10.0),
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Write your Detailed Report Here',
+                                ),
                               ),
                             ),
                           ),
@@ -104,14 +152,17 @@ class SafeGoDetailedReports extends StatelessWidget {
                           ),
                           onPressed: () async {
                             bool connectionState = await checkConnectivity();
-
                             if (connectionState) {
                               final ReportsViewModel report =
                                   ReportsViewModel();
                               if (myController.text.isNotEmpty &&
                                   myController.text.characters.length > 20) {
-                                report.sendDetailedReport(myController.text);
-
+                                String reportCategory =
+                                    await categorizeDetailedReport(
+                                        myController.text);
+                                report.sendDetailedReport(
+                                    myController.text, reportCategory);
+                                deleteReportFromMemory();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
