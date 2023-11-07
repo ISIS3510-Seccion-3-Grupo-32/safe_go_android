@@ -12,7 +12,6 @@ sendReportData(String Psubject, String collection) async {
 
 sendDetailedReportDataToBack(
   String psubject,
-  String category,
   String collection,
 ) async {
   RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
@@ -22,12 +21,9 @@ sendDetailedReportDataToBack(
   double? long = prefs.getDouble('long');
   CollectionReference collectionReferance =
       FirebaseFirestore.instance.collection(collection);
-  print(collectionReferance.doc().set({
-    "DetailedReport": psubject,
-    "Category": category,
-    "Latitude": lat,
-    "Longitude": long
-  }));
+  print(collectionReferance
+      .doc()
+      .set({"DetailedReport": psubject, "Latitude": lat, "Longitude": long}));
 }
 
 Future<String> getMostFeloniesHood() async {

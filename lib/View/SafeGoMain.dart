@@ -105,8 +105,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
     try {
       timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
         double totalIncidents = await incidents.queryDataBase();
+
         setState(() {
-          TotalIncidents = (totalIncidents * 1000).toStringAsFixed(2);
+          TotalIncidents = (totalIncidents).toStringAsFixed(2);
         });
       });
     } catch (e) {
@@ -154,6 +155,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
     final screenHeight = MediaQuery.of(context).size.height;
     double fontRegister = screenHeight * 0.05;
     double fontSubtext = screenHeight * 0.02;
+    double fontSmall = screenHeight * 0.015;
     double paddingSides = screenWidth * 0.05;
     double padding18 = screenWidth * 0.04;
     double padding20 = screenWidth * 0.05;
@@ -249,10 +251,10 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              'Be careful, the closest incident \nwas located $TotalIncidents meters from you! \n \nNeighborhood with most felonies is: $mostFeloniesNeightboor',
+                                              'Be careful, the closest incident was located $TotalIncidents Kilometers from you! Neighborhood with most felonies is: $mostFeloniesNeightboor',
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: fontSubtext,
+                                                fontSize: fontSmall,
                                               ),
                                             ),
                                           ),
