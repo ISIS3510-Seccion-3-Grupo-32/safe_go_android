@@ -157,11 +157,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                                   ReportsViewModel();
                               if (myController.text.isNotEmpty &&
                                   myController.text.characters.length > 20) {
-                                String reportCategory =
-                                    await categorizeDetailedReport(
-                                        myController.text);
-                                report.sendDetailedReport(
-                                    myController.text, reportCategory);
+                                report.sendDetailedReport(myController.text);
                                 deleteReportFromMemory();
                                 Navigator.push(
                                   context,
