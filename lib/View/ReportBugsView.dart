@@ -185,8 +185,8 @@ class ReportBugsView extends StatelessWidget {
                                 return 'Please fill the text input';
                               }
 
-                              if (value.length > 50) {
-                                return "Text shouldn't be larger than 50 characters";
+                              if (value.length > 200) {
+                                return "Text shouldn't be larger than 200 characters";
                               }
                               return null;
                             },
