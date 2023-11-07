@@ -47,3 +47,12 @@ Future<String> getMostFeloniesHood() async {
   }
   return responseString;
 }
+
+sendBugToDatabase(
+    String reportContent, String category, String collection) async {
+  CollectionReference collectionReferance =
+      FirebaseFirestore.instance.collection(collection);
+  return (collectionReferance
+      .doc()
+      .set({"Category": category, "Subject": reportContent}));
+}
