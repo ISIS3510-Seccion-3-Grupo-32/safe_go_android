@@ -6,6 +6,7 @@ import 'StartRideView.dart';
 import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
+import 'package:safe_go_dart/View/SafeGoMain.dart';
 
 class SelectDestination extends StatelessWidget {
   const SelectDestination({
@@ -236,6 +237,37 @@ class SelectDestination extends StatelessWidget {
                   },
                   icon: Icons.favorite_outline,
                   label: 'Partner',
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    bool connectionState = await checkConnectivity();
+
+                    if (connectionState) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SafeGo(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NoConnectivityView(),
+                        ),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  child: const Text(
+                    'Log out',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
             ],

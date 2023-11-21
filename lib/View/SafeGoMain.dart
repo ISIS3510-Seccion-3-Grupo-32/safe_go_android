@@ -71,6 +71,14 @@ class _SafeGoMainState extends State<SafeGoMain> {
   String TotalIncidents = '0';
   String mostFeloniesNeightboor = "";
   late Timer timer;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
