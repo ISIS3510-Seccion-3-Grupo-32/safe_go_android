@@ -121,7 +121,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
         double totalIncidents = await incidents.queryDataBase();
 
         setState(() {
-          TotalIncidents = (totalIncidents).toStringAsFixed(2);
+          if (mounted) {
+            TotalIncidents = (totalIncidents).toStringAsFixed(2);
+          }
         });
       });
     } catch (e) {
@@ -370,8 +372,10 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                               onPressed: () {
                                                 if (this.mounted) {
                                                   setState(() {
-                                                    _obscureText =
-                                                        !_obscureText;
+                                                    if (mounted) {
+                                                      _obscureText =
+                                                          !_obscureText;
+                                                    }
                                                   });
                                                 }
                                               },
