@@ -92,18 +92,24 @@ class _SafeGoMainState extends State<SafeGoMain> {
       String newPlacerNeightFelony = await getMostFeloniesHood();
       MemoryCache.instance.create('Felonyhodd', newPlacerNeightFelony);
       setState(() {
-        mostFeloniesNeightboor = newPlacerNeightFelony;
+        if (mounted) {
+          mostFeloniesNeightboor = newPlacerNeightFelony;
+        }
       });
     } else {
       if (mostFeloniesNeightboor != await getMostFeloniesHood()) {
         String newPlacerNeightFelony = await getMostFeloniesHood();
         setState(() {
-          mostFeloniesNeightboor = newPlacerNeightFelony;
+          if (mounted) {
+            mostFeloniesNeightboor = newPlacerNeightFelony;
+          }
         });
       } else {
         setState(() {
-          mostFeloniesNeightboor =
-              MemoryCache.instance.read<String>('Felonyhodd')!;
+          if (mounted) {
+            mostFeloniesNeightboor =
+                MemoryCache.instance.read<String>('Felonyhodd')!;
+          }
         });
       }
     }
