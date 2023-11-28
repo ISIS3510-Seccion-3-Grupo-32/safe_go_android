@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'ReportBugsView.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
+import 'GeneralSettingView.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -73,7 +74,7 @@ class SettingsView extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SettingsView(),
+                        builder: (context) => const GeneralSettingsView(),
                       ),
                     );
                   } else {
