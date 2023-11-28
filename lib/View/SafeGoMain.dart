@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_cache/memory_cache.dart';
@@ -12,8 +11,6 @@ import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'package:safe_go_dart/Service Providers/FirebaseServiceProvider.dart';
 import '../ViewModel/IncidentsViewModel.dart';
-import 'NoConnectivityView.dart';
-
 import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 

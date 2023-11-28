@@ -38,7 +38,7 @@ class SafeGoMapState extends State<SafeGoMap> {
   Future<void> init() async {
     PermissionRequest request = PermissionRequest();
     await request.requestLocationPermission(context);
-    updateLocation();
+    //updateLocation();
     prefs = await SharedPreferences.getInstance();
   }
 
@@ -52,7 +52,6 @@ class SafeGoMapState extends State<SafeGoMap> {
             prefs.setDouble('lat', latitude);
             prefs.setDouble('long', longitude);
             userLocation = LatLng(latitude, longitude);
-            print(userLocation);
             CameraPosition cameraPosition = CameraPosition(
               target: userLocation,
               zoom: 18,
@@ -70,6 +69,7 @@ class SafeGoMapState extends State<SafeGoMap> {
       setState(() {
         if (mounted) {
           mapController = controller;
+          updateLocation();
         }
       });
     }
