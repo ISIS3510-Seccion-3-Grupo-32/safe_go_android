@@ -177,12 +177,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
 
                 if (connectionState) {
                   // Authentication successful, navigate to the other view
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SettingsView(),
-                    ),
-                  );
+                  Navigator.pop(context);
                 } else {
                   Navigator.push(
                     context,
