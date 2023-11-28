@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../ViewModel/ReportsViewModel.dart';
+import '../Controllers/ReportsController.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
 
