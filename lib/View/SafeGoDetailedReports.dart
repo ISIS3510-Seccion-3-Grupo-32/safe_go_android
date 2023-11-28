@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:safe_go_dart/View/DestinationChoiceView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'SafeGoMap/SafeGoMap.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../ViewModel/ReportsViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
@@ -26,25 +28,45 @@ class SafeGoDetailedReports extends StatelessWidget {
   Widget build(BuildContext context) {
     final myController = TextEditingController();
 
-    addReportToCache(String textsToBeSabed) async {
+    addReportToMemory(String textsToBeSabed) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('savedReport', textsToBeSabed);
     }
 
-    void chargeReportFromCache() async {
+    void chargeReportFromMemory() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.getString('savedReport') != null) {
         myController.text = prefs.getString('savedReport')!;
       }
     }
 
-    void deleteReportFromCache() async {
+    void deleteReportFromMemory() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.remove('savedReport');
     }
 
+    Future<String> categorizeDetailedReport(String inputText) async {
+      final url = Uri.parse(
+          "https://us-central1-safego-399621.cloudfunctions.net/classify-report");
+      final headers = {"Content-Type": "application/json"};
+      final body = {"input_text": inputText};
+      String responseString = "crime";
+      final response =
+          await http.post(url, headers: headers, body: jsonEncode(body));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        responseString = data["Category"];
+
+        print("Response as a string: $responseString");
+      } else {
+        print("Failed to connect to the backend");
+      }
+      return responseString;
+    }
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      chargeReportFromCache();
+      chargeReportFromMemory();
     });
     return Scaffold(
       body: LayoutBuilder(
@@ -105,7 +127,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                                 controller: myController,
                                 maxLines: 20,
                                 onChanged: (text) {
-                                  addReportToCache(myController.text);
+                                  addReportToMemory(myController.text);
                                 },
                                 decoration: InputDecoration(
                                   filled: true,
@@ -136,7 +158,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                               if (myController.text.isNotEmpty &&
                                   myController.text.characters.length > 20) {
                                 report.sendDetailedReport(myController.text);
-
+                                deleteReportFromMemory();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
