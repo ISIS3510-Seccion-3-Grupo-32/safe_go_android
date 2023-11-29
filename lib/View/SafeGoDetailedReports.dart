@@ -45,26 +45,6 @@ class SafeGoDetailedReports extends StatelessWidget {
       prefs.remove('savedReport');
     }
 
-    Future<String> categorizeDetailedReport(String inputText) async {
-      final url = Uri.parse(
-          "https://us-central1-safego-399621.cloudfunctions.net/classify-report");
-      final headers = {"Content-Type": "application/json"};
-      final body = {"input_text": inputText};
-      String responseString = "crime";
-      final response =
-          await http.post(url, headers: headers, body: jsonEncode(body));
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        responseString = data["Category"];
-
-        print("Response as a string: $responseString");
-      } else {
-        print("Failed to connect to the backend");
-      }
-      return responseString;
-    }
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       chargeReportFromMemory();
     });

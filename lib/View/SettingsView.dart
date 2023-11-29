@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safe_go_dart/View/SecurityRanksView.dart';
 import 'ReportBugsView.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
@@ -186,6 +187,51 @@ class SettingsView extends StatelessWidget {
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
                         'Problems within the app',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: fontLinks,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: spaceBetweenLinks),
+            Padding(
+              padding: EdgeInsets.only(left: paddingLeftLinks),
+              child: GestureDetector(
+                onTap: () async {
+                  bool connectionState = await checkConnectivity();
+
+                  if (connectionState) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SecurityRanksView(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NoConnectivityView(),
+                      ),
+                    );
+                  }
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.align_vertical_bottom_outlined,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      size: iconSize,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: paddingLeftLinks),
+                      child: Text(
+                        'Security Ranks',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,
