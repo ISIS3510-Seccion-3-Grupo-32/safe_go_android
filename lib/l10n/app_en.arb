@@ -71,6 +71,94 @@
   "@mainRegisterText2": {
     "description": "The text of the second part of the link to register"
   },
+  "registerTitle": "Register",
+  "@registerTitle": {
+    "description": "The title of register page"
+  },
+  "registerName": "Full Name",
+  "@registerName": {
+    "description": "hint text for name input"
+  },
+  "registerNameError1": "Full Name is required",
+  "@registerNameError1": {
+    "description": "Text of empty error on name input in register"
+  },
+  "registerNameError2": "Please provide first and last name",
+  "@registerNameError2": {
+    "description": "Text of inccorect input error on name input in register"
+  },
+  "registerPassword": "Password",
+  "@registerPassword": {
+    "description": "hint text for password input"
+  },
+  "registerPasswordError1": "Password is required",
+  "@registerPasswordError1": {
+    "description": "Text of empy error on password input in register"
+  },
+  "registerPasswordError2": "Password must be at least 8 characters long",
+  "@registerPasswordError2": {
+    "description": "Text of not long enough error on name input in register"
+  },
+  "registerPasswordError3": "Password must contain at least one lowercase letter",
+  "@registerPasswordError3": {
+    "description": "Text of missing lowercase error on password input in register"
+  },
+  "registerPasswordError4": "Password must contain at least one uppercase letter",
+  "@registerPasswordError4": {
+    "description": "Text of missing uppercase error on name input in register"
+  },
+  "registerPasswordError5": "Password must contain at least one number",
+  "@registerPasswordError5": {
+    "description": "Text of missing number error on password input in register"
+  },
+  "registerPasswordError6": "Password must contain at least one special character",
+  "@registerPasswordError6": {
+    "description": "Text of missing special character error on password input in register"
+  },
+  "registerBirth": "Date of birth (MM|DD|YYYY)",
+  "@registerBirth": {
+    "description": "Hinttext of birth input"
+  },
+  "registerBirthError1": "Birthdate is required",
+  "@registerBirthError1": {
+    "description": "Text of empty error on birthday input in register"
+  },
+  "registerBirthError2": "Invalid date format. Please use (MM|DD|YYYY).",
+  "@registerBirthError2": {
+    "description": "Text of inccorect format error on birth input in register"
+  },
+  "registerBirthError3": "Invalid day. Day must be between 1 and 31.",
+  "@registerBirthError3": {
+    "description": "Text of day error on birthday input in register"
+  },
+  "registerBirthError4": "Invalid month. Month must be between 1 and 12.",
+  "@registerBirthError4": {
+    "description": "Text of month error on birth input in register"
+  },
+  "registerBirthError5": "Invalid year. Year must be between 1900 and 2018.",
+  "@registerBirthError5": {
+    "description": "Text of year error on birth input in register"
+  },
+  "registerEmailUsedTitle": "Email Already Used",
+  "@registerEmailUsedTitle": {
+    "description": "Text of email used error title when registering"
+  },
+  "registerEmailUsedContent": "The email address is already in use. Please enter another email or try to log in.",
+  "@registerEmailUsedContent": {
+    "description": "Text of email used error content when registering"
+  },
+  "registerSuccessfulTitle": "Registration Successful",
+  "@registerSuccessfulTitle": {
+    "description": "Text of registration successful title when registering"
+  },
+  "registerSuccessfulContent": "Your account has been successfully created.",
+  "@registerSuccessfulContent": {
+    "description": "Text of registration successful content when registering."
+  },
+  "registerSubmitButton": "Submit",
+  "@registerSubmitButton": {
+    "description": "Text of submit button in register view."
+  },
   "gsvLanguage": "Language",
   "@gsvLanguage":{
     "description": "Name of the language setting"
