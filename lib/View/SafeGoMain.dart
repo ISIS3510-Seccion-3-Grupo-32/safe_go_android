@@ -12,7 +12,6 @@ import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'package:safe_go_dart/Service Providers/FirebaseServiceProvider.dart';
 import '../ViewModel/IncidentsViewModel.dart';
-import 'NoConnectivityView.dart';
 
 import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';

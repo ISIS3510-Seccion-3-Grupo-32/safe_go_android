@@ -1,14 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'SettingsView.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
+import '../Model/Globals.dart' as globals;
 
 const List<Widget> languages = <Widget>[
   Text('English'),
   Text('Español'),
   Text('French')
 ];
+
+List<bool> currentLanguage() {
+  if (globals.language == globals.Languages.english) {
+    return <bool>[true, false, false];
+  } else if (globals.language == globals.Languages.spanish) {
+    return <bool>[false, true, false];
+  } else if (globals.language == globals.Languages.french) {
+    return <bool>[false, false, true];
+  }
+  return <bool>[true, false, false];
+}
 
 class GeneralSettingsView extends StatefulWidget {
   const GeneralSettingsView({super.key});
@@ -18,10 +29,10 @@ class GeneralSettingsView extends StatefulWidget {
 }
 
 class _GeneralSettingsState extends State<GeneralSettingsView> {
-  bool isDarkModeActive = false;
-  bool isNotificationsActive = false;
-  double _currentSliderValue = 0;
-  final List<bool> _selectedLanguage = <bool>[true, false, false];
+  bool isDarkModeActive = globals.isDarkMode;
+  bool isNotificationsActive = globals.isNotificationOn;
+  double _currentSliderValue = globals.sound;
+  final List<bool> _selectedLanguage = currentLanguage();
 
   Future<bool> checkConnectivity() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
@@ -174,6 +185,19 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
             ElevatedButton(
               onPressed: () async {
                 bool connectionState = await checkConnectivity();
+
+                globals.setDarkMode(isDarkModeActive);
+                globals.setNotification(isNotificationsActive);
+
+                if (_selectedLanguage[0] == true) {
+                  globals.setLanguage("en");
+                } else if (_selectedLanguage[1] == true) {
+                  globals.setLanguage("es");
+                } else if (_selectedLanguage[2] == true) {
+                  globals.setLanguage("fr");
+                }
+
+                globals.setSound(_currentSliderValue);
 
                 if (connectionState) {
                   // Authentication successful, navigate to the other view
