@@ -15,6 +15,8 @@ import '../ViewModel/IncidentsViewModel.dart';
 
 import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +50,17 @@ class SafeGo extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en'),
+        Locale('es'),
+        Locale('fr'),
+      ],
       home: const SafeGoMain(title: 'Go Safe Testing'),
     );
   }
@@ -121,7 +134,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Authentication Error'),
+          title: Text(AppLocalizations.of(context)!.authError),
           content: Text(errorMessage),
           actions: <Widget>[
             TextButton(

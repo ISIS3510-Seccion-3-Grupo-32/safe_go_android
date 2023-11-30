@@ -3,6 +3,7 @@ import 'ReportBugsView.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
 import 'GeneralSettingView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -96,7 +97,7 @@ class SettingsView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
-                        'Settings',
+                        AppLocalizations.of(context)!.settings,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,

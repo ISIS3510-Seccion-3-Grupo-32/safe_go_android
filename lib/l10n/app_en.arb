@@ -1,0 +1,10 @@
+{
+  "authError": "Authentification error",
+  "@authError": {
+    "description": "The message received when trying to log in with incorrect credentials"
+  },
+  "settings": "Settings",
+  "@settings":{
+    "description": "The name of the first link of SettingsView"
+  }
+}
