@@ -28,11 +28,13 @@ Future<void> main() async {
           appId: "1:7660014008:android:e60068ab4b28fba38ee74d",
           messagingSenderId: "7660014008",
           projectId: "safego-399621"));
+
+  final appState = AppState();
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: appState),
         ChangeNotifierProvider(create: (_) => AuthenticationViewModel()),
-        ChangeNotifierProvider(create: (_) => AppState())
       ],
       child: SafeGo(),
     ),

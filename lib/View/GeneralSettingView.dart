@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
-import '../Model/Globals.dart' as globals;
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_go_dart/ViewModel/AppState.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const List<Widget> languages = <Widget>[
   Text('English'),
@@ -14,12 +14,12 @@ const List<Widget> languages = <Widget>[
   Text('Français')
 ];
 
-List<bool> currentLanguage() {
-  if (globals.language == 'en') {
+List<bool> currentLanguage(AppState stateManager) {
+  if (stateManager.appLocale == const Locale('en')) {
     return <bool>[true, false, false];
-  } else if (globals.language == 'es') {
+  } else if (stateManager.appLocale == const Locale('es')) {
     return <bool>[false, true, false];
-  } else if (globals.language == 'fr') {
+  } else if (stateManager.appLocale == const Locale('fr')) {
     return <bool>[false, false, true];
   }
   return <bool>[true, false, false];
@@ -33,10 +33,38 @@ class GeneralSettingsView extends StatefulWidget {
 }
 
 class _GeneralSettingsState extends State<GeneralSettingsView> {
-  bool isDarkModeActive = globals.isDarkMode;
-  bool isNotificationsActive = globals.isNotificationOn;
-  double _currentSliderValue = globals.sound;
-  final List<bool> _selectedLanguage = currentLanguage();
+  late bool _isDarkModeActive;
+  late bool _isNotificationsActive;
+  late double _currentSliderValue;
+  late List<bool> _selectedLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    final stateManager = Provider.of<AppState>(context, listen: false);
+    _isDarkModeActive = stateManager.appDarkMode;
+    _isNotificationsActive = stateManager.appNotifications;
+    _currentSliderValue = stateManager.appSound;
+    _selectedLanguage = currentLanguage(stateManager);
+  }
+
+  void savePreferences(AppState stateMan) async {
+    stateMan.setDarkMode(_isDarkModeActive);
+    stateMan.setNotifications(_isNotificationsActive);
+    stateMan.setSound(_currentSliderValue);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('appDarkMode', _isDarkModeActive);
+    prefs.setBool('appNotifications', _isNotificationsActive);
+    prefs.setDouble('appSound', _currentSliderValue);
+    if (_selectedLanguage[0] == true) {
+      prefs.setString('appLocale', 'en');
+      stateMan.setLocale(const Locale('en'));
+    } else if (_selectedLanguage[1] == true) {
+      stateMan.setLocale(const Locale('es'));
+    } else if (_selectedLanguage[2] == true) {
+      stateMan.setLocale(const Locale('fr'));
+    }
+  }
 
   Future<bool> checkConnectivity() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
@@ -57,6 +85,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
     double fontSubtextes = screenWidth * 0.06;
     double spaceBetweenSettings = screenHeight * 0.07;
     double paddingForSwitch = screenWidth * 0.1;
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -99,11 +128,11 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
                       )),
                 ),
                 Switch(
-                  value: isDarkModeActive,
+                  value: _isDarkModeActive,
                   activeColor: Colors.white,
                   onChanged: (bool value) {
                     setState(() {
-                      isDarkModeActive = value;
+                      _isDarkModeActive = value;
                     });
                   },
                 ),
@@ -127,11 +156,11 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
                   ),
                 ),
                 Switch(
-                  value: isNotificationsActive,
+                  value: _isNotificationsActive,
                   activeColor: Colors.white,
                   onChanged: (bool value) {
                     setState(() {
-                      isNotificationsActive = value;
+                      _isNotificationsActive = value;
                     });
                   },
                 ),
@@ -167,7 +196,6 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
               direction: Axis.horizontal,
               onPressed: (int index) {
                 setState(() {
-                  // The button that is tapped is set to true, and the others to false.
                   for (int i = 0; i < _selectedLanguage.length; i++) {
                     _selectedLanguage[i] = i == index;
                   }
@@ -189,23 +217,9 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
             ElevatedButton(
               onPressed: () async {
                 bool connectionState = await checkConnectivity();
-
-                globals.setDarkMode(isDarkModeActive);
-                globals.setNotification(isNotificationsActive);
                 final stateManager =
                     Provider.of<AppState>(context, listen: false);
-                if (_selectedLanguage[0] == true) {
-                  globals.setLanguage('en');
-                  stateManager.setLocale(Locale('en'));
-                } else if (_selectedLanguage[1] == true) {
-                  globals.setLanguage('es');
-                  stateManager.setLocale(Locale('es'));
-                } else if (_selectedLanguage[2] == true) {
-                  globals.setLanguage('fr');
-                  stateManager.setLocale(Locale('fr'));
-                }
-
-                globals.setSound(_currentSliderValue);
+                savePreferences(stateManager);
 
                 if (connectionState) {
                   // Authentication successful, navigate to the other view
