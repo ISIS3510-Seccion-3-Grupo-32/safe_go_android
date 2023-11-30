@@ -32,7 +32,8 @@ class NearIncidents {
   return minDistance;
   }
 
-  double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+  double calculateDistance(double lat1, double lon1, double lat2, double lon2)
+  {
   const double earthRadius = 6371;
   final double lat1Rad = convertToRadians(lat1);
   final double lon1Rad = convertToRadians(lon1);

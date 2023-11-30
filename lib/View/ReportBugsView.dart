@@ -36,9 +36,7 @@ class ReportBugsView extends StatelessWidget {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       responseString = data["category"];
-      // Do something with the category (e.g., display it in your app)
 
-      // Save the response as a string
       print("Response as a string: $responseString");
     } else {
       print("Failed to connect to the backend");

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart'; // Import the auto_size_text package
+import '../Model/TravelData.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'TravelDataView.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
 
-class TravelData {
-  final String source;
-  final String destination;
-  final String date;
 
-  TravelData(this.source, this.destination, this.date);
-}
 
 class TravelHistoryView extends StatelessWidget {
   const TravelHistoryView({super.key});
@@ -42,13 +37,13 @@ class TravelHistoryView extends StatelessWidget {
     final emailController = TextEditingController();
     final dobController = TextEditingController();
 
-    // Define an array of travel data
     final List<TravelData> travelData = [
-      TravelData("Source 1", "Destination 1", "Date 1"),
-      TravelData("Source 2", "Destination 2", "Date 2"),
-      TravelData("Source 3", "Destination 3", "Date 3"),
-      TravelData("Source 4", "Destination 4", "Date 4"),
+      TravelData("Source 1", "Cra.12+42+18", "Date 1"),
+      TravelData("Source 2", "Cra.12+42+18", "Date 2"),
+      TravelData("Source 3", "Cra.12+42+18", "Date 3"),
+      TravelData("Source 4", "Cra.12+42+18", "Date 4"),
     ];
+
 
     return Scaffold(
       body: LayoutBuilder(
