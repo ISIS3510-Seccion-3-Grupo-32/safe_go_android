@@ -264,7 +264,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              'Be careful, the closest incident was located $TotalIncidents Kilometers from you! Neighborhood with most felonies is: $mostFeloniesNeightboor',
+                                              'Be careful, the closest incident was located $TotalIncidents Kilometers from you!',
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: fontSmall,
