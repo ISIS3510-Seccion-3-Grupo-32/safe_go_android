@@ -1,4 +1,8 @@
 {
     "authError": "Erreur d'authentification",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "gsvLanguage": "Langue",
+    "gsvSound": "Son",
+    "gsvNotifications": "Notifications",
+    "gsvDark": "Mode sombre"
 }

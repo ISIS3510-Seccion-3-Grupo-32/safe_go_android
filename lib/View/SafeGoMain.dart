@@ -6,6 +6,7 @@ import 'package:memory_cache/memory_cache.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_go_dart/View/NoConnectivityView.dart';
 import 'package:safe_go_dart/ViewModel/AuthenticationViewModel.dart';
+import 'package:safe_go_dart/ViewModel/AppState.dart';
 import 'DestinationChoiceView.dart';
 import 'RegisterView.dart';
 import 'SafeGoMap/MapDecorators.dart';
@@ -17,6 +18,7 @@ import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../Model/Globals.dart' as globals;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +33,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthenticationViewModel()),
-        // Other providers if needed
+        ChangeNotifierProvider(create: (_) => AppState())
       ],
       child: SafeGo(),
     ),
@@ -44,24 +46,29 @@ class SafeGo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-      ),
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale('en'),
-        Locale('es'),
-        Locale('fr'),
-      ],
-      home: const SafeGoMain(title: 'Go Safe Testing'),
+    return Consumer<AppState>(
+      builder: (context, appState, child) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+            useMaterial3: true,
+          ),
+          locale: appState.appLocale,
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale('en'),
+            Locale('es'),
+            Locale('fr'),
+          ],
+          home: const SafeGoMain(title: 'Go Safe Testing'),
+        );
+      },
     );
   }
 }

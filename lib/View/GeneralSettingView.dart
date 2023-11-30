@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
 import '../Model/Globals.dart' as globals;
+import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:safe_go_dart/ViewModel/AppState.dart';
 
 const List<Widget> languages = <Widget>[
   Text('English'),
@@ -11,11 +15,11 @@ const List<Widget> languages = <Widget>[
 ];
 
 List<bool> currentLanguage() {
-  if (globals.language == globals.Languages.english) {
+  if (globals.language == 'en') {
     return <bool>[true, false, false];
-  } else if (globals.language == globals.Languages.spanish) {
+  } else if (globals.language == 'es') {
     return <bool>[false, true, false];
-  } else if (globals.language == globals.Languages.french) {
+  } else if (globals.language == 'fr') {
     return <bool>[false, false, true];
   }
   return <bool>[true, false, false];
@@ -188,13 +192,17 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
 
                 globals.setDarkMode(isDarkModeActive);
                 globals.setNotification(isNotificationsActive);
-
+                final stateManager =
+                    Provider.of<AppState>(context, listen: false);
                 if (_selectedLanguage[0] == true) {
-                  globals.setLanguage("en");
+                  globals.setLanguage('en');
+                  stateManager.setLocale(Locale('en'));
                 } else if (_selectedLanguage[1] == true) {
-                  globals.setLanguage("es");
+                  globals.setLanguage('es');
+                  stateManager.setLocale(Locale('es'));
                 } else if (_selectedLanguage[2] == true) {
-                  globals.setLanguage("fr");
+                  globals.setLanguage('fr');
+                  stateManager.setLocale(Locale('fr'));
                 }
 
                 globals.setSound(_currentSliderValue);

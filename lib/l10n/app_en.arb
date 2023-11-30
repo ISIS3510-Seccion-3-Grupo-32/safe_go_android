@@ -6,5 +6,21 @@
   "settings": "Settings",
   "@settings":{
     "description": "The name of the first link of SettingsView"
+  },
+  "gsvLanguage": "Language",
+  "@gsvLanguage":{
+    "description": "Name of the language setting"
+  },
+  "gsvSound": "Sound",
+  "@gsvSound":{
+    "description": "Name of the sound setting"
+  },
+  "gsvNotifications": "Notifications",
+  "@gsvNotifications":{
+    "description": "Name of the notifications setting"
+  },
+  "gsvDark": "Dark Mode",
+  "@gsvDark":{
+    "description": "Name of the dark mode setting"
   }
 }
