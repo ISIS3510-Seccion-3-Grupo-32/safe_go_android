@@ -1,11 +1,75 @@
 {
-  "authError": "Authentification error",
-  "@authError": {
-    "description": "The message received when trying to log in with incorrect credentials"
-  },
   "settings": "Settings",
   "@settings":{
     "description": "The name of the first link of SettingsView"
+  },
+  "mainTitle": "Go Safe Testing",
+  "@mainTitle":{
+    "description": "Title of main page"
+  },
+  "mainAppTitle": "Safe Go",
+  "@mainAppTitle":{
+    "description": "Name of the app"
+  },
+  "mainHeader": "Welcome to Safe Go",
+  "@mainHeader":{
+    "description": "The text of the header of the main page"
+  },
+  "mainH2": "Login before you start your trip!",
+  "@mainH2":{
+    "description": "The text of the subheader of the main page"
+  },
+  "mainH3": "Be careful, the closest incident was located $TotalIncidents Kilometers from you! Neighborhood with most felonies is: $mostFeloniesNeightboor",
+  "@mainH3":{
+    "description": "The text of the sub-subheader of the main page"
+  },
+  "mainCredentials": "Login Credentials",
+  "@mainCredentials":{
+    "description": "The text of before the inputs of the main page"
+  },
+  "mainEmail": "Email",
+  "@mainEmail":{
+    "description": "The text of the first input of main page"
+  },
+  "mainEmailError1": "Email is required",
+  "@mainEmailError1":{
+    "description": "The text returned by the first error"
+  },
+  "mainEmailError2": "Please enter a valid email addres",
+  "@mainEmailError2":{
+    "description": "The text returned by the second error"
+  },
+  "mainPassword": "Password",
+  "@mainPassword":{
+    "description": "The text of the second input of main page"
+  },
+  "mainPasswordError1": "Password is required",
+  "@mainPasswordError1":{
+    "description": "The text returned by the first error"
+  },
+  "mainPasswordError2": "Passwords must be at least 8 characters long and contain at least one small and one capital letter, one number and one symbol",
+  "@mainPasswordError2":{
+    "description": "The text returned by the second error"
+  },
+  "mainAuthErrorTitle": "Authentification error",
+  "@authAuthErrorTitle": {
+    "description": "The title of message received when trying to log in with incorrect credentials"
+  },
+  "mainAuthErrorContent": "Authentication failed. Please check your credentials.",
+  "@authAuthErrorContent": {
+    "description": "The content of the message received when trying to log in with incorrect credentials"
+  },
+  "mainLoginButton": "Login",
+  "@mainLoginButton": {
+    "description": "The text of the login button of main page"
+  },
+  "mainRegisterText1": "Don't have an account? ",
+  "@mainRegisterText1": {
+    "description": "The text of the first part of the link to register"
+  },
+  "mainRegisterText2": "Register",
+  "@mainRegisterText2": {
+    "description": "The text of the second part of the link to register"
   },
   "gsvLanguage": "Language",
   "@gsvLanguage":{
