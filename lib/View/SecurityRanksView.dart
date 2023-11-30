@@ -14,6 +14,7 @@ class SecurityRanksView extends StatefulWidget {
 class SecurityRanksViewState extends State<SecurityRanksView> {
   late double fontHeader;
   String mostFeloniesNeighborhood = "";
+  String mostReportedHood = "";
   @override
   void initState() {
     super.initState();
@@ -29,8 +30,13 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
     mostFeloniesNeighborhood = MemoryCache.instance.read<String>('Felonyhodd')!;
   }
 
+  Future<void> _fetchTheMostRepeatedHood() async {
+    mostReportedHood = MemoryCache.instance.read<String>('ReportedHood')!;
+  }
+
   @override
   Widget build(BuildContext context) {
+    _fetchTheMostRepeatedHood();
     _fetchTheMostFelonyHood();
     final keyboardPadding = MediaQuery.of(context).viewInsets.bottom;
 
@@ -76,7 +82,42 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
                             height: 2.0,
                           ),
                         ),
-                        Text("Felonies hood : $mostFeloniesNeighborhood")
+                        Container(
+                          width: 300,
+                          height: 160,
+                          child: Center(
+                            child: Text(
+                              "Neighborhood with most Felonies: $mostFeloniesNeighborhood",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(216, 244, 228, 1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3))),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(216, 244, 228, 1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3))),
+                          width: 300,
+                          height: 170,
+                          child: Center(
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              "Neigborhood With Most \n Reports:$mostReportedHood",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),

@@ -67,6 +67,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
   final IncidentsViewModel incidents = IncidentsViewModel();
   String TotalIncidents = '0';
   String mostFeloniesNeightboor = "";
+  String mostReportedHood = "";
   late Timer timer;
 
   @override
@@ -81,6 +82,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
     super.initState();
     _fetchTotalIncidents();
     _fetchTheMostFelonyHood();
+    _fetchTheMostReportedHood();
   }
 
   Future<void> _fetchTheMostFelonyHood() async {
@@ -106,6 +108,35 @@ class _SafeGoMainState extends State<SafeGoMain> {
           if (mounted) {
             mostFeloniesNeightboor =
                 MemoryCache.instance.read<String>('Felonyhodd')!;
+          }
+        });
+      }
+    }
+  }
+
+  Future<void> _fetchTheMostReportedHood() async {
+    if (MemoryCache.instance.read<String>('ReportedHood') == null ||
+        mostReportedHood == "") {
+      String newPlacerReportedhood = await getMostReportedHood();
+      MemoryCache.instance.create('ReportedHood', newPlacerReportedhood);
+      setState(() {
+        if (mounted) {
+          mostReportedHood = newPlacerReportedhood;
+        }
+      });
+    } else {
+      if (mostReportedHood != await getMostReportedHood()) {
+        String newPlacerReportedhood = await getMostReportedHood();
+        setState(() {
+          if (mounted) {
+            mostReportedHood = newPlacerReportedhood;
+          }
+        });
+      } else {
+        setState(() {
+          if (mounted) {
+            mostReportedHood =
+                MemoryCache.instance.read<String>('ReportedHood')!;
           }
         });
       }
