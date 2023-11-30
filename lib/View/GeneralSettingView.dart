@@ -11,7 +11,7 @@ import 'package:safe_go_dart/ViewModel/AppState.dart';
 const List<Widget> languages = <Widget>[
   Text('English'),
   Text('Español'),
-  Text('French')
+  Text('Français')
 ];
 
 List<bool> currentLanguage() {
@@ -77,7 +77,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
             SizedBox(height: spaceBetweenSettings),
             RichText(
               text: TextSpan(
-                text: "General Settings",
+                text: AppLocalizations.of(context)!.gsvTitle,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -92,7 +92,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
                   width: paddingForSwitch,
                 ),
                 Expanded(
-                  child: Text("Dark Mode",
+                  child: Text(AppLocalizations.of(context)!.gsvDark,
                       style: TextStyle(
                         fontSize: fontSubtextes,
                         color: Colors.white,
@@ -119,7 +119,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
                 ),
                 Expanded(
                   child: Text(
-                    "Notifications",
+                    AppLocalizations.of(context)!.gsvNotifications,
                     style: TextStyle(
                       fontSize: fontSubtextes,
                       color: Colors.white,
@@ -141,7 +141,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
               ],
             ),
             SizedBox(height: spaceBetweenSettings),
-            Text("Sound",
+            Text(AppLocalizations.of(context)!.gsvSound,
                 style: TextStyle(
                   fontSize: fontSubtextes,
                   color: Colors.white,
@@ -158,7 +158,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
               },
             ),
             SizedBox(height: spaceBetweenSettings),
-            Text("Language",
+            Text(AppLocalizations.of(context)!.gsvLanguage,
                 style: TextStyle(
                   fontSize: fontSubtextes,
                   color: Colors.white,
@@ -223,7 +223,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
                 backgroundColor: Colors.white,
               ),
               child: Text(
-                'Save',
+                AppLocalizations.of(context)!.gsvSave,
                 style: TextStyle(color: Colors.black, fontSize: fontSubtextes),
               ),
             ),

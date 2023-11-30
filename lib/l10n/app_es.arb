@@ -4,5 +4,7 @@
     "gsvLanguage": "Idioma",
     "gsvSound": "Volumen",
     "gsvNotifications": "Notificaciones",
-    "gsvDark": "Modo oscuro"
+    "gsvDark": "Modo oscuro",
+    "gsvTitle": "Ajustes generales",
+    "gsvSave": "Guardar"
 }

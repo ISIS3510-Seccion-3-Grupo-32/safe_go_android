@@ -22,5 +22,13 @@
   "gsvDark": "Dark Mode",
   "@gsvDark":{
     "description": "Name of the dark mode setting"
+  },
+  "gsvTitle": "General Settings",
+  "@gsvTitle":{
+    "description": "Title of the General Settings View"
+  },
+  "gsvSave": "Save",
+  "@gsvSave":{
+    "description": "Text of the saving button"
   }
 }
