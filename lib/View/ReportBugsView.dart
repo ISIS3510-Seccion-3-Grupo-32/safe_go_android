@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'SafeGoMap/SafeGoMap.dart'; // Ensure that your import paths are correct.
+import 'SafeGoMap/SafeGoMap.dart';
 import 'DestinationChoiceView.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../ViewModel/BugsReportsViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReportBugsView extends StatelessWidget {
-  ReportBugsView({Key? key}) : super(key: key); // Fix the constructor syntax.
+  ReportBugsView({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -52,7 +53,7 @@ class ReportBugsView extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Message Sent'),
+          title: Text(AppLocalizations.of(context)!.rbPopupTitle),
           content: Text(errorMessage),
           actions: <Widget>[
             TextButton(
@@ -82,27 +83,6 @@ class ReportBugsView extends StatelessWidget {
       },
     );
   }
-
-  // Future<void> sendInputToBackend(String inputText) async {
-  //   final client = http.Client();
-  //   final url = Uri.parse('http://localhost:3001/process_sentence');
-  //   final response = await client.post(url,
-  //       headers: {'Content-Type': 'application/json'},
-  //       body: jsonEncode({"input_text": inputText}));
-
-  //   if (response.statusCode == 111) {
-  //     print("Fuck off");
-  //   }
-
-  //   if (response.statusCode == 200) {
-  //     final data = jsonDecode(response.body);
-  //     String category = data["category"];
-  //     print("Category from backend: $category");
-  //     // Do something with the category (e.g., display it in your app)
-  //   } else {
-  //     print("Failed to connect to the backend");
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +122,7 @@ class ReportBugsView extends StatelessWidget {
                         Visibility(
                           visible: keyboardPadding == 0,
                           child: Text(
-                            "Describe your problem",
+                            AppLocalizations.of(context)!.rbProblem,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -172,7 +152,7 @@ class ReportBugsView extends StatelessWidget {
                               ),
                               filled: true,
                               hintStyle: const TextStyle(color: Colors.grey),
-                              hintText: "When I click on ...",
+                              hintText: AppLocalizations.of(context)!.rbHint,
                               fillColor: Colors.white70,
                               contentPadding: const EdgeInsets.symmetric(
                                 vertical: 8.0,
@@ -182,11 +162,11 @@ class ReportBugsView extends StatelessWidget {
                             maxLines: 7,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please fill the text input';
+                                return AppLocalizations.of(context)!.rbError1;
                               }
 
                               if (value.length > 200) {
-                                return "Text shouldn't be larger than 200 characters";
+                                return AppLocalizations.of(context)!.rbError2;
                               }
                               return null;
                             },
@@ -215,7 +195,8 @@ class ReportBugsView extends StatelessWidget {
                                         category, emailController.text);
                                     _showErrorDialog(
                                       context,
-                                      "Your problem description has been successfully sent. Thank you for helping improve the app.",
+                                      AppLocalizations.of(context)!
+                                          .rbPopupContent,
                                     );
                                   }
                                 } else {
@@ -231,8 +212,9 @@ class ReportBugsView extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                               ),
-                              child: const Text(
-                                'Submit',
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .registerSubmitButton,
                                 style: TextStyle(
                                   color: Colors.black,
                                 ),
