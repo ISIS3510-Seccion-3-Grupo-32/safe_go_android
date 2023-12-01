@@ -5,6 +5,7 @@ import 'package:memory_cache/memory_cache.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_go_dart/View/NoConnectivityView.dart';
 import 'package:safe_go_dart/ViewModel/AuthenticationViewModel.dart';
+import '../Model/LocalSQLDB.dart';
 import 'DestinationChoiceView.dart';
 import 'RegisterView.dart';
 import 'SafeGoMap/MapDecorators.dart';
@@ -13,10 +14,14 @@ import 'package:safe_go_dart/Service Providers/FirebaseServiceProvider.dart';
 import '../ViewModel/IncidentsViewModel.dart';
 import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-
+import '../ViewModel/ManageTrip.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_it/get_it.dart';
+GetIt getIt = GetIt.I;
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
 
+  WidgetsFlutterBinding.ensureInitialized();
+  getIt.registerSingleton<LocalSQLDB>(LocalSQLDB(), signalsReady: true);
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyCb1qShGeUAk0G4La6deQ8AJ5pmziwPMbY",
@@ -78,6 +83,8 @@ class _SafeGoMainState extends State<SafeGoMain> {
 
   @override
   void initState() {
+
+    getIt.get<LocalSQLDB>().init();
     super.initState();
     _fetchTotalIncidents();
     _fetchTheMostFelonyHood();

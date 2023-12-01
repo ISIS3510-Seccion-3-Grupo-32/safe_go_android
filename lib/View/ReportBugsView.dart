@@ -8,8 +8,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
 
 class ReportBugsView extends StatelessWidget {
-  ReportBugsView({Key? key}) : super(key: key); // Fix the constructor syntax.
-
+  ReportBugsView({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
 

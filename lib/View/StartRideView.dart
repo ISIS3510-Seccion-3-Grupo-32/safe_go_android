@@ -1,14 +1,48 @@
-import 'package:flutter/material.dart';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+import '../Model/LocalSQLDB.dart';
+import 'EditTripInfoView.dart';
+import 'NoConnectivityView.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 
 class StartRideView extends StatelessWidget {
-  const StartRideView({
-    super.key,
-  });
+  final int i;
+  String _destination = "";
+  StartRideView(this.i, {Key? key}) : super(key: key);
+  Future<bool> checkConnectivity() async {
+
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  Future<String> getSource() async {
+    GetIt getIt = GetIt.instance;
+    List<Map<String, Object?>> results = await getIt<LocalSQLDB>().selectTravelData(i);
+
+     return  results[0]["source"]! as String;
+
+    }
+  Future<void> getDestination() async {
+    GetIt getIt = GetIt.instance;
+    List<Map<String, Object?>> results = await getIt<LocalSQLDB>().selectTravelData(i);
+    _destination=   results[0]["destination"]! as String;
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    String _source = "";
+
+    Future<String> source = getSource().then((value) => _source);
+    getDestination();
     double espaciado = 30.0;
     double paddingPercentage = 0.05; // Adjust this percentage as needed
     double textPadding = MediaQuery.of(context).size.height * 0.025;
@@ -39,17 +73,58 @@ class StartRideView extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 1,
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(18, textPadding, 0, 0),
-                          child: const Text(
-                            'Your safe route is set!',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(18, textPadding, 0, 0),
+                              child: const Text(
+                                'Your safe route is set!',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
-                          ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 0,
+                                horizontal: 0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(216, 244, 228, 1),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child:  IconButton(
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.black, // Adjust the icon color as needed
+                                ),
+                                onPressed: () async {
+                                  bool connectionState = await checkConnectivity();
+
+                                  if (connectionState) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>  EditTripInfoView(i),
+                                      ),
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const NoConnectivityView(),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            )
+
+                          ],
                         ),
                       ),
+
                       Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: espaciado / 2,
@@ -149,25 +224,25 @@ class StartRideView extends StatelessWidget {
                                   left: iconPadding,
                                   right: iconPadding,
                                 ),
-                                child: const Column(
+                                child:  Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                         left: 0,
                                         right: 0,
                                       ),
                                       child: Text(
-                                        'From: Cl 18# 1 -86',
-                                        style: TextStyle(
+                                        'From: $_source',
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
                                     ),
                                     Text(
-                                      'To:      Cr 40 # 68 - 50',
-                                      style: TextStyle(
+                                      'To:      $_destination',
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black,
                                       ),
@@ -252,3 +327,4 @@ class StartRideView extends StatelessWidget {
     );
   }
 }
+

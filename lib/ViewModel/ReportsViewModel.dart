@@ -5,4 +5,7 @@ class ReportsViewModel extends ChangeNotifier {
   Future<Object?> sendDetailedReport(String Psubject) {
     return sendDetailedReportDataToBack(Psubject, 'detailedUserReports');
   }
+  Future<Object?> sendUserRegistrationLocation(String Psubject) {
+    return sendDetailedReportDataToBack(Psubject, 'userLoginInfo');
+  }
 }

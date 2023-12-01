@@ -14,7 +14,7 @@ class TravelData {
 }
 
 class TravelHistoryView extends StatelessWidget {
-  const TravelHistoryView({super.key});
+  const TravelHistoryView( {super.key});
 
   Future<bool> checkConnectivity() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
