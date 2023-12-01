@@ -1,8 +1,4 @@
 {
-  "settings": "Settings",
-  "@settings":{
-    "description": "The name of the first link of SettingsView"
-  },
   "mainTitle": "Go Safe Testing",
   "@mainTitle":{
     "description": "Title of main page"
@@ -159,6 +155,102 @@
   "@registerSubmitButton": {
     "description": "Text of submit button in register view."
   },
+  "sdWhere": "Where To?",
+  "@sdWhere": {
+    "description": "Text of destination search bar."
+  },
+  "sdHome": "Home",
+  "@sdHome": {
+    "description": "Text of home button."
+  },
+  "sdWork": "Work",
+  "@sdWork": {
+    "description": "Text of work button."
+  },
+  "sdSchool": "School",
+  "@sdSchool": {
+    "description": "Text of school button."
+  },
+  "sdPartner": "Partner",
+  "@sdPartner": {
+    "description": "Text of partner button."
+  },
+  "ncTitle": "Lack of Internet Connection",
+  "@ncTitle": {
+    "description": "Title of connectivity view"
+  },
+  "ncHeader": "No Internet connection!",
+  "@ncHeader": {
+    "description": "Text of header of connectivity view"
+  },
+  "ncPopup": "You aren't currently connected to Internet. Please enable stable wifi connexion or use mobile data before retrying.",
+  "@ncPopup": {
+    "description": "Text of content of connectivity view."
+  },
+  "ncButton": "Retry",
+  "@ncButton": {
+    "description": "Text of Retry Button of connectivity view"
+  },
+  "ncButton": "Retry",
+  "@ncButton": {
+    "description": "Text of Retry Button of connectivity view"
+  },
+  "rbPopupTitle": "Message Sent",
+  "@rbPopupTitle": {
+    "description": "Title of report popup"
+  },
+  "rbPopupContent": "Your problem description has been successfully sent. Thank you for helping improve the app.",
+  "@rbPopupContent": {
+    "description": "Content of report popup"
+  },
+  "rbProblem": "Describe your problem",
+  "@rbProblem": {
+    "description": "Text of report header"
+  },
+  "rbHint": "When I click on ...",
+  "@rbHint": {
+    "description": "Text of report hint"
+  },
+  "rbError1": "Please fill the text input",
+  "@rbError1": {
+    "description": "Text of empty error for reporting bug"
+  },
+  "rbError2": "Text shouldn't be larger than 200 characters",
+  "@rbError2": {
+    "description": "Text of long text error for reporting bug"
+  },
+  "drHeader": "Report Suspicious Activity",
+  "@drHeader": {
+    "description": "Text of header of report crime view"
+  },
+  "drH2": "Tell us more about what happened",
+  "@drH2": {
+    "description": "Text of subheader of report crime view"
+  },
+  "drHint": "Write your Detailed Report Here",
+  "@drHint": {
+    "description": "Text of hint of report crime view"
+  },
+  "drSnack1": "We got your Report!",
+  "@drSnack1": {
+    "description": "Text of successful snack bar"
+  },
+  "drSnack2": "Please tell us more about this situation",
+  "@drSnack2": {
+    "description": "Text of unsuccessful snack bar"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Text of title of settings view"
+  },
+  "settingsPQRS": "PQRS",
+  "@settingsPQRS": {
+    "description": "Text of pqrs button"
+  },
+  "settingsProblems": "Problems within the app",
+  "@settingsPQRS": {
+    "description": "Text of problems button"
+  },
   "gsvLanguage": "Language",
   "@gsvLanguage":{
     "description": "Name of the language setting"
@@ -182,5 +274,41 @@
   "gsvSave": "Save",
   "@gsvSave":{
     "description": "Text of the saving button"
+  },
+  "srTitle": "Your safe route is set!",
+  "@srTitle":{
+    "description": "Title of start ride view"
+  },
+  "srTime": "9:00 a.m",
+  "@srTime":{
+    "description": "Time of start ride view"
+  },
+  "srH2": "Trip details:",
+  "@srH2":{
+    "description": "Text of subheader of start ride view"
+  },
+  "srFrom": "From: Cl 18# 1 -86:",
+  "@srFrom":{
+    "description": "Text of start ride view starting point"
+  },
+  "srTo": "To:      Cr 40 # 68 - 50",
+  "@srTo":{
+    "description": "Text of start ride view destination"
+  },
+  "srTimeHeader": "Estimated time:",
+  "@srTimeHeader":{
+    "description": "Text of start ride view time header"
+  },
+  "srTime": "36 minutes",
+  "@srTime":{
+    "description": "Text of start ride view time"
+  },
+  "thTitle": "Your Travels",
+  "@thTitle":{
+    "description": "Text of travel history view title"
+  },
+  "thButton": "Delete Travel's history",
+  "@thButton":{
+    "description": "Text of travel history view delete button"
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoConnectivityView extends StatelessWidget {
   const NoConnectivityView({super.key});
@@ -22,7 +23,7 @@ class NoConnectivityView extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Lack of Internet Connection'),
+          title: Text(AppLocalizations.of(context)!.ncTitle),
           content: Text(errorMessage),
           actions: <Widget>[
             TextButton(
@@ -56,7 +57,7 @@ class NoConnectivityView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  "No Internet connection",
+                  AppLocalizations.of(context)!.ncHeader,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -81,15 +82,15 @@ class NoConnectivityView extends StatelessWidget {
                     if (connectionState) {
                       Navigator.pop(context);
                     } else {
-                      _showErrorDialog(context,
-                          "You aren't currently connected to Internet. Please enable stable wifi connexion or use mobile data before retrying.");
+                      _showErrorDialog(
+                          context, AppLocalizations.of(context)!.ncPopup);
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                   ),
-                  child: const Text(
-                    'Retry',
+                  child: Text(
+                    AppLocalizations.of(context)!.ncButton,
                     style: TextStyle(color: Colors.black),
                   ),
                 ),

@@ -7,7 +7,8 @@ class TravelDataView extends StatelessWidget {
   final String destination;
   final String date;
 
-  const TravelDataView({super.key,
+  const TravelDataView({
+    super.key,
     required this.source,
     required this.destination,
     required this.date,

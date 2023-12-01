@@ -31,7 +31,7 @@ class SettingsView extends StatelessWidget {
     double iconSize = screenHeight * 0.04;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.of(context)!.settingsTitle),
         centerTitle: true, // Add your title here
         actions: [
           IconButton(
@@ -97,7 +97,7 @@ class SettingsView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
-                        AppLocalizations.of(context)!.settings,
+                        AppLocalizations.of(context)!.settingsTitle,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,
@@ -142,7 +142,7 @@ class SettingsView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
-                        'PQRS',
+                        AppLocalizations.of(context)!.settingsPQRS,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,
@@ -187,7 +187,7 @@ class SettingsView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
-                        'Problems within the app',
+                        AppLocalizations.of(context)!.settingsProblems,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,
