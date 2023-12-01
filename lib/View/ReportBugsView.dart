@@ -10,10 +10,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReportBugsView extends StatelessWidget {
   ReportBugsView({Key? key}) : super(key: key);
-<<<<<<< HEAD
-=======
-
->>>>>>> master
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
 
