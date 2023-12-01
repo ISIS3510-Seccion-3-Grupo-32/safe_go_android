@@ -5,6 +5,7 @@ import 'package:memory_cache/memory_cache.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_go_dart/View/NoConnectivityView.dart';
 import 'package:safe_go_dart/ViewModel/AuthenticationViewModel.dart';
+import 'package:safe_go_dart/ViewModel/AppState.dart';
 import 'DestinationChoiceView.dart';
 import 'RegisterView.dart';
 import 'SafeGoMap/MapDecorators.dart';
@@ -13,6 +14,8 @@ import 'package:safe_go_dart/Service Providers/FirebaseServiceProvider.dart';
 import '../ViewModel/IncidentsViewModel.dart';
 import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,11 +26,13 @@ Future<void> main() async {
           appId: "1:7660014008:android:e60068ab4b28fba38ee74d",
           messagingSenderId: "7660014008",
           projectId: "safego-399621"));
+
+  final appState = AppState();
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: appState),
         ChangeNotifierProvider(create: (_) => AuthenticationViewModel()),
-        // Other providers if needed
       ],
       child: SafeGo(),
     ),
@@ -40,13 +45,29 @@ class SafeGo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-      ),
-      home: const SafeGoMain(title: 'Go Safe Testing'),
+    return Consumer<AppState>(
+      builder: (context, appState, child) {
+        return MaterialApp(
+          locale: appState.appLocale,
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale('en'),
+            Locale('es'),
+            Locale('fr'),
+          ],
+          title: "Go Safe Testing",
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+            useMaterial3: true,
+          ),
+          home: const SafeGoMain(title: "Safe Go"),
+        );
+      },
     );
   }
 }
@@ -166,7 +187,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Authentication Error'),
+          title: Text(AppLocalizations.of(context)!.mainAuthErrorTitle),
           content: Text(errorMessage),
           actions: <Widget>[
             TextButton(
@@ -257,7 +278,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           alignment: Alignment.centerLeft,
                                           child: RichText(
                                             text: TextSpan(
-                                              text: "Welcome to SafeGo",
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .mainHeader,
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -275,7 +298,8 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              'Login Before you start your trip!',
+                                              AppLocalizations.of(context)!
+                                                  .mainH2,
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: fontSubtext,
@@ -295,7 +319,8 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              'Be careful, the closest incident was located $TotalIncidents Kilometers from you!',
+                                              AppLocalizations.of(context)!
+                                                  .mainH3,
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: fontSmall,
@@ -317,7 +342,8 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            'Login Credentials',
+                                            AppLocalizations.of(context)!
+                                                .mainCredentials,
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: fontSubtext,
@@ -343,7 +369,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                             filled: true,
                                             hintStyle: const TextStyle(
                                                 color: Colors.grey),
-                                            hintText: "Email",
+                                            hintText:
+                                                AppLocalizations.of(context)!
+                                                    .mainEmail,
                                             fillColor: Colors.white70,
                                             contentPadding:
                                                 const EdgeInsets.symmetric(
@@ -353,13 +381,17 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return 'Email is required';
+                                              return AppLocalizations.of(
+                                                      context)!
+                                                  .mainEmailError1;
                                             }
                                             final emailRegex = RegExp(
                                                 r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
 
                                             if (!emailRegex.hasMatch(value)) {
-                                              return 'Please enter a valid email address';
+                                              return AppLocalizations.of(
+                                                      context)!
+                                                  .mainEmailError2;
                                             }
                                             return null;
                                           },
@@ -370,8 +402,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                             horizontal: paddingSides,
                                             vertical: padding20),
                                         child: TextFormField(
-                                          controller:
-                                              passwordController, // Assign the controller
+                                          controller: passwordController,
                                           decoration: InputDecoration(
                                             border: OutlineInputBorder(
                                               borderRadius:
@@ -384,7 +415,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                             filled: true,
                                             hintStyle: const TextStyle(
                                                 color: Colors.grey),
-                                            hintText: "Password",
+                                            hintText:
+                                                AppLocalizations.of(context)!
+                                                    .mainPassword,
                                             fillColor: Colors.white70,
                                             contentPadding:
                                                 const EdgeInsets.symmetric(
@@ -412,7 +445,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return 'Password is required';
+                                              return AppLocalizations.of(
+                                                      context)!
+                                                  .mainPasswordError1;
                                             }
 
                                             if (value.length < 8 ||
@@ -424,12 +459,13 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                                     .hasMatch(value) ||
                                                 !RegExp(r'[!@#$%^&*]')
                                                     .hasMatch(value)) {
-                                              return 'Passwords must be at least 8 characters long and contain at least one small and one capital letter, one number and one symbol';
+                                              return AppLocalizations.of(
+                                                      context)!
+                                                  .mainPasswordError2;
                                             }
 
                                             return null;
                                           },
-
                                           obscureText: _obscureText,
                                         ),
                                       ),
@@ -470,8 +506,11 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                                     );
                                                   } else {
                                                     // Authentication failed, show error dialog
-                                                    _showErrorDialog(context,
-                                                        'Authentication failed. Please check your credentials.');
+                                                    _showErrorDialog(
+                                                        context,
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .mainAuthErrorContent);
                                                   }
                                                 }
                                               } else {
@@ -487,8 +526,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Colors.white,
                                             ),
-                                            child: const Text(
-                                              'Login',
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .mainLoginButton,
                                               style: TextStyle(
                                                   color: Colors.black),
                                             ),
@@ -498,7 +538,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 15),
+                                const SizedBox(height: 15),
                                 Center(
                                   child: GestureDetector(
                                     onTap: () async {
@@ -531,14 +571,17 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                       alignment: Alignment.center,
                                       child: Text.rich(
                                         TextSpan(
-                                          text: "Don't have an account? ",
+                                          text: AppLocalizations.of(context)!
+                                              .mainRegisterText1,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: fontSubtext,
                                           ),
-                                          children: const <TextSpan>[
+                                          children: <TextSpan>[
                                             TextSpan(
-                                              text: 'Register',
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .mainRegisterText2,
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 decoration:

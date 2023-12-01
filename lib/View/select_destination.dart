@@ -6,6 +6,7 @@ import 'StartRideView.dart';
 import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:safe_go_dart/View/SafeGoMain.dart';
 
 class SelectDestination extends StatelessWidget {
@@ -32,7 +33,7 @@ class SelectDestination extends StatelessWidget {
         const SizedBox(height: 14.0),
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Padding(
                 padding: EdgeInsets.only(right: 10.0),
                 child: TextField(
@@ -49,7 +50,7 @@ class SelectDestination extends StatelessWidget {
                         color: Color(0x00000001),
                       ),
                     ),
-                    hintText: 'Where to?',
+                    hintText: AppLocalizations.of(context)!.sdWhere,
                   ),
                 ),
               ),
@@ -158,7 +159,7 @@ class SelectDestination extends StatelessWidget {
                     }
                   },
                   icon: Icons.home_outlined,
-                  label: 'Home',
+                  label: AppLocalizations.of(context)!.sdHome,
                 ),
               ),
               Padding(
@@ -184,7 +185,7 @@ class SelectDestination extends StatelessWidget {
                     }
                   },
                   icon: Icons.work_outline,
-                  label: 'Work',
+                  label: AppLocalizations.of(context)!.sdWork,
                 ),
               ),
               Padding(
@@ -210,7 +211,7 @@ class SelectDestination extends StatelessWidget {
                     }
                   },
                   icon: Icons.school_outlined,
-                  label: 'School',
+                  label: AppLocalizations.of(context)!.sdSchool,
                 ),
               ),
               Padding(
@@ -236,7 +237,7 @@ class SelectDestination extends StatelessWidget {
                     }
                   },
                   icon: Icons.favorite_outline,
-                  label: 'Partner',
+                  label: AppLocalizations.of(context)!.sdPartner,
                 ),
               ),
               Padding(

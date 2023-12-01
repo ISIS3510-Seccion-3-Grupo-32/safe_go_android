@@ -3,6 +3,8 @@ import 'package:safe_go_dart/View/SecurityRanksView.dart';
 import 'ReportBugsView.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
+import 'GeneralSettingView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -30,7 +32,7 @@ class SettingsView extends StatelessWidget {
     double iconSize = screenHeight * 0.04;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.of(context)!.settingsTitle),
         centerTitle: true, // Add your title here
         actions: [
           IconButton(
@@ -74,7 +76,7 @@ class SettingsView extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SettingsView(),
+                        builder: (context) => const GeneralSettingsView(),
                       ),
                     );
                   } else {
@@ -96,7 +98,7 @@ class SettingsView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
-                        'Settings',
+                        AppLocalizations.of(context)!.settingsTitle,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,
@@ -141,7 +143,7 @@ class SettingsView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
-                        'PQRS',
+                        AppLocalizations.of(context)!.settingsPQRS,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,
@@ -186,7 +188,7 @@ class SettingsView extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: paddingLeftLinks),
                       child: Text(
-                        'Problems within the app',
+                        AppLocalizations.of(context)!.settingsProblems,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: fontLinks,
