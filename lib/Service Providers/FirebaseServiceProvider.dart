@@ -67,8 +67,6 @@ Future<String> getMostReportedHood() async {
     final data = jsonDecode(response.body);
     responseString = data["most_repeated_neighborhood"];
     print("Response as a string: $responseString");
-  } else {
-    print("Failed to connect to the backend");
-  }
+  } else {}
   return responseString;
 }

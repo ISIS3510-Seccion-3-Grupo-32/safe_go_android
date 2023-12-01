@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'dart:async';
 import 'package:memory_cache/memory_cache.dart';
-import 'package:safe_go_dart/Service Providers/FirebaseServiceProvider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SecurityRanksView extends StatefulWidget {
   const SecurityRanksView({Key? key}) : super(key: key);
@@ -36,6 +36,8 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     _fetchTheMostRepeatedHood();
     _fetchTheMostFelonyHood();
     final keyboardPadding = MediaQuery.of(context).viewInsets.bottom;
@@ -83,8 +85,8 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
                           ),
                         ),
                         Container(
-                          width: 300,
-                          height: 160,
+                          width: screenWidth * 0.9,
+                          height: screenHeight * 0.09,
                           child: Center(
                             child: Text(
                               "Neighborhood with most Felonies: $mostFeloniesNeighborhood",
@@ -105,19 +107,31 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
                               color: const Color.fromRGBO(216, 244, 228, 1),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(3))),
-                          width: 300,
-                          height: 170,
+                          width: screenWidth * 0.9,
+                          height: screenHeight * 0.09,
                           child: Center(
                             child: Text(
                               textAlign: TextAlign.center,
-                              "Neigborhood With Most \n Reports:$mostReportedHood",
+                              "Neigborhood With Most Reports: $mostReportedHood",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        Center(
+                            // Enabling the Image Frame
+                            child: Container(
+                                // To see the difference between the image's original size and the frame
+                                width: screenWidth * 0.9,
+                                height: screenHeight * 0.3,
+
+                                // Uploading the Image from Assets
+                                child: Image(
+                                  image: CachedNetworkImageProvider(
+                                      'https://i.imgur.com/d1iagNz.png'),
+                                )))
                       ],
                     ),
                   ),
