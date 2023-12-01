@@ -15,7 +15,7 @@
   "@mainH2":{
     "description": "The text of the subheader of the main page"
   },
-  "mainH3": "Be careful, the closest incident was located $TotalIncidents Kilometers from you! Neighborhood with most felonies is: $mostFeloniesNeightboor",
+  "mainH3": "Be careful, the closest incident was located at -Missing Placer-",
   "@mainH3":{
     "description": "The text of the sub-subheader of the main page"
   },
