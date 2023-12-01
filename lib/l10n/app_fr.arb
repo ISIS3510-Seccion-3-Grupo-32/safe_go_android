@@ -46,7 +46,7 @@
     "sdSchool": "École",
     "sdPartner": "Partenaire",
     "ncTitle": "Connexion internet manquante!",
-    "ncHeader": "Connexion internet interrompue",
+    "ncHeader": "Connexion internet perdue",
     "ncPopup": "Vous n'êtes actuellement pas connecté à Internet. Merci d'activer une connexion wifi stable ou d'activer vos données mobiles avant de réessayer.",
     "ncButton": "Réessayer",
     "rbPopupTitle": "Message envoyé",
