@@ -289,7 +289,11 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                             alignment: Alignment.centerLeft,
                                             child: Text(
                                               AppLocalizations.of(context)!
-                                                  .mainH3,
+                                                      .mainH31 +
+                                                  TotalIncidents +
+                                                  AppLocalizations.of(context)!
+                                                      .mainH32 +
+                                                  mostFeloniesNeightboor,
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: fontSmall,
