@@ -45,6 +45,7 @@
     "sdPartner": "Pareja",
     "ncTitle": "¡Ausencia de Connexión Internet",
     "ncHeader": "No Connexión Internet!",
+    "ncButton": "Intentar",
     "ncPopup": "No estas conectado a Internet en este momento. Por favor, activa una conexión wifi estable o habilita tus datos móviles antes de intentarlo nuevamente.",
     "rbPopupTitle": "Mensaje Enviado",
     "rbPopupContent": "La descripción de tu problema se ha enviado correctamente. Gracias por ayudar a mejorar la aplicación.",
