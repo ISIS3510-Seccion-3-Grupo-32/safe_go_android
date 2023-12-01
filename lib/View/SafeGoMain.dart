@@ -17,9 +17,9 @@ import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../ViewModel/ManageTrip.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_it/get_it.dart';
 
+GetIt getIt = GetIt.I;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   getIt.registerSingleton<LocalSQLDB>(LocalSQLDB(), signalsReady: true);
