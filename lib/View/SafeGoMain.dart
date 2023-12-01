@@ -107,10 +107,11 @@ class _SafeGoMainState extends State<SafeGoMain> {
   }
 
   Future<void> _fetchTheMostFelonyHood() async {
+    MemoryCache.instance.create('Felonyhodd', await getMostFeloniesHood());
     if (MemoryCache.instance.read<String>('Felonyhodd') == null ||
         mostFeloniesNeightboor == "") {
       String newPlacerNeightFelony = await getMostFeloniesHood();
-      MemoryCache.instance.create('Felonyhodd', newPlacerNeightFelony);
+
       setState(() {
         if (mounted) {
           mostFeloniesNeightboor = newPlacerNeightFelony;
@@ -136,10 +137,11 @@ class _SafeGoMainState extends State<SafeGoMain> {
   }
 
   Future<void> _fetchTheMostReportedHood() async {
+    MemoryCache.instance.create('ReportedHood', await getMostReportedHood());
     if (MemoryCache.instance.read<String>('ReportedHood') == null ||
         mostReportedHood == "") {
       String newPlacerReportedhood = await getMostReportedHood();
-      MemoryCache.instance.create('ReportedHood', newPlacerReportedhood);
+
       setState(() {
         if (mounted) {
           mostReportedHood = newPlacerReportedhood;
