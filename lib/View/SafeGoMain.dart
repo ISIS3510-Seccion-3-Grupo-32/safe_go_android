@@ -449,6 +449,14 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                                   );
 
                                                   if (user != null) {
+                                                    final String userId =
+                                                        user.uid;
+                                                    final stateManager =
+                                                        Provider.of<AppState>(
+                                                            context,
+                                                            listen: false);
+                                                    stateManager
+                                                        .setUserId(userId);
                                                     // Authentication successful, navigate to the other view
                                                     Navigator.push(
                                                       context,
