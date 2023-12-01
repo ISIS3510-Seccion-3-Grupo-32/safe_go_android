@@ -6,6 +6,7 @@ class PermissionRequest {
 
   requestLocationPermission(BuildContext context) async {
     var status = await Permission.location.request();
+
     if (status.isGranted) {
     } else if (status.isDenied) {
       await showPermissionDeniedDialog(context);
@@ -19,9 +20,10 @@ class PermissionRequest {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Please grant location permission to use SafeGo"),
-          content:
-              const Text("To use the App, please grant location permission."),
+          title: const Text(
+              "Please grant Precise location permission to use SafeGo"),
+          content: const Text(
+              "To use the App, please grant Precise location permission."),
           actions: [
             TextButton(
               child: const Text("OK"),

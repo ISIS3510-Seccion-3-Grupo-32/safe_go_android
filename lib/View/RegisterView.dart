@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import '../ViewModel/AuthenticationViewModel.dart';
 import 'SafeGoMain.dart';
 import 'NoConnectivityView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterView extends StatefulWidget {
   @override
@@ -95,7 +96,7 @@ class _RegisterViewState extends State<RegisterView> {
                   children: [
                     RichText(
                       text: TextSpan(
-                        text: "Register",
+                        text: AppLocalizations.of(context)!.registerTitle,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -142,7 +143,8 @@ class _RegisterViewState extends State<RegisterView> {
                                       filled: true,
                                       hintStyle:
                                           const TextStyle(color: Colors.grey),
-                                      hintText: "Full Name",
+                                      hintText: AppLocalizations.of(context)!
+                                          .registerName,
                                       fillColor: Colors.white70,
                                       contentPadding:
                                           const EdgeInsets.symmetric(
@@ -150,12 +152,14 @@ class _RegisterViewState extends State<RegisterView> {
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Full Name is required';
+                                        return AppLocalizations.of(context)!
+                                            .registerNameError1;
                                       }
 
                                       final nameParts = value.split(" ");
                                       if (nameParts.length < 2) {
-                                        return 'Please provide first and last name';
+                                        return AppLocalizations.of(context)!
+                                            .registerNameError2;
                                       }
                                       return null;
                                     },
@@ -181,7 +185,8 @@ class _RegisterViewState extends State<RegisterView> {
                                       filled: true,
                                       hintStyle:
                                           const TextStyle(color: Colors.grey),
-                                      hintText: "Password",
+                                      hintText: AppLocalizations.of(context)!
+                                          .registerPassword,
                                       fillColor: Colors.white70,
                                       contentPadding:
                                           const EdgeInsets.symmetric(
@@ -204,35 +209,36 @@ class _RegisterViewState extends State<RegisterView> {
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Password is required';
+                                        return AppLocalizations.of(context)!
+                                            .registerPasswordError1;
                                       }
 
                                       List<String> errors = [];
 
                                       if (value.length < 8) {
-                                        errors.add(
-                                            'Password must be at least 8 characters long');
+                                        errors.add(AppLocalizations.of(context)!
+                                            .registerPasswordError2);
                                       }
 
                                       if (!value.contains(RegExp(r'[a-z]'))) {
-                                        errors.add(
-                                            'Password must contain at least one lowercase letter');
+                                        errors.add(AppLocalizations.of(context)!
+                                            .registerPasswordError3);
                                       }
 
                                       if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                                        errors.add(
-                                            'Password must contain at least one uppercase letter');
+                                        errors.add(AppLocalizations.of(context)!
+                                            .registerPasswordError4);
                                       }
 
                                       if (!RegExp(r'[0-9]').hasMatch(value)) {
-                                        errors.add(
-                                            'Password must contain at least one number');
+                                        errors.add(AppLocalizations.of(context)!
+                                            .registerPasswordError5);
                                       }
 
                                       if (!RegExp(r'[!@#$%^&*]')
                                           .hasMatch(value)) {
-                                        errors.add(
-                                            'Password must contain at least one special character');
+                                        errors.add(AppLocalizations.of(context)!
+                                            .registerPasswordError6);
                                       }
 
                                       if (errors.isNotEmpty) {
@@ -263,7 +269,8 @@ class _RegisterViewState extends State<RegisterView> {
                                       filled: true,
                                       hintStyle:
                                           const TextStyle(color: Colors.grey),
-                                      hintText: "Email",
+                                      hintText: AppLocalizations.of(context)!
+                                          .mainEmail,
                                       fillColor: Colors.white70,
                                       contentPadding:
                                           const EdgeInsets.symmetric(
@@ -271,13 +278,15 @@ class _RegisterViewState extends State<RegisterView> {
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Email is required';
+                                        return AppLocalizations.of(context)!
+                                            .mainEmailError1;
                                       }
                                       final emailRegex = RegExp(
                                           r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
 
                                       if (!emailRegex.hasMatch(value)) {
-                                        return 'Please enter a valid email address';
+                                        return AppLocalizations.of(context)!
+                                            .mainEmailError2;
                                       }
 
                                       return null;
@@ -304,7 +313,8 @@ class _RegisterViewState extends State<RegisterView> {
                                       filled: true,
                                       hintStyle:
                                           const TextStyle(color: Colors.grey),
-                                      hintText: "Date of birth (MM/DD/YYYY)",
+                                      hintText: AppLocalizations.of(context)!
+                                          .registerBirth,
                                       fillColor: Colors.white70,
                                       contentPadding:
                                           const EdgeInsets.symmetric(
@@ -318,7 +328,8 @@ class _RegisterViewState extends State<RegisterView> {
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Birthdate is required';
+                                        return AppLocalizations.of(context)!
+                                            .registerBirthError1;
                                       }
 
                                       const datePattern =
@@ -327,7 +338,8 @@ class _RegisterViewState extends State<RegisterView> {
                                           RegExp(datePattern).firstMatch(value);
 
                                       if (match == null) {
-                                        return 'Invalid date format. Please use "DD/MM/YYYY".';
+                                        return AppLocalizations.of(context)!
+                                            .registerBirthError2;
                                       }
 
                                       final month =
@@ -338,13 +350,16 @@ class _RegisterViewState extends State<RegisterView> {
                                           int.parse(match.group(3) ?? '0');
 
                                       if (day < 1 || day > 31) {
-                                        return 'Invalid day. Day must be between 1 and 31.';
+                                        return AppLocalizations.of(context)!
+                                            .registerBirthError3;
                                       }
                                       if (month < 1 || month > 12) {
-                                        return 'Invalid month. Month must be between 1 and 12.';
+                                        return AppLocalizations.of(context)!
+                                            .registerBirthError4;
                                       }
                                       if (year < 1900 || year > 2018) {
-                                        return 'Invalid year. Year must be between 1900 and 2018.';
+                                        return AppLocalizations.of(context)!
+                                            .registerBirthError5;
                                       }
                                       return null;
                                     },
@@ -381,15 +396,18 @@ class _RegisterViewState extends State<RegisterView> {
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
-                                        title: Text('Email Already Used'),
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .registerEmailUsedTitle),
                                         content: Text(
-                                            'The email address is already in use. Please enter another email or try to log in.'),
+                                            AppLocalizations.of(context)!
+                                                .registerEmailUsedContent),
                                         actions: <Widget>[
                                           TextButton(
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('OK'),
+                                            child: const Text('OK'),
                                           ),
                                         ],
                                       );
@@ -400,9 +418,12 @@ class _RegisterViewState extends State<RegisterView> {
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
-                                        title: Text('Registration successful'),
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .registerSuccessfulTitle),
                                         content: Text(
-                                            'Your account has been successfully created.'),
+                                            AppLocalizations.of(context)!
+                                                .registerSuccessfulContent),
                                         actions: <Widget>[
                                           TextButton(
                                             onPressed: () {
@@ -434,9 +455,9 @@ class _RegisterViewState extends State<RegisterView> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                           ),
-                          child: const Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.black),
+                          child: Text(
+                            AppLocalizations.of(context)!.registerSubmitButton,
+                            style: const TextStyle(color: Colors.black),
                           ),
                         ),
                       ),
