@@ -38,9 +38,6 @@ Future<String> getMostFeloniesHood() async {
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
     responseString = data["neighborhood_with_most_felonies"];
-    // Do something with the category (e.g., display it in your app)
-
-    // Save the response as a string
     print("Response as a string: $responseString");
   } else {
     print("Failed to connect to the backend");
@@ -85,4 +82,21 @@ Future<bool> doesDocumentExist(String collectionName, String documentId) async {
     print('Error checking document existence: $e');
     return false;
   }
+}
+
+Future<String> getMostReportedHood() async {
+  final url = Uri.parse(
+      "https://us-central1-safego-399621.cloudfunctions.net/RankNeighborhoodsReports");
+  final headers = {"Content-Type": "application/json"};
+  final body = {"input_text": "hello world!"};
+  String responseString = "crashes";
+  final response =
+      await http.post(url, headers: headers, body: jsonEncode(body));
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    responseString = data["most_repeated_neighborhood"];
+    print("Response as a string: $responseString");
+  }
+  return responseString;
 }
