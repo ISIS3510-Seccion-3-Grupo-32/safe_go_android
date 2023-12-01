@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:memory_cache/memory_cache.dart';
@@ -13,7 +12,6 @@ import 'SafeGoMap/MapDecorators.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'package:safe_go_dart/Service Providers/FirebaseServiceProvider.dart';
 import '../ViewModel/IncidentsViewModel.dart';
-
 import '../ViewModel/ClicksViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -91,6 +89,14 @@ class _SafeGoMainState extends State<SafeGoMain> {
   String TotalIncidents = '0';
   String mostFeloniesNeightboor = "";
   late Timer timer;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -104,18 +110,24 @@ class _SafeGoMainState extends State<SafeGoMain> {
       String newPlacerNeightFelony = await getMostFeloniesHood();
       MemoryCache.instance.create('Felonyhodd', newPlacerNeightFelony);
       setState(() {
-        mostFeloniesNeightboor = newPlacerNeightFelony;
+        if (mounted) {
+          mostFeloniesNeightboor = newPlacerNeightFelony;
+        }
       });
     } else {
       if (mostFeloniesNeightboor != await getMostFeloniesHood()) {
         String newPlacerNeightFelony = await getMostFeloniesHood();
         setState(() {
-          mostFeloniesNeightboor = newPlacerNeightFelony;
+          if (mounted) {
+            mostFeloniesNeightboor = newPlacerNeightFelony;
+          }
         });
       } else {
         setState(() {
-          mostFeloniesNeightboor =
-              MemoryCache.instance.read<String>('Felonyhodd')!;
+          if (mounted) {
+            mostFeloniesNeightboor =
+                MemoryCache.instance.read<String>('Felonyhodd')!;
+          }
         });
       }
     }
@@ -127,7 +139,9 @@ class _SafeGoMainState extends State<SafeGoMain> {
         double totalIncidents = await incidents.queryDataBase();
 
         setState(() {
-          TotalIncidents = (totalIncidents).toStringAsFixed(2);
+          if (mounted) {
+            TotalIncidents = (totalIncidents).toStringAsFixed(2);
+          }
         });
       });
     } catch (e) {
@@ -388,8 +402,10 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                               onPressed: () {
                                                 if (this.mounted) {
                                                   setState(() {
-                                                    _obscureText =
-                                                        !_obscureText;
+                                                    if (mounted) {
+                                                      _obscureText =
+                                                          !_obscureText;
+                                                    }
                                                   });
                                                 }
                                               },

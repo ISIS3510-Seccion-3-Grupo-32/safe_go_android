@@ -26,8 +26,8 @@ class SafeGoMapState extends State<SafeGoMap> {
   void initState() {
     super.initState();
     init();
-
   }
+
   @override
   void dispose() {
     mapController.dispose();
@@ -38,26 +38,27 @@ class SafeGoMapState extends State<SafeGoMap> {
   Future<void> init() async {
     PermissionRequest request = PermissionRequest();
     await request.requestLocationPermission(context);
-    updateLocation();
+    //updateLocation();
     prefs = await SharedPreferences.getInstance();
   }
 
   updateLocation() {
     location.onLocationChanged.listen((LocationData currentLocation) {
       if (mounted) {
-        setState(()  {
-          final latitude = currentLocation.latitude ?? 0.0;
-          final longitude = currentLocation.longitude ?? 0.0;
-          prefs.setDouble('lat', latitude);
-          prefs.setDouble('long', longitude);
-          userLocation = LatLng(latitude, longitude);
-          print(userLocation);
-          CameraPosition cameraPosition = CameraPosition(
-            target: userLocation,
-            zoom: 18,
-          );
-          mapController
-              .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+        setState(() {
+          if (mounted) {
+            final latitude = currentLocation.latitude ?? 0.0;
+            final longitude = currentLocation.longitude ?? 0.0;
+            prefs.setDouble('lat', latitude);
+            prefs.setDouble('long', longitude);
+            userLocation = LatLng(latitude, longitude);
+            CameraPosition cameraPosition = CameraPosition(
+              target: userLocation,
+              zoom: 18,
+            );
+            mapController
+                .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+          }
         });
       }
     });
@@ -66,7 +67,10 @@ class SafeGoMapState extends State<SafeGoMap> {
   void _onMapCreated(GoogleMapController controller) {
     if (mounted) {
       setState(() {
-        mapController = controller;
+        if (mounted) {
+          mapController = controller;
+          updateLocation();
+        }
       });
     }
   }
