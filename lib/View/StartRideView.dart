@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'SafeGoMap/SafeGoMap.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StartRideView extends StatelessWidget {
   const StartRideView({
@@ -10,7 +11,7 @@ class StartRideView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double espaciado = 30.0;
-    double paddingPercentage = 0.05; // Adjust this percentage as needed
+    double paddingPercentage = 0.05;
     double textPadding = MediaQuery.of(context).size.height * 0.025;
     double iconPadding = MediaQuery.of(context).size.width * paddingPercentage;
 
@@ -21,11 +22,11 @@ class StartRideView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Expanded(
-                flex: 1, // Set the flex factor for the map
+                flex: 1,
                 child: SafeGoMap(),
               ),
               Expanded(
-                flex: 2, // Set the flex factor for the registration container
+                flex: 2,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color(0xFF96CEB4),
@@ -41,8 +42,8 @@ class StartRideView extends StatelessWidget {
                         flex: 1,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(18, textPadding, 0, 0),
-                          child: const Text(
-                            'Your safe route is set!',
+                          child: Text(
+                            AppLocalizations.of(context)!.srTitle,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -58,8 +59,7 @@ class StartRideView extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Container(
                             color: Colors.black,
-                            height:
-                                2.0, // Adjust the height of the Divider line as needed
+                            height: 2.0,
                           ),
                         ),
                       ),
@@ -91,8 +91,8 @@ class StartRideView extends StatelessWidget {
                                   left: 18.0,
                                   right: iconPadding,
                                 ),
-                                child: const Text(
-                                  '9:00 a.m',
+                                child: Text(
+                                  AppLocalizations.of(context)!.srH2,
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
@@ -109,10 +109,10 @@ class StartRideView extends StatelessWidget {
                           padding: EdgeInsets.only(
                             left: iconPadding,
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
                               Text(
-                                'Trip details:',
+                                AppLocalizations.of(context)!.srH2,
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black,
@@ -149,7 +149,7 @@ class StartRideView extends StatelessWidget {
                                   left: iconPadding,
                                   right: iconPadding,
                                 ),
-                                child: const Column(
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
@@ -158,7 +158,7 @@ class StartRideView extends StatelessWidget {
                                         right: 0,
                                       ),
                                       child: Text(
-                                        'From: Cl 18# 1 -86',
+                                        AppLocalizations.of(context)!.srFrom,
                                         style: TextStyle(
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
@@ -166,7 +166,7 @@ class StartRideView extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      'To:      Cr 40 # 68 - 50',
+                                      AppLocalizations.of(context)!.srTo,
                                       style: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black,
@@ -185,10 +185,10 @@ class StartRideView extends StatelessWidget {
                           padding: EdgeInsets.only(
                             left: iconPadding,
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
                               Text(
-                                'Estimated time:',
+                                AppLocalizations.of(context)!.srTimeHeader,
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black,
@@ -225,8 +225,8 @@ class StartRideView extends StatelessWidget {
                                   left: iconPadding,
                                   right: iconPadding,
                                 ),
-                                child: const Text(
-                                  '36 minutes',
+                                child: Text(
+                                  AppLocalizations.of(context)!.srTime,
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,

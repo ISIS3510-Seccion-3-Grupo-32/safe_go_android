@@ -23,11 +23,11 @@ class TravelDataView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Expanded(
-                flex: 1, // Set the flex factor for the map
+                flex: 1,
                 child: SafeGoMap(),
               ),
               Expanded(
-                flex: 1, // Set the flex factor for the registration container
+                flex: 1,
                 child: Container(
                     decoration: const BoxDecoration(
                         color: Color(0xFF96CEB4),
