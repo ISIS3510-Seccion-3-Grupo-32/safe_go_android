@@ -54,6 +54,36 @@ sendBugToDatabase(
       .set({"Category": category, "Subject": reportContent}));
 }
 
+sendPreferencesToDatabase(String userId, bool isDark, bool isNotif,
+    String language, double sound, String collection) async {
+  CollectionReference collectionReferance =
+      FirebaseFirestore.instance.collection(collection);
+  return (collectionReferance.doc(userId).set({
+    "isDarkModeActive": isDark,
+    "isNotificationsOn": isNotif,
+    "language": language,
+    "soundVolume": sound
+  }));
+}
+
+Future<bool> doesDocumentExist(String collectionName, String documentId) async {
+  try {
+    // Get the document reference
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection(collectionName).doc(documentId);
+
+    // Use get to check if the document exists
+    DocumentSnapshot docSnapshot = await docRef.get();
+
+    // Return true if the document exists
+    return docSnapshot.exists;
+  } catch (e) {
+    // Handle errors (e.g., FirestoreError)
+    print('Error checking document existence: $e');
+    return false;
+  }
+}
+
 Future<String> getMostReportedHood() async {
   final url = Uri.parse(
       "https://us-central1-safego-399621.cloudfunctions.net/RankNeighborhoodsReports");
@@ -67,6 +97,6 @@ Future<String> getMostReportedHood() async {
     final data = jsonDecode(response.body);
     responseString = data["most_repeated_neighborhood"];
     print("Response as a string: $responseString");
-  } else {}
+  }
   return responseString;
 }

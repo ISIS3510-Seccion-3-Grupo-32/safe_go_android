@@ -322,7 +322,11 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                             alignment: Alignment.centerLeft,
                                             child: Text(
                                               AppLocalizations.of(context)!
-                                                  .mainH3,
+                                                      .mainH31 +
+                                                  TotalIncidents +
+                                                  AppLocalizations.of(context)!
+                                                      .mainH32 +
+                                                  mostFeloniesNeightboor,
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: fontSmall,
@@ -498,6 +502,14 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                                   );
 
                                                   if (user != null) {
+                                                    final String userId =
+                                                        user.uid;
+                                                    final stateManager =
+                                                        Provider.of<AppState>(
+                                                            context,
+                                                            listen: false);
+                                                    stateManager
+                                                        .setUserId(userId);
                                                     // Authentication successful, navigate to the other view
                                                     Navigator.push(
                                                       context,
