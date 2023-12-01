@@ -60,8 +60,10 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
       prefs.setString('appLocale', 'en');
       stateMan.setLocale(const Locale('en'));
     } else if (_selectedLanguage[1] == true) {
+      prefs.setString('appLocale', 'es');
       stateMan.setLocale(const Locale('es'));
     } else if (_selectedLanguage[2] == true) {
+      prefs.setString('appLocale', 'fr');
       stateMan.setLocale(const Locale('fr'));
     }
   }
