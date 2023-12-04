@@ -4,9 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../ViewModel/ReportsViewModel.dart';
+import '../Controllers/ReportsController.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SafeGoDetailedReports extends StatelessWidget {
   const SafeGoDetailedReports({
@@ -45,26 +46,6 @@ class SafeGoDetailedReports extends StatelessWidget {
       prefs.remove('savedReport');
     }
 
-    Future<String> categorizeDetailedReport(String inputText) async {
-      final url = Uri.parse(
-          "https://us-central1-safego-399621.cloudfunctions.net/classify-report");
-      final headers = {"Content-Type": "application/json"};
-      final body = {"input_text": inputText};
-      String responseString = "crime";
-      final response =
-          await http.post(url, headers: headers, body: jsonEncode(body));
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        responseString = data["Category"];
-
-        print("Response as a string: $responseString");
-      } else {
-        print("Failed to connect to the backend");
-      }
-      return responseString;
-    }
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       chargeReportFromMemory();
     });
@@ -91,8 +72,8 @@ class SafeGoDetailedReports extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0),
                           child: RichText(
-                            text: const TextSpan(
-                              text: "Report Suspicious Activity\n",
+                            text: TextSpan(
+                              text: AppLocalizations.of(context)!.drHeader,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -107,8 +88,8 @@ class SafeGoDetailedReports extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
                           child: RichText(
-                            text: const TextSpan(
-                              text: "Tell us more about what happened",
+                            text: TextSpan(
+                              text: AppLocalizations.of(context)!.drH2,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -134,7 +115,8 @@ class SafeGoDetailedReports extends StatelessWidget {
                                   fillColor: Colors.white,
                                   contentPadding: EdgeInsets.all(10.0),
                                   border: OutlineInputBorder(),
-                                  hintText: 'Write your Detailed Report Here',
+                                  hintText:
+                                      AppLocalizations.of(context)!.drHint,
                                 ),
                               ),
                             ),
@@ -145,8 +127,8 @@ class SafeGoDetailedReports extends StatelessWidget {
                             backgroundColor: const Color.fromRGBO(
                                 99, 165, 136, 1), // Background color
                           ),
-                          child: const Text(
-                            "Submit",
+                          child: Text(
+                            AppLocalizations.of(context)!.registerSubmitButton,
                             style: TextStyle(color: Colors.black, fontSize: 14),
                             textAlign: TextAlign.left,
                           ),
@@ -166,16 +148,17 @@ class SafeGoDetailedReports extends StatelessWidget {
                                         DestinationChoiceView(),
                                   ),
                                 );
-                                const snackBar = SnackBar(
-                                  content: Text('We got your Report!'),
+                                final snackBar = SnackBar(
+                                  content: Text(
+                                      AppLocalizations.of(context)!.drSnack1),
                                   duration: Duration(milliseconds: 2000),
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                               } else {
-                                const snackBar = SnackBar(
+                                final snackBar = SnackBar(
                                   content: Text(
-                                      'Please tell us more about this situation'),
+                                      AppLocalizations.of(context)!.drSnack2),
                                   duration: Duration(milliseconds: 2000),
                                 );
                                 ScaffoldMessenger.of(context)

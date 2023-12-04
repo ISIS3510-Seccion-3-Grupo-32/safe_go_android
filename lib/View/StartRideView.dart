@@ -11,9 +11,11 @@ import '../Model/NearIncidents.dart';
 import 'EditTripInfoView.dart';
 import 'NoConnectivityView.dart';
 import 'SafeGoMap/SafeGoMap.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class StartRideView extends StatefulWidget {
+class StartRideView extends StatelessWidget {
   final int i;
+  String _destination = "";
   StartRideView(this.i, {Key? key}) : super(key: key);
   @override
   _StartRideView createState() => _StartRideView(i);
@@ -41,6 +43,7 @@ class _StartRideView extends State<StartRideView> {
 
 
   Future<bool> checkConnectivity() async {
+
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi ||
@@ -104,10 +107,11 @@ class _StartRideView extends State<StartRideView> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     double espaciado = 30.0;
-    double paddingPercentage = 0.05; // Adjust this percentage as needed
+    double paddingPercentage = 0.05;
     double textPadding = MediaQuery.of(context).size.height * 0.025;
     double iconPadding = MediaQuery.of(context).size.width * paddingPercentage;
     return Scaffold(
@@ -117,11 +121,11 @@ class _StartRideView extends State<StartRideView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Expanded(
-                flex: 1, // Set the flex factor for the map
+                flex: 1,
                 child: SafeGoMap(),
               ),
               Expanded(
-                flex: 2, // Set the flex factor for the registration container
+                flex: 2,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color(0xFF96CEB4),
@@ -156,33 +160,36 @@ class _StartRideView extends State<StartRideView> {
                                 color: const Color.fromRGBO(216, 244, 228, 1),
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              child:  IconButton(
+                              child: IconButton(
                                 icon: const Icon(
                                   Icons.edit,
-                                  color: Colors.black, // Adjust the icon color as needed
+                                  color: Colors
+                                      .black, // Adjust the icon color as needed
                                 ),
                                 onPressed: () async {
-                                  bool connectionState = await checkConnectivity();
+                                  bool connectionState =
+                                      await checkConnectivity();
 
                                   if (connectionState) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>  EditTripInfoView(i),
+                                        builder: (context) =>
+                                            EditTripInfoView(i),
                                       ),
                                     );
                                   } else {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const NoConnectivityView(),
+                                        builder: (context) =>
+                                            const NoConnectivityView(),
                                       ),
                                     );
                                   }
                                 },
                               ),
                             )
-
                           ],
                         ),
                       ),
@@ -195,8 +202,7 @@ class _StartRideView extends State<StartRideView> {
                           alignment: Alignment.centerLeft,
                           child: Container(
                             color: Colors.black,
-                            height:
-                                2.0, // Adjust the height of the Divider line as needed
+                            height: 2.0,
                           ),
                         ),
                       ),
@@ -217,7 +223,7 @@ class _StartRideView extends State<StartRideView> {
                                   borderRadius: BorderRadius.circular(60.0),
                                 ),
                                 child: const Icon(
-                                  Icons.social_distance,
+                                  Icons.access_time,
                                   color: Color.fromRGBO(64, 78, 72, 1),
                                 ),
                               ),
@@ -246,10 +252,10 @@ class _StartRideView extends State<StartRideView> {
                           padding: EdgeInsets.only(
                             left: iconPadding,
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
                               Text(
-                                'Trip details:',
+                                AppLocalizations.of(context)!.srH2,
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black,
@@ -286,7 +292,7 @@ class _StartRideView extends State<StartRideView> {
                                   left: iconPadding,
                                   right: iconPadding,
                                 ),
-                                child:  Column(
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
@@ -322,10 +328,10 @@ class _StartRideView extends State<StartRideView> {
                           padding: EdgeInsets.only(
                             left: iconPadding,
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
                               Text(
-                                'Estimated time:',
+                                AppLocalizations.of(context)!.srTimeHeader,
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black,
@@ -362,8 +368,8 @@ class _StartRideView extends State<StartRideView> {
                                   left: iconPadding,
                                   right: iconPadding,
                                 ),
-                                child: const Text(
-                                  '36 minutes',
+                                child: Text(
+                                  AppLocalizations.of(context)!.srTime,
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,

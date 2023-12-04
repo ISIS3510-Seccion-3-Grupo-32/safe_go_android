@@ -4,6 +4,7 @@ import 'SafeGoMap/SafeGoMap.dart';
 import 'TravelDataView.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TravelData {
   final String source;
@@ -74,7 +75,7 @@ class TravelHistoryView extends StatelessWidget {
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: "Your Travels",
+                          text: AppLocalizations.of(context)!.thTitle,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -153,22 +154,13 @@ class TravelHistoryView extends StatelessWidget {
                             width: screenWidth * 0.8,
                             height: screenHeight * 0.06,
                             child: ElevatedButton(
-                              onPressed: () {
-                                // Print the content of the input fields
-                                debugPrint(
-                                    'Full Name: ${fullNameController.text}');
-                                debugPrint(
-                                    'Password: ${passwordController.text}');
-                                debugPrint('Email: ${emailController.text}');
-                                debugPrint(
-                                    'Date of Birth: ${dobController.text}');
-                              },
+                              onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: lightRedColor,
                               ),
-                              child: const Text(
-                                "Delete Travel's history",
-                                style: TextStyle(color: Colors.black),
+                              child: Text(
+                                AppLocalizations.of(context)!.thButton,
+                                style: const TextStyle(color: Colors.black),
                               ),
                             ),
                           ),
