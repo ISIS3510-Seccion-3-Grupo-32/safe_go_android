@@ -13,9 +13,8 @@ import 'NoConnectivityView.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class StartRideView extends StatelessWidget {
+class StartRideView extends StatefulWidget {
   final int i;
-  String _destination = "";
   StartRideView(this.i, {Key? key}) : super(key: key);
   @override
   _StartRideView createState() => _StartRideView(i);
@@ -65,26 +64,7 @@ class _StartRideView extends State<StartRideView> {
     double? lngS = prefs.getDouble('lngS');
     double? latD = prefs.getDouble('latD');
     double? lngD = prefs.getDouble('lngD');
-    print(latS);
-    print(latS);
-    print(latS);
-    print(latS);
-    print(latS);
-    print(latD);
-    print(latD);
-    print(latD);
-    print(latD);
-    print(latD);
-    print(lngS);
-    print(lngS);
-    print(lngS);
-    print(lngS);
-    print(lngD);
-    print(lngD);
-    print(lngD);
-    print(lngD);
-    print(lngD);
-    print(lngD);
+
     distance = ni.calculateDistance(latS?? 0,lngS?? 0, latD?? 0,lngD?? 0);
     return ni.calculateDistance(latS?? 0,lngS?? 0, latD?? 0,lngD?? 0);
   }
