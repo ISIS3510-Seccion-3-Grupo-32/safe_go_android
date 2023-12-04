@@ -46,14 +46,6 @@ class LocalSQLDB {
     final db = await database;
     List<Map<String, Object?>> query = await db.rawQuery(
         "SELECT * FROM travel_data WHERE id = $id");
-    print(query);
-    print(query);
-    print(query);print(query);print(query);print(query);
-    print(query);
-    print(query);print(query);print(query);print(query);print(query);print(query);print(query);print(query);
-
-
-
 
     return query;
   }
