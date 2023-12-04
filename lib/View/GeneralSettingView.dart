@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:safe_go_dart/ViewModel/PreferencesViewModel.dart';
 import 'NoConnectivityView.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_go_dart/ViewModel/AppState.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../Service Providers/FirebaseServiceProvider.dart';
 
 const List<Widget> languages = <Widget>[
   Text('English'),
@@ -87,6 +89,7 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
     double fontSubtextes = screenWidth * 0.06;
     double spaceBetweenSettings = screenHeight * 0.07;
     double paddingForSwitch = screenWidth * 0.1;
+    final PreferencesViewModel preference = PreferencesViewModel();
 
     return Scaffold(
       appBar: AppBar(
@@ -222,7 +225,32 @@ class _GeneralSettingsState extends State<GeneralSettingsView> {
                 final stateManager =
                     Provider.of<AppState>(context, listen: false);
                 savePreferences(stateManager);
-
+                final userId = stateManager.userId;
+                bool preferencesExist =
+                    await doesDocumentExist("usersPreferences", userId);
+                String currentLanguage = "";
+                if (_selectedLanguage[0] == true) {
+                  currentLanguage = 'en';
+                } else if (_selectedLanguage[1] == true) {
+                  currentLanguage = 'es';
+                } else if (_selectedLanguage[2] == true) {
+                  currentLanguage = 'fr';
+                }
+                if (preferencesExist) {
+                  preference.updatePreferences(
+                      userId,
+                      _isDarkModeActive,
+                      _isNotificationsActive,
+                      _currentSliderValue,
+                      currentLanguage);
+                } else {
+                  preference.sendNewPreferences(
+                      userId,
+                      _isDarkModeActive,
+                      _isNotificationsActive,
+                      currentLanguage,
+                      _currentSliderValue);
+                }
                 if (connectionState) {
                   // Authentication successful, navigate to the other view
                   Navigator.pop(context);

@@ -6,11 +6,13 @@ class AppState extends ChangeNotifier {
   late bool _appDarkMode;
   late bool _appNotifications;
   late double _appSound;
+  String _userId = "";
 
   Locale get appLocale => _appLocale;
   bool get appDarkMode => _appDarkMode;
   bool get appNotifications => _appNotifications;
   double get appSound => _appSound;
+  String get userId => _userId;
 
   AppState() {
     _init();
@@ -45,5 +47,9 @@ class AppState extends ChangeNotifier {
   void setSound(double sound) {
     _appSound = sound;
     notifyListeners();
+  }
+
+  void setUserId(String id) {
+    _userId = id;
   }
 }

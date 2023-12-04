@@ -27,6 +27,8 @@ class SafeGoDetailedReports extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     final myController = TextEditingController();
 
     addReportToMemory(String textsToBeSabed) async {
@@ -62,11 +64,12 @@ class SafeGoDetailedReports extends StatelessWidget {
               Expanded(
                 flex: 1, // Set the flex factor for the registration container
                 child: Container(
-                    decoration: const BoxDecoration(
-                        color: Color(0xFF96CEB4),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            topRight: Radius.circular(50))),
+                  decoration: const BoxDecoration(
+                      color: Color(0xFF96CEB4),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50))),
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Padding(
@@ -99,25 +102,23 @@ class SafeGoDetailedReports extends StatelessWidget {
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 3.0),
-                          height: 52.0,
-                          width: 370.0,
+                          height: screenHeight * 0.3,
+                          width: screenWidth * 0.7,
                           color: Colors.transparent,
-                          child: Expanded(
-                            child: SizedBox(
-                              child: TextField(
-                                controller: myController,
-                                maxLines: 20,
-                                onChanged: (text) {
-                                  addReportToMemory(myController.text);
-                                },
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding: EdgeInsets.all(10.0),
-                                  border: OutlineInputBorder(),
-                                  hintText:
-                                      AppLocalizations.of(context)!.drHint,
-                                ),
+                          child: SizedBox(
+                            child: TextField(
+                              controller: myController,
+                              maxLines:
+                                  6, // Set maxLines to null for unlimited lines
+                              onChanged: (text) {
+                                addReportToMemory(myController.text);
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                border: OutlineInputBorder(),
+                                hintText: AppLocalizations.of(context)!.drHint,
                               ),
                             ),
                           ),
@@ -176,7 +177,9 @@ class SafeGoDetailedReports extends StatelessWidget {
                           },
                         )
                       ],
-                    )),
+                    ),
+                  ),
+                ),
               ),
             ],
           );
