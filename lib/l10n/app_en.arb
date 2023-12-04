@@ -15,9 +15,13 @@
   "@mainH2":{
     "description": "The text of the subheader of the main page"
   },
-  "mainH3": "Be careful, the closest incident was located $TotalIncidents Kilometers from you! Neighborhood with most felonies is: $mostFeloniesNeightboor",
-  "@mainH3":{
-    "description": "The text of the sub-subheader of the main page"
+  "mainH31": "Be careful, the closest incident was located ",
+  "@mainH31":{
+    "description": "The text of the sub-subheader of the main page part1"
+  },
+  "mainH32": " Kilometers from you! Neighborhood with most felonies is: ",
+  "@mainH32":{
+    "description": "The text of the sub-subheader of the main page part2"
   },
   "mainCredentials": "Login Credentials",
   "@mainCredentials":{
