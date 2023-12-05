@@ -5,7 +5,6 @@ import '../ViewModel/ManageTrip.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../ViewModel/ReportsViewModel.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
 
@@ -13,8 +12,6 @@ class EditTripInfoView extends StatelessWidget {
   final int i;
 
   const EditTripInfoView(this.i, {Key? key}) : super(key: key);
-
-
 
   Future<bool> checkConnectivity() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
@@ -39,9 +36,6 @@ class EditTripInfoView extends StatelessWidget {
         controllerSource.text = prefs.getString('savedReport')!;
       }
     }
-
-
-
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       chargeReportFromMemory();
@@ -83,7 +77,6 @@ class EditTripInfoView extends StatelessWidget {
                           height: heightPadding,
                           width: 370.0,
                           color: Colors.transparent,
-
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -103,7 +96,8 @@ class EditTripInfoView extends StatelessWidget {
                                   fillColor: Colors.white,
                                   contentPadding: EdgeInsets.all(10.0),
                                   border: OutlineInputBorder(),
-                                  hintText: 'Where do you want to start your trip?',
+                                  hintText:
+                                      'Where do you want to start your trip?',
                                 ),
                               ),
                             ),
@@ -114,7 +108,6 @@ class EditTripInfoView extends StatelessWidget {
                           height: heightPadding,
                           width: 370.0,
                           color: Colors.transparent,
-
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 0.0),
@@ -145,7 +138,6 @@ class EditTripInfoView extends StatelessWidget {
                           height: heightPadding,
                           width: 370.0,
                           color: Colors.transparent,
-
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -161,27 +153,30 @@ class EditTripInfoView extends StatelessWidget {
                             bool connectionState = await checkConnectivity();
                             if (connectionState) {
                               final ManageTrip manageTrip = ManageTrip();
-                              if (controllerSource.text.isNotEmpty && controllerDestination.text.isNotEmpty)
-                              {
-                                  manageTrip.validateAddress(controllerSource.text, controllerDestination.text, i);
+                              if (controllerSource.text.isNotEmpty &&
+                                  controllerDestination.text.isNotEmpty) {
+                                manageTrip.validateAddress(
+                                    controllerSource.text,
+                                    controllerDestination.text,
+                                    i);
                                 //deleteReportFromMemory();
                                 // Navigator.push(
-                                 //  context,
+                                //  context,
                                 //  MaterialPageRoute(
-                                 //   builder: (context) =>
-                                  //      DestinationChoiceView(),
-                               //   ),
-                               // );
+                                //   builder: (context) =>
+                                //      DestinationChoiceView(),
+                                //   ),
+                                // );
                                 const snackBar = SnackBar(
-                                  content: Text('We got your Report!'),
+                                  content: Text('We got your Route!'),
                                   duration: Duration(milliseconds: 2000),
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                               } else {
                                 const snackBar = SnackBar(
-                                  content: Text(
-                                      'Please fill all of the fields'),
+                                  content:
+                                      Text('Please fill all of the fields'),
                                   duration: Duration(milliseconds: 2000),
                                 );
                                 ScaffoldMessenger.of(context)
@@ -192,7 +187,7 @@ class EditTripInfoView extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                  const NoConnectivityView(),
+                                      const NoConnectivityView(),
                                 ),
                               );
                             }
