@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'select_destination.dart';
 import 'SettingsView.dart';
@@ -8,11 +7,6 @@ import 'NoConnectivityView.dart';
 
 class DestinationChoiceView extends StatelessWidget {
   bool selected = false;
-  List<LatLng> puntos = [
-    LatLng(4.60140465 + 0.0003, -74.0649032880709), // Punto 1
-    LatLng(4.60140465 - 0.0003, -74.0649032880709),
-    LatLng(4.60140465 - 0.0003, -74.0649032880709 + 0.0003), // Punto 2
-  ];
 
   DestinationChoiceView({super.key});
 

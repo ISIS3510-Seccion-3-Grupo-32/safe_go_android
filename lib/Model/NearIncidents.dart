@@ -17,20 +17,26 @@ class NearIncidents {
   }
   Future<double> queryFirestore(String collection) async {
     updateLocation();
-  FirebaseFirestore db = FirebaseFirestore.instance;
-  QuerySnapshot querySnapshot = await db.collection(collection).get();
-  var minDistance = double.maxFinite;
-  for (QueryDocumentSnapshot record in querySnapshot.docs) {
-    GeoPoint location = record['Record'];
-    double lat = location.latitude;
-    double long = location.longitude;
-    double distance = calculateDistance(userLocation.latitude, userLocation.longitude, lat, long);
-    if(distance < minDistance) {
-      minDistance = distance;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    QuerySnapshot querySnapshot = await db.collection(collection).get();
+    var minDistance = double.maxFinite;
+    double lat = 0;
+    double long = 0;
+    double distance = 0;
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      QueryDocumentSnapshot record = querySnapshot.docs[i];
+      GeoPoint location = record['Record'];
+      lat = location.latitude;
+      long = location.longitude;
+      distance = calculateDistance(userLocation.latitude, userLocation.longitude, lat, long);
+      if (distance < minDistance) {
+        minDistance = distance;
+      }
     }
+
+    return minDistance;
   }
-  return minDistance;
-  }
+
 
   double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
   const double earthRadius = 6371;
