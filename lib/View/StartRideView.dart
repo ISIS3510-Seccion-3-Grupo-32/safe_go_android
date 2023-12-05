@@ -44,7 +44,7 @@ class StartRideView extends StatelessWidget {
                           padding: EdgeInsets.fromLTRB(18, textPadding, 0, 0),
                           child: Text(
                             AppLocalizations.of(context)!.srTitle,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
@@ -93,7 +93,7 @@ class StartRideView extends StatelessWidget {
                                 ),
                                 child: Text(
                                   AppLocalizations.of(context)!.srH2,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
@@ -113,7 +113,7 @@ class StartRideView extends StatelessWidget {
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.srH2,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black,
                                 ),
@@ -153,13 +153,13 @@ class StartRideView extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                         left: 0,
                                         right: 0,
                                       ),
                                       child: Text(
                                         AppLocalizations.of(context)!.srFrom,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
@@ -167,7 +167,7 @@ class StartRideView extends StatelessWidget {
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!.srTo,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black,
                                       ),
@@ -189,7 +189,7 @@ class StartRideView extends StatelessWidget {
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.srTimeHeader,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black,
                                 ),
@@ -227,7 +227,7 @@ class StartRideView extends StatelessWidget {
                                 ),
                                 child: Text(
                                   AppLocalizations.of(context)!.srTime,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),

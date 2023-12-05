@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoConnectivityView extends StatelessWidget {
@@ -91,7 +90,7 @@ class NoConnectivityView extends StatelessWidget {
                   ),
                   child: Text(
                     AppLocalizations.of(context)!.ncButton,
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
               ),

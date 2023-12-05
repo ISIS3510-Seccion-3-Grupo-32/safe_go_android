@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'AppState.dart';
 
 class AuthenticationViewModel extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -70,8 +69,6 @@ class AuthenticationViewModel extends ChangeNotifier {
       } else {
         authError = 'An error occurred during authentication.';
       }
-      // Set the authError in your ViewModel for the UI to display
-      print(authError);
     }
     return null;
   }

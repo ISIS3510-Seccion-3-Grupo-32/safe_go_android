@@ -34,7 +34,7 @@ class _RegisterViewState extends State<RegisterView> {
     );
 
     if (picked != null) {
-      if (this.mounted) {
+      if (mounted) {
         setState(() {
           dobController.text = dateFormat.format(picked);
         });
@@ -199,7 +199,7 @@ class _RegisterViewState extends State<RegisterView> {
                                           color: Colors.grey,
                                         ),
                                         onPressed: () {
-                                          if (this.mounted) {
+                                          if (mounted) {
                                             setState(() {
                                               _obscureText = !_obscureText;
                                             });
@@ -435,7 +435,7 @@ class _RegisterViewState extends State<RegisterView> {
                                                 ),
                                               );
                                             },
-                                            child: Text('OK'),
+                                            child: const Text('OK'),
                                           ),
                                         ],
                                       );
@@ -447,7 +447,7 @@ class _RegisterViewState extends State<RegisterView> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => NoConnectivityView(),
+                                  builder: (context) => const NoConnectivityView(),
                                 ),
                               );
                             }

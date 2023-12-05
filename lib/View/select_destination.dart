@@ -35,13 +35,13 @@ class SelectDestination extends StatelessWidget {
           children: [
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(right: 10.0),
+                padding: const EdgeInsets.only(right: 10.0),
                 child: TextField(
                   decoration: InputDecoration(
                     filled: true,
-                    prefixIcon: Icon(Icons.search),
-                    fillColor: Color.fromRGBO(248, 252, 252, 1),
-                    border: OutlineInputBorder(
+                    prefixIcon: const Icon(Icons.search),
+                    fillColor: const Color.fromRGBO(248, 252, 252, 1),
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       borderSide: BorderSide(
                         style: BorderStyle.none,
@@ -257,7 +257,7 @@ class SelectDestination extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NoConnectivityView(),
+                          builder: (context) => const NoConnectivityView(),
                         ),
                       );
                     }

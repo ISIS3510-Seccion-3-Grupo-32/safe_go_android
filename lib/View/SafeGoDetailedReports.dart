@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:safe_go_dart/View/DestinationChoiceView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'SafeGoMap/SafeGoMap.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../Controllers/ReportsController.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'NoConnectivityView.dart';
@@ -77,7 +75,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                           child: RichText(
                             text: TextSpan(
                               text: AppLocalizations.of(context)!.drHeader,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -93,7 +91,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                           child: RichText(
                             text: TextSpan(
                               text: AppLocalizations.of(context)!.drH2,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
                               ),
@@ -116,8 +114,8 @@ class SafeGoDetailedReports extends StatelessWidget {
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                border: OutlineInputBorder(),
+                                contentPadding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                border: const OutlineInputBorder(),
                                 hintText: AppLocalizations.of(context)!.drHint,
                               ),
                             ),
@@ -130,7 +128,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                           ),
                           child: Text(
                             AppLocalizations.of(context)!.registerSubmitButton,
-                            style: TextStyle(color: Colors.black, fontSize: 14),
+                            style: const TextStyle(color: Colors.black, fontSize: 14),
                             textAlign: TextAlign.left,
                           ),
                           onPressed: () async {
@@ -152,7 +150,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                                 final snackBar = SnackBar(
                                   content: Text(
                                       AppLocalizations.of(context)!.drSnack1),
-                                  duration: Duration(milliseconds: 2000),
+                                  duration: const Duration(milliseconds: 2000),
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
@@ -160,7 +158,7 @@ class SafeGoDetailedReports extends StatelessWidget {
                                 final snackBar = SnackBar(
                                   content: Text(
                                       AppLocalizations.of(context)!.drSnack2),
-                                  duration: Duration(milliseconds: 2000),
+                                  duration: const Duration(milliseconds: 2000),
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);

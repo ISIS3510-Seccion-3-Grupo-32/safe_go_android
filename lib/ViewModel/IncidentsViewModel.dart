@@ -23,7 +23,6 @@ class IncidentsViewModel {
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     double? closestReport = prefs.getDouble('closest_report');
-    print("found$closestReport");
     double closestR = -1.0;
     if(closestReport == null) {
 

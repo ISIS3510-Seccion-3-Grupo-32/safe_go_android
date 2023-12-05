@@ -49,13 +49,13 @@ class SafeGo extends StatelessWidget {
       builder: (context, appState, child) {
         return MaterialApp(
           locale: appState.appLocale,
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [
+          supportedLocales: const [
             Locale('en'),
             Locale('es'),
             Locale('fr'),
@@ -178,7 +178,6 @@ class _SafeGoMainState extends State<SafeGoMain> {
         });
       });
     } catch (e) {
-      // Handle errors or exceptions if needed
       print('Error fetching total incidents: $e');
     }
   }
@@ -224,7 +223,6 @@ class _SafeGoMainState extends State<SafeGoMain> {
     double fontSubtext = screenHeight * 0.02;
     double fontSmall = screenHeight * 0.015;
     double paddingSides = screenWidth * 0.05;
-    double padding18 = screenWidth * 0.04;
     double padding20 = screenWidth * 0.05;
     int sizeOfMap = 2;
     int sizeOfInputs = 3;
@@ -234,7 +232,6 @@ class _SafeGoMainState extends State<SafeGoMain> {
       sizeOfInputs = 2;
       fontRegister = screenHeight * 0.04;
       padding20 = screenWidth * 0.04;
-      padding18 = screenWidth * 0.03;
     }
     return Consumer<AuthenticationViewModel>(
       builder: (context, authViewModel, child) {
@@ -437,7 +434,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                                 color: Colors.grey,
                                               ),
                                               onPressed: () {
-                                                if (this.mounted) {
+                                                if (mounted) {
                                                   setState(() {
                                                     if (mounted) {
                                                       _obscureText =
@@ -532,7 +529,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        NoConnectivityView(),
+                                                        const NoConnectivityView(),
                                                   ),
                                                 );
                                               }
@@ -543,7 +540,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                             child: Text(
                                               AppLocalizations.of(context)!
                                                   .mainLoginButton,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black),
                                             ),
                                           ),
@@ -576,7 +573,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                NoConnectivityView(),
+                                                const NoConnectivityView(),
                                           ),
                                         );
                                       }
@@ -596,7 +593,7 @@ class _SafeGoMainState extends State<SafeGoMain> {
                                               text:
                                                   AppLocalizations.of(context)!
                                                       .mainRegisterText2,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.black,
                                                 decoration:
                                                     TextDecoration.underline,

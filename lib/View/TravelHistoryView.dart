@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart'; // Import the auto_size_text package
+import 'package:auto_size_text/auto_size_text.dart';
 import 'SafeGoMap/SafeGoMap.dart';
 import 'TravelDataView.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -37,11 +37,6 @@ class TravelHistoryView extends StatelessWidget {
     double paddingBetween = screenHeight * 0.01;
     const lightRedColor = Color.fromARGB(255, 231, 106, 106);
 
-    // Define TextEditingController instances
-    final fullNameController = TextEditingController();
-    final passwordController = TextEditingController();
-    final emailController = TextEditingController();
-    final dobController = TextEditingController();
 
     // Define an array of travel data
     final List<TravelData> travelData = [

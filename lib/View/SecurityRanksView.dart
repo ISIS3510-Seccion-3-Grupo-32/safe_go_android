@@ -48,7 +48,7 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 2,
                 child: SafeGoMap(),
               ),
@@ -68,7 +68,7 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
                       children: [
                         Visibility(
                           visible: keyboardPadding == 0,
-                          child: Text(
+                          child: const Text(
                             "Security Ranks",
                             style: TextStyle(
                               color: Colors.white,
@@ -87,24 +87,24 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
                         Container(
                           width: screenWidth * 0.9,
                           height: screenHeight * 0.09,
+                          decoration: const BoxDecoration(
+                              color: Color.fromRGBO(216, 244, 228, 1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3))),
                           child: Center(
                             child: Text(
                               "Neighborhood with most Felonies: $mostFeloniesNeighborhood",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
                               ),
                             ),
                           ),
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(216, 244, 228, 1),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(3))),
                         ),
                         Container(
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(216, 244, 228, 1),
+                          decoration: const BoxDecoration(
+                              color: Color.fromRGBO(216, 244, 228, 1),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(3))),
                           width: screenWidth * 0.9,
@@ -113,7 +113,7 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
                             child: Text(
                               textAlign: TextAlign.center,
                               "Neigborhood With Most Reports: $mostReportedHood",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
                               ),
@@ -122,13 +122,13 @@ class SecurityRanksViewState extends State<SecurityRanksView> {
                         ),
                         Center(
                             // Enabling the Image Frame
-                            child: Container(
+                            child: SizedBox(
                                 // To see the difference between the image's original size and the frame
                                 width: screenWidth * 0.9,
                                 height: screenHeight * 0.3,
 
                                 // Uploading the Image from Assets
-                                child: Image(
+                                child: const Image(
                                   image: CachedNetworkImageProvider(
                                       'https://i.imgur.com/d1iagNz.png'),
                                 )))

@@ -211,7 +211,7 @@ class SettingsView extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SecurityRanksView(),
+                        builder: (context) => const SecurityRanksView(),
                       ),
                     );
                   } else {
@@ -227,7 +227,7 @@ class SettingsView extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.align_vertical_bottom_outlined,
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: const Color.fromARGB(255, 0, 0, 0),
                       size: iconSize,
                     ),
                     Padding(

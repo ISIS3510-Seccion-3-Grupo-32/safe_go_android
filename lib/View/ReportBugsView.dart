@@ -89,7 +89,6 @@ class ReportBugsView extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     double paddingSides = screenWidth * 0.05;
-    double sizeBoxPadding = screenHeight * 0.04;
     double fontHeader = screenHeight * 0.04;
 
     final keyboardPadding = MediaQuery.of(context).viewInsets.bottom;
@@ -100,7 +99,7 @@ class ReportBugsView extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
+              const Expanded(
                 flex: 2,
                 child: SafeGoMap(),
               ),
@@ -183,12 +182,11 @@ class ReportBugsView extends StatelessWidget {
 
                                 if (connectionState) {
                                   if (_formKey.currentState!.validate()) {
-                                    print(emailController.text);
+
 
                                     String category = await sendInputToBackend(
                                         emailController.text);
-                                    print("Category : ");
-                                    print(category);
+
                                     BugsReportsViewModel report =
                                         BugsReportsViewModel();
                                     report.sendBugReport(
@@ -215,7 +213,7 @@ class ReportBugsView extends StatelessWidget {
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .registerSubmitButton,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                 ),
                               ),
