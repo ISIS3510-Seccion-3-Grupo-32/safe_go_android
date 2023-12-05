@@ -136,8 +136,8 @@ class SafeGoDetailedReports extends StatelessWidget {
                           onPressed: () async {
                             bool connectionState = await checkConnectivity();
                             if (connectionState) {
-                              final ReportsViewModel report =
-                                  ReportsViewModel();
+                              final ReportsController report =
+                                  ReportsController();
                               if (myController.text.isNotEmpty &&
                                   myController.text.characters.length > 20) {
                                 report.sendDetailedReport(myController.text);

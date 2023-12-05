@@ -146,7 +146,7 @@ class SelectDestination extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const StartRideView(),
+                          builder: (context) =>  StartRideView(1),
                         ),
                       );
                     } else {
@@ -172,7 +172,7 @@ class SelectDestination extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const StartRideView(),
+                          builder: (context) =>  StartRideView(2),
                         ),
                       );
                     } else {
@@ -198,7 +198,7 @@ class SelectDestination extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const StartRideView(),
+                          builder: (context) =>  StartRideView(3),
                         ),
                       );
                     } else {
@@ -224,7 +224,7 @@ class SelectDestination extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const StartRideView(),
+                          builder: (context) =>  StartRideView(4),
                         ),
                       );
                     } else {

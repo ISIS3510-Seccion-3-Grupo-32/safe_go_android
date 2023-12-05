@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'AppState.dart';
 
+import '../Controllers/ReportsController.dart';
+
 class AuthenticationViewModel extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
   AuthenticationViewModel._();
@@ -11,6 +13,8 @@ class AuthenticationViewModel extends ChangeNotifier {
   factory AuthenticationViewModel() => instance;
 
   Future<User?> signUp(String email, String password) async {
+    final ReportsController report = ReportsController();
+    report.sendUserRegistrationLocation(email);
     try {
       if (await isEmailAlreadyUsed(email)) {
         return null;
